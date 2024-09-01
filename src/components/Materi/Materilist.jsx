@@ -49,7 +49,7 @@ const MateriList = () => {
   };
 
   const handleDeleteClick = (materi) => {
-    console.log("Memilih materi untuk dihapus:", materi); // Log untuk debugging
+    console.log("Memilih materi untuk dihapus:", materi);
     setSelectedMateri(materi);
     setDeleteModalOpen(true);
   };
