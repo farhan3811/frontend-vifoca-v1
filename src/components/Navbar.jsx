@@ -19,7 +19,7 @@ const Navbar = () => {
     <div className="navbar bg-white flex items-center px-20 shadow-md">
       <div className="flex-none">
         <NavLink to="/dashboard" className="navbar-item">
-          <img src={logo} width="112" height="28" alt="logo" />
+          <img src={logo} width="150" height="40" alt="logo" />
         </NavLink>
       </div>
       <div className="flex-1 flex justify-center">
