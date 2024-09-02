@@ -24,20 +24,19 @@ export function Modal1() {
   const [errorMessage, setErrorMessage] = useState("");
   const [fileName, setFileName] = useState("");
   const [materi, setMateri] = useState([]);
-useEffect(() => {
-  getMateri();
-}, []);
-
-  const getMateri = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/Materi");
-      const { materi} = response.data;
-
-      setMateri(materi);
-    } catch (error) {
-      console.error("Gagal mengambil data materi:", error);
-    }
-  };
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/materi")
+      .then((response) => {
+        setMateri(
+          Array.isArray(response.data.materi) ? response.data.materi : []
+        );
+      })
+      .catch((error) => {
+        console.error("Error fetching materi data:", error);
+        setErrorMessage("Gagal mengambil data materi.");
+      });
+  }, []);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -96,7 +95,7 @@ useEffect(() => {
 
     try {
       const data = new FormData();
-      data.append("materi_id", formData.materi_id); // Tidak ada penanganan khusus di sini
+      data.append("materi_id", formData.materi_id);
       data.append("nama_soal", formData.nama_soal);
       data.append("status_level", formData.status_level);
       data.append("foto_tugas", formData.foto_tugas);
@@ -112,7 +111,16 @@ useEffect(() => {
       console.log("Data added successfully:", response.data);
       setSuccessMessage("Data berhasil ditambahkan!");
       handleClose(); 
-      window.location.reload();
+      setFormData({
+        materi_id: "",
+        nama_soal: "",
+        status_level: "",
+        foto_tugas: null,
+        ket_assigment: "",
+        deadline: new Date(),
+      });
+      setFileName("");
+      setOpen(false);
     } catch (error) {
       console.error(
         "Error adding data:",
@@ -244,11 +252,12 @@ useEffect(() => {
                       placeholder="Materi"
                     >
                       <option value="">Pilih Materi</option>
-                      {materi.map((materi) => (
-                        <option key={materi.id} value={materi.id}>
-                          {materi.name_materi}
-                        </option>
-                      ))}
+                      {Array.isArray(materi) &&
+                        materi.map((materi) => (
+                          <option key={materi.id} value={materi.id}>
+                            {materi.name_materi}
+                          </option>
+                        ))}
                     </select>
                   </div>
                 </div>

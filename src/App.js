@@ -11,6 +11,7 @@ import MateriList from "./pages/Materi";
 import TugasList from "./pages/Tugas";
 import MateriMahasiswa from "./pages/Mahasiswa/MahasiswaMateri"
 import Canvas from "./pages/Canvas";
+import Profil from "./pages/Profil";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/materi" element={<MateriList />} />
           <Route path="/tugas" element={<TugasList />} />
           <Route path="/canvas" element={<Canvas />} />
+          <Route path="/profil" element={<Profil />} />
 
           {/* Mahasiswa Route */}
           <Route path="/mahasiswa/materi" element={<MateriMahasiswa />} />
