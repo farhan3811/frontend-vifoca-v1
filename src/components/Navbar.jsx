@@ -99,6 +99,18 @@ const Navbar = () => {
               </NavLink>
             </li>
           )}
+                    {user && (user.role === "admin" || user.role === "user") && (
+            <li>
+              <NavLink 
+                to="/users" 
+                className={({ isActive }) => 
+                  `nav-link ${isActive ? 'bg-transparent text-blue-500' : 'text-gray-800'}` // Transparent if active
+                }
+              >
+                Mahasiswa
+              </NavLink>
+            </li>
+          )}
           {user && (user.role === "admin" || user.role === "user") && (
             <li>
               <NavLink 
@@ -112,18 +124,7 @@ const Navbar = () => {
             </li>
           )}
 
-          {user && (user.role === "admin" || user.role === "user") && (
-            <li>
-              <NavLink 
-                to="/users" 
-                className={({ isActive }) => 
-                  `nav-link ${isActive ? 'bg-transparent text-blue-500' : 'text-gray-800'}` // Transparent if active
-                }
-              >
-                Mahasiswa
-              </NavLink>
-            </li>
-          )}
+
 
           {/* End Admin dan Dosen */}
 
@@ -153,7 +154,7 @@ const Navbar = () => {
           className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
         >
           <li>
-            <Link to="/profile" className="justify-between">
+            <Link to="/profil" className="justify-between">
               Profile
               <span className="badge">New</span>
             </Link>

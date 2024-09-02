@@ -18,7 +18,7 @@ const Userlist = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState('');
   const [sortOrder, setSortOrder] = useState("desc");
-  const TABLE_HEAD = ["No", "Profile", "Nama", "NIM", "Prodi", "Email", "Aksi"];
+  const TABLE_HEAD = ["No", "Profile", "Nama", "NIM", "Prodi", "Email","Role", "Aksi"];
 
   const getUsers = async (page = 1) => {
     try {
@@ -171,6 +171,7 @@ const Userlist = () => {
                   <td className="p-4">{user.nim}</td>
                   <td className="p-4">{user.prodi}</td>
                   <td className="p-4">{user.email}</td>
+                  <td className="p-4">{user.role}</td>
                   <td className="p-4 flex flex-wrap gap-2">
                         <Typography
                           color="red"

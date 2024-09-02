@@ -7,6 +7,7 @@ import AddModal from "./AddMateri";
 import EditModal from "./EditMateri";
 import DetailModal from "./DetailMateri";
 import DeleteModal from "./DeleteMateri";
+import Breadcumbs from "../Materi/Breadcumbs";
 
 const MateriList = () => {
   const [materi, setMateri] = useState([]);
@@ -118,6 +119,7 @@ const MateriList = () => {
 
   return (
     <div className="container px-20 mt-10">
+            <Breadcumbs/>
       <Card className="w-full h-full p-6">
         <div className="grid grid-cols-2 gap-4 my-4">
           <div className="flex flex-wrap gap-2">

@@ -8,6 +8,7 @@ import {
   Option,
 } from "@material-tailwind/react";
 import AddTugas from "./AddTugas";
+import Breadcumbs from "../Tugas/Breadcumbs";
 
 const TABLE_HEAD = [
   "No",
@@ -68,6 +69,7 @@ const List = () => {
   return (
     <div>
       <div className="container px-20 mt-10">
+      <Breadcumbs/>
         <Card className="w-full h-full p-6">
           <Card className="h-full w-full overflow-scroll">
             <div className="grid grid-cols-2 gap-4 my-4">
