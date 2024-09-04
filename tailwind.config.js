@@ -41,6 +41,7 @@ module.exports = withMT({
         'batal': '#FF6666',
         'buttonx': '#ffd9d9',
         'odd': '#F4F3FF',
+        'konfirmasi': '#44A7FF',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

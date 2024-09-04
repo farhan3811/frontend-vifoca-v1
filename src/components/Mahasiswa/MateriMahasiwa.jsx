@@ -13,7 +13,7 @@ export function ProfileCard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
-  const [pageSize] = useState(5);
+  const [pageSize] = useState(8);
 
   useEffect(() => {
     getMateri();
