@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Layout from "./Layout";
-import Userlist from "../components/Userlist";
+import Userlist from "../components/KonfirmasiMahasiswa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMe } from "../features/authSlice";

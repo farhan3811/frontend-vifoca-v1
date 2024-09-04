@@ -7,7 +7,6 @@ import {
   Option,
   Button,
 } from "@material-tailwind/react";
-import AddModal from "../../User/AddUser";
 import EditModal from "../../User/EditUser";
 import DetailModal from "../../User/DetailUser";
 import DeleteModal from "../../User/DeleteUser";
@@ -38,7 +37,7 @@ const Userlist = () => {
   const getUsers = async (page = 1) => {
     try {
       console.log("Fetching users with params:", { page, search, sortOrder });
-      const response = await axios.get(`http://localhost:5000/users`, {
+      const response = await axios.get(`http://localhost:5000/penila`, {
         params: {
           page,
           search,
@@ -144,18 +143,6 @@ const Userlist = () => {
             </div>
           </div>
           <div className="flex justify-end gap-2">
-            <Button className="flex flex-wrap font-tile font-medium text-xs gap-1 normal-case bg-konfirmasi rounded">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 15 14"
-                className="h-4 w-4"
-              >
-<path d="M13 0H2C1.15625 0 0.5 0.6875 0.5 1.5V12.5C0.5 13.3438 1.15625 14 2 14H13C13.8125 14 14.5 13.3438 14.5 12.5V1.5C14.5 0.6875 13.8125 0 13 0ZM13 12.5H2V1.5H13V12.5ZM11.875 4.96875C12 4.8125 12 4.59375 11.875 4.4375L11.1562 3.71875C11.0312 3.5625 10.7812 3.5625 10.625 3.71875L6.21875 8.09375L4.34375 6.21875C4.1875 6.0625 3.96875 6.0625 3.8125 6.21875L3.09375 6.90625C2.96875 7.0625 2.96875 7.3125 3.09375 7.4375L5.9375 10.3125C6.09375 10.4688 6.3125 10.4688 6.46875 10.3125L11.875 4.96875Z" fill="white"/>
-              </svg>
-              Konfirmasi
-            </Button>
-            <AddModal onAdd={handleAdd} />
           </div>
         </div>
 

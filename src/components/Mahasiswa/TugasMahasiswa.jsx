@@ -1,55 +1,18 @@
 import React from "react";
-import { 
-    Card, 
-    CardBody, 
-    Typography,
-    Tabs,
-    TabsHeader,
-    TabsBody,
-    Tab,
-    TabPanel,
+import {
+  Card,
+  CardBody,
+  Typography,
+  Accordion,
+  AccordionHeader,
+  AccordionBody,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
 export function CardDefault() {
-    const data = [
-        {
-          label: "HTML",
-          value: "html",
-          desc: `It really matters and then like it really doesn't matter.
-          What matters is the people who are sparked by it. And the people
-          who are like offended by it, it doesn't matter.`,
-        },
-        {
-          label: "React",
-          value: "react",
-          desc: `Because it's about motivating the doers. Because I'm here
-          to follow my dreams and inspire other people to follow their dreams, too.`,
-        },
-     
-        {
-          label: "Vue",
-          value: "vue",
-          desc: `We're not always in the position that we want to be at.
-          We're constantly growing. We're constantly making mistakes. We're
-          constantly trying to express ourselves and actualize our dreams.`,
-        },
-     
-        {
-          label: "Angular",
-          value: "angular",
-          desc: `Because it's about motivating the doers. Because I'm here
-          to follow my dreams and inspire other people to follow their dreams, too.`,
-        },
-     
-        {
-          label: "Svelte",
-          value: "svelte",
-          desc: `We're not always in the position that we want to be at.
-          We're constantly growing. We're constantly making mistakes. We're
-          constantly trying to express ourselves and actualize our dreams.`,
-        },
-      ];
+  const [open, setOpen] = React.useState(1);
+
+  const handleOpen = (value) => setOpen(open === value ? 0 : value);
   return (
     <div className="container py-16 px-20 bg-ground">
       <Card className="w-full flex items-center justify-center py-6 px-6">
@@ -117,29 +80,38 @@ export function CardDefault() {
                 Latihan
               </Typography>
             </CardBody>
-            {/* Repeat similar blocks as needed */}
-            <Tabs id="custom-animation" value="html">
-      <TabsHeader>
-        {data.map(({ label, value }) => (
-          <Tab key={value} value={value}>
-            {label}
-          </Tab>
-        ))}
-      </TabsHeader>
-      <TabsBody
-        animate={{
-          initial: { y: 250 },
-          mount: { y: 0 },
-          unmount: { y: 250 },
-        }}
-      >
-        {data.map(({ value, desc }) => (
-          <TabPanel key={value} value={value}>
-            {desc}
-          </TabPanel>
-        ))}
-      </TabsBody>
-    </Tabs>
+            <div className="px-8">
+              <Accordion
+                open={open === 1}
+                className="mb-2 rounded border border-blue-gray-100 px-4"
+              >
+                <div className="grid grid-cols-4 gap-4">
+                  <div className="col-span-2 ">
+                    {" "}
+                    <AccordionHeader
+                      onClick={() => handleOpen(1)}
+                      className={`border-b-0 font-tiitle text-sm transition-colors ${
+                        open === 1 ? "text-black hover:!text-blue-700" : ""
+                      }`}
+                    >
+                      Judul Soal
+                    </AccordionHeader>
+                  </div>
+                  <div className="flex justify-end items-center mr-4">
+                    <button className="btn btn-sm bg-sulit font-title font-medium text-white">Sulit</button>
+                  </div>
+                  <div className="flex justify-end items-center">
+                    <button className="btn btn-sm px-10 bg-blue font-title font-medium text-white">Kerjakan</button>
+                  </div>
+                </div>
+                <AccordionBody className="pt-0 text-base font-title">
+                  We&apos;re not always in the position that we want to be at.
+                  We&apos;re constantly growing. We&apos;re constantly making
+                  mistakes. We&apos;re constantly trying to express ourselves
+                  and actualize our dreams.
+                </AccordionBody>
+              </Accordion>
+            </div>
           </Card>
         </div>
       </div>

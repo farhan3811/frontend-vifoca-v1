@@ -38,7 +38,7 @@ const Userlist = () => {
   const getUsers = async (page = 1) => {
     try {
       console.log("Fetching users with params:", { page, search, sortOrder });
-      const response = await axios.get(`http://localhost:5000/users`, {
+      const response = await axios.get(`http://localhost:5000/uers`, {
         params: {
           page,
           search,

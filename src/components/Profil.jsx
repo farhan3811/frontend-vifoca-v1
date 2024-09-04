@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import {
   Tabs,
   TabsHeader,
@@ -11,6 +13,7 @@ import { UserCircleIcon, Cog6ToothIcon } from "@heroicons/react/24/solid";
 import Breadcumbs from "./Breadcumbs";
 
 const Profil = () => {
+  const [formData, setFormData] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [fileName, setFileName] = useState("");
@@ -26,6 +29,12 @@ const Profil = () => {
       icon: Cog6ToothIcon,
     },
   ];
+  const handleDateChange = (date) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      deadline: date,
+    }));
+  };
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setFileName(file ? file.name : "");
@@ -108,10 +117,11 @@ const Profil = () => {
                     <Typography>Tanggal Lahir</Typography>
                   </div>
                   <div className="col-span-2">
-                    <input
-                      type="text"
-                      placeholder="Type here"
-                      className="input input-bordered w-full max-w-sm"
+                  <DatePicker
+                      onChange={handleDateChange}
+                      showTimeSelect
+                      dateFormat="Pp"
+                      className="border rounded p-2 w-60"
                     />
                   </div>
                 </div>
