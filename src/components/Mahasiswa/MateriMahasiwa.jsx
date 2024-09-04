@@ -93,7 +93,7 @@ export function ProfileCard() {
                 />
               </CardHeader>
               <CardBody className="text-left">
-                <a href="/front/assignment">
+                <a href="/mahasiswa/tugas">
                   <Typography
                     variant="h4"
                     color="blue-gray"
