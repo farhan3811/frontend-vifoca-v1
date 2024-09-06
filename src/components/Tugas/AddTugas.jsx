@@ -147,7 +147,7 @@ export function Modal1() {
             fill="white"
           />
         </svg>
-        Tambah Tugas
+        Tambah Latihan
       </Button>
       <Dialog className="p-4" size="sm" open={open} handler={handleClose}>
         <DialogBody className="flex justify-center items-center overflow-y-auto max-h-[96vh] p-4">

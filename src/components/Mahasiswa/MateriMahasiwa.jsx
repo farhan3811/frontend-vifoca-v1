@@ -89,7 +89,7 @@ export function ProfileCard() {
                   }
                   alt={materiItem.name_materi}
                   className="flex items-center justify-center"
-                  width={200}
+                  width={150}
                 />
               </CardHeader>
               <CardBody className="text-left">

@@ -16,7 +16,7 @@ const breadcumbs = () => {
       </svg>
     </a>
     <a href="#" className="text-lg font-title text-black">
-      <span>Tugas</span>
+      <span>Latihan</span>
     </a>
   </Breadcrumbs>
   )

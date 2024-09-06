@@ -12,7 +12,7 @@ import Breadcumbs from "../Tugas/Breadcumbs";
 
 const TABLE_HEAD = [
   "No",
-  "Foto Tugas",
+  "Foto Latihan",
   "Nama Soal",
   "Materi",
   "Tingkat Kesulitan",
@@ -266,7 +266,7 @@ const List = () => {
                   <tr>
                     <td colSpan={TABLE_HEAD.length} className="text-center p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        Tidak ada tugas ditemukan
+                        Tidak ada Latihan ditemukan
                       </Typography>
                     </td>
                   </tr>

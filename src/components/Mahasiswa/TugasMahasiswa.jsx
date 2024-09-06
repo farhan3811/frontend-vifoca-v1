@@ -97,11 +97,17 @@ export function CardDefault() {
                       Judul Soal
                     </AccordionHeader>
                   </div>
-                  <div className="flex justify-end items-center mr-4">
-                    <button className="btn btn-sm bg-sulit font-title font-medium text-white">Sulit</button>
+                  <div className="flex justify-end items-center mr-6">
+                    <button className="btn btn-sm bg-sulit font-title font-medium text-white">
+                      Sulit
+                    </button>
                   </div>
                   <div className="flex justify-end items-center">
-                    <button className="btn btn-sm px-10 bg-blue font-title font-medium text-white">Kerjakan</button>
+                    <Link to="/canvas">
+                    <button className="btn btn-sm px-10 bg-blue font-title font-medium text-white">
+                      Kerjakan
+                    </button>
+                    </Link>
                   </div>
                 </div>
                 <AccordionBody className="pt-0 text-base font-title">
@@ -109,6 +115,10 @@ export function CardDefault() {
                   We&apos;re constantly growing. We&apos;re constantly making
                   mistakes. We&apos;re constantly trying to express ourselves
                   and actualize our dreams.
+                  <div className="flex flex-row justify-end">
+                  <div className="mr-4">Muhammad Farhan</div>
+                  <div>2019-12-04</div>
+                </div>
                 </AccordionBody>
               </Accordion>
             </div>
