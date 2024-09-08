@@ -220,7 +220,7 @@ export function EditModal({ materi, open, onClose }) {
                 />
               </div>
             </div>
-            <div class="flex items-center justify-center">
+            <div className="flex items-center justify-center">
           <div>
             <div>
               <Button
