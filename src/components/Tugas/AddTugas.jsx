@@ -105,21 +105,12 @@ export function Modal1() {
       const response = await axios.post(
         "http://localhost:5000/tugas",
         data,
-        { headers: { "Content-Type": "multipart/form-data" } }
+        { headers: { "Content-Type": "multipart/form-data" }, }
       );
 
       console.log("Data added successfully:", response.data);
       setSuccessMessage("Data berhasil ditambahkan!");
       handleClose(); 
-      setFormData({
-        materi_id: "",
-        nama_soal: "",
-        status_level: "",
-        foto_tugas: null,
-        ket_assigment: "",
-        deadline: new Date(),
-      });
-      setFileName("");
       setOpen(false);
     } catch (error) {
       console.error(
@@ -195,6 +186,7 @@ export function Modal1() {
                   <div className="col-span-2">
                     {" "}
                     <select
+                    type="text"
                       className="select select-bordered w-60 max-w-xs"
                       name="status_level"
                       value={formData.status_level}
@@ -247,6 +239,7 @@ export function Modal1() {
                     <select
                       className="select select-bordered w-60 max-w-xs"
                       name="materi_id"
+                                            type="text"
                       value={formData.materi_id}
                       onChange={handleChange}
                       placeholder="Materi"
@@ -316,6 +309,7 @@ export function Modal1() {
                       selected={formData.deadline}
                       onChange={handleDateChange}
                       showTimeSelect
+                                            type="text"
                       dateFormat="Pp"
                       className="border rounded p-2 w-60"
                     />
@@ -336,6 +330,7 @@ export function Modal1() {
                     <textarea
                       className="textarea textarea-bordered  w-60"
                       name="ket_assigment"
+                                            type="text"
                       value={formData.ket_assigment}
                       onChange={handleChange}
                       placeholder="Keterangan"
