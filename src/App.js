@@ -20,7 +20,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/users" element={<Users />} />
           <Route path="/materi" element={<MateriList />} />
-          <Route path="/tugas" element={<TugasList />} />
+          <Route path="/latihan" element={<TugasList />} />
           <Route path="/canvas" element={<Canvas />} />
           <Route path="/profil" element={<Profil />} />
           <Route path="/penilaian" element={<Penilaian />} />

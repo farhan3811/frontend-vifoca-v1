@@ -90,12 +90,12 @@ const Navbar = () => {
           {user && (user.role === "admin" || user.role === "user") && (
             <li>
               <NavLink 
-                to="/tugas" 
+                to="/latihan" 
                 className={({ isActive }) => 
                   `nav-link ${isActive ? 'bg-transparent text-blue-500' : 'text-gray-800'}` // Transparent if active
                 }
               >
-                Tugas
+                Latihan
               </NavLink>
             </li>
           )}
