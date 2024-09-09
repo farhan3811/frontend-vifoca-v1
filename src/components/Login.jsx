@@ -157,7 +157,7 @@ const Login = () => {
               </CardBody>
               <CardFooter className="pt-0">
                 <Button
-                  className="bg-blue font-title font-medium"
+                  className="bg-blue font-title font-medium rounded"
                   type="submit"
                   fullWidth
                 >
@@ -168,7 +168,7 @@ const Login = () => {
                 </div>
                 <Link to="/auth/signup">
                   <Button
-                    className="bg-white text-black border-2 font-title font-medium"
+                    className="bg-white text-black border-2 font-title font-medium rounded"
                     fullWidth
                   >
                     Daftar

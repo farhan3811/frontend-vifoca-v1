@@ -6,12 +6,12 @@ export default function DeleteModal({ materi, open, onClose, getMateri }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleDelete = async (materiUuid) => {
+  const handleDelete = async (materiid) => {
     try {
-      console.log('Menghapus materi dengan UUID:', materiUuid); // Tambahkan log untuk debugging
-      await axios.delete(`http://localhost:5000/Materi/${materiUuid}`);
+      console.log('Menghapus materi dengan ID:', materiid);
+      await axios.delete(`http://localhost:5000/Materi/${materiid}`);
       getMateri();
-      setSuccessMessage("Data berhasil dihapus!"); // Refresh data setelah penghapusan
+      setSuccessMessage("Data berhasil dihapus!"); 
       onClose();
     } catch (error) {
       console.error("Error deleting data:", error.response || error.message);
@@ -20,7 +20,7 @@ export default function DeleteModal({ materi, open, onClose, getMateri }) {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} size="sm" className="p-6">
+    <Dialog open={open} onClose={onClose} size="sm" className="p-6 rounded">
       <DialogBody className="mt-2 mb-2">
         <Typography>Yakin untuk menghapus data?</Typography>
         <div className="grid grid-cols-2 gap-4">
@@ -28,7 +28,7 @@ export default function DeleteModal({ materi, open, onClose, getMateri }) {
             <Button
               fullWidth
               onClick={onClose}
-              className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-blue"
+              className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-blue rounded"
             >
               Batal
             </Button>
@@ -36,8 +36,8 @@ export default function DeleteModal({ materi, open, onClose, getMateri }) {
           <div>
             <Button
               fullWidth
-              onClick={() => handleDelete(materi.uuid)} // Pastikan uuid yang digunakan
-              className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-batal"
+              onClick={() => handleDelete(materi.id)} 
+              className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-batal rounded"
             >
               Hapus
             </Button>

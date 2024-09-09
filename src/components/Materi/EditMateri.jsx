@@ -8,7 +8,6 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
-// Fungsi untuk memotong teks
 const truncateText = (text, maxLength) => {
   if (!text) return "";
   return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
@@ -29,7 +28,7 @@ export function EditModal({ materi, open, onClose }) {
     if (materi) {
       setFormData({
         name_materi: materi.name_materi || "",
-        img_materi: null, // Reset the file input
+        img_materi: null,
         ket_materi: materi.ket_materi || "",
         vid_materi: materi.vid_materi || "",
       });
@@ -73,7 +72,7 @@ export function EditModal({ materi, open, onClose }) {
       data.append("vid_materi", formData.vid_materi);
 
       await axios.patch(
-        `http://localhost:5000/materi/${materi.uuid}`,
+        `http://localhost:5000/materi/${materi.id}`,
         data,
         {
           headers: {
@@ -90,7 +89,7 @@ export function EditModal({ materi, open, onClose }) {
   };
 
   return (
-    <Dialog className="p-4" size="sm" open={open} handler={onClose}>
+    <Dialog className="p-4 rounded" size="sm" open={open} handler={onClose}>
       <DialogBody className="flex justify-center items-center">
         <Card color="transparent" shadow={false}>
           <Typography
@@ -222,7 +221,7 @@ export function EditModal({ materi, open, onClose }) {
                   fullWidth
                   type="button"
                   onClick={onClose}
-                  className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-batal"
+                  className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-batal rounded"
                 >
                   Batal
                 </Button>
@@ -232,7 +231,7 @@ export function EditModal({ materi, open, onClose }) {
                   fullWidth
                   onClick={handleSubmit}
                   type="submit"
-                  className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-blue"
+                  className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-blue rounded"
                 >
                   Simpan
                 </Button>
