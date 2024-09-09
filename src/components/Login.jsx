@@ -73,7 +73,7 @@ const Login = () => {
                   <Typography className="flex justify-start mb-2 font-title font-medium">
                     NPM/NIDN
                   </Typography>
-                  <label className="input input-bordered flex items-center gap-2">
+                  <label className="input input-bordered flex items-center gap-2 bg-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 14 16"
@@ -85,10 +85,10 @@ const Login = () => {
                       />
                     </svg>
                     <input
-                      type="text"  // Gantilah type menjadi text
+                      type="text"
                       className="grow"
-                      value={nim}  // Gantilah email dengan nim
-                      onChange={(e) => setNim(e.target.value)}  // Gantilah email dengan nim
+                      value={nim} 
+                      onChange={(e) => setNim(e.target.value)} 
                       placeholder="NPM/NIDN"
                       required
                     />
@@ -97,7 +97,7 @@ const Login = () => {
                 <Typography className="flex justify-start mb-2 font-title font-medium">
                   Password
                 </Typography>
-                <label className="input input-bordered flex items-center gap-2">
+                <label className="input input-bordered flex items-center gap-2 bg-white">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
