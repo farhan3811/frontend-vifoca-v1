@@ -39,7 +39,7 @@ export function Modal1({ onAdd }) {
       [name]: value,
     }));
   };
-
+  const API_URL = process.env.REACT_APP_API_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -59,7 +59,7 @@ export function Modal1({ onAdd }) {
         updated_at: timestamp,
       };
 
-      await axios.post("http://localhost:5000/users", userData);
+      await axios.post(`${API_URL}/users`, userData);
       setSuccessMessage("Data berhasil ditambahkan!");
       navigate("/users");
       onAdd(); 

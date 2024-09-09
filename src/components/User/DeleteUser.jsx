@@ -5,10 +5,10 @@ import axios from "axios";
 export default function DeleteModal({ user, open, onClose, getUsers }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
+  const API_URL = process.env.REACT_APP_API_URL;
   const handleDelete = async (userId) => {
     try {
-    await axios.delete(`http://localhost:5000/users/${userId}`);
+    await axios.delete(`${API_URL}/users/${userId}`);
     getUsers();
     setSuccessMessage("Data berhasil dihapus!");// Refresh data after deletion
     onClose();

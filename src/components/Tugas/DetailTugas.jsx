@@ -23,10 +23,10 @@ export function Modal1({ tugas, open, onClose }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [fileName, setFileName] = useState("");
   const [materi, setMateri] = useState([]);
-
+  const API_URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     axios
-      .get("http://localhost:5000/materi")
+      .get(`${API_URL}/materi`)
       .then((response) => {
         setMateri(
           Array.isArray(response.data.materi) ? response.data.materi : []
@@ -98,7 +98,7 @@ export function Modal1({ tugas, open, onClose }) {
       data.append("deadline", formData.deadline.toISOString());
 
       const response = await axios.patch(
-        `http://localhost:5000/tugas/${tugas.id}`,
+        `${API_URL}/${tugas.id}`,
         data,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

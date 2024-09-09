@@ -6,10 +6,11 @@ export default function DeleteModal({ materi, open, onClose, getMateri }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const API_URL = process.env.REACT_APP_API_URL;
   const handleDelete = async (materiid) => {
     try {
       console.log('Menghapus materi dengan ID:', materiid);
-      await axios.delete(`http://localhost:5000/Materi/${materiid}`);
+      await axios.delete(`${API_URL}/${materiid}`);
       getMateri();
       setSuccessMessage("Data berhasil dihapus!"); 
       onClose();

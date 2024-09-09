@@ -30,11 +30,10 @@ export function EditModal({ user, open, onClose }) {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+  const API_URL = process.env.REACT_APP_API_URL;
   const handleSubmit = async () => {
     const errors = {};
 
-    // Validasi input
     if (!formData.name) errors.name = "Nama Lengkap tidak boleh kosong!";
     if (!formData.nim) errors.nim = "NIM tidak boleh kosong!";
     if (!formData.prodi) errors.prodi = "Program Studi tidak boleh kosong!";
@@ -47,13 +46,11 @@ export function EditModal({ user, open, onClose }) {
     }
 
     try {
-      // Periksa ID
       if (!formData.id) {
         console.error("ID tidak ditemukan");
         return;
       }
 
-      // Pastikan data valid
       const validData = {
         name: formData.name,
         nim: formData.nim,
@@ -65,7 +62,7 @@ export function EditModal({ user, open, onClose }) {
       console.log("Mengirim data:", validData); // Debugging
 
       await axios.patch(
-        `http://localhost:5000/users/${formData.id}`,
+        `${API_URL}/${formData.id}`,
         validData
       );
       onClose(); // Tutup modal setelah sukses

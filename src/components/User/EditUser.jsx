@@ -61,11 +61,11 @@ export function EditModal({ user, open, onClose }) {
         email: formData.email,
         role: formData.role
       };
-
+      const API_URL = process.env.REACT_APP_API_URL;
       console.log("Mengirim data:", validData);
 
       const response = await axios.patch(
-        `http://localhost:5000/users/${formData.id}`,
+        `${API_URL}/users/${formData.id}`,
         validData
       );
   

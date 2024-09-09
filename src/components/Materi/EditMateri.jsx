@@ -70,9 +70,9 @@ export function EditModal({ materi, open, onClose }) {
       }
       data.append("ket_materi", formData.ket_materi);
       data.append("vid_materi", formData.vid_materi);
-
+      const API_URL = process.env.REACT_APP_API_URL;
       await axios.patch(
-        `http://localhost:5000/materi/${materi.id}`,
+        `${API_URL}/${materi.id}`,
         data,
         {
           headers: {

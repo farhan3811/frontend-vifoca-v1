@@ -7,30 +7,31 @@ const initialState = {
     isSuccess: false,
     isLoading: false,
     message: ""
-}
+};
+
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const LoginUser = createAsyncThunk("user/LoginUser", async(user, thunkAPI) => {
     try {
-        const response = await axios.post('http://localhost:5000/login', {
-            nim: user.nim,  // Ubah dari email ke nim
+        const response = await axios.post(`${API_URL}/login`, {
+            nim: user.nim,
             password: user.password
         });
         return response.data;
     } catch (error) {
-        if(error.response){
+        if (error.response) {
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
         }
     }
 });
 
-
 export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
     try {
-        const response = await axios.get('http://localhost:5000/me');
+        const response = await axios.get(`${API_URL}/me`);
         return response.data;
     } catch (error) {
-        if(error.response){
+        if (error.response) {
             const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
         }
@@ -38,46 +39,46 @@ export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
 });
 
 export const LogOut = createAsyncThunk("user/LogOut", async() => {
-    await axios.delete('http://localhost:5000/logout');
+    await axios.delete(`${API_URL}/logout`);
 });
 
 export const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers:{
+    reducers: {
         reset: (state) => initialState
     },
-    extraReducers:(builder) =>{
-        builder.addCase(LoginUser.pending, (state) =>{
+    extraReducers: (builder) => {
+        builder.addCase(LoginUser.pending, (state) => {
             state.isLoading = true;
         });
-        builder.addCase(LoginUser.fulfilled, (state, action) =>{
+        builder.addCase(LoginUser.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isSuccess = true;
             state.user = action.payload;
         });
-        builder.addCase(LoginUser.rejected, (state, action) =>{
+        builder.addCase(LoginUser.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.message = action.payload;
-        })
+        });
 
         // Get User Login
-        builder.addCase(getMe.pending, (state) =>{
+        builder.addCase(getMe.pending, (state) => {
             state.isLoading = true;
         });
-        builder.addCase(getMe.fulfilled, (state, action) =>{
+        builder.addCase(getMe.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isSuccess = true;
             state.user = action.payload;
         });
-        builder.addCase(getMe.rejected, (state, action) =>{
+        builder.addCase(getMe.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.message = action.payload;
-        })
+        });
     }
 });
 
-export const {reset} = authSlice.actions;
+export const { reset } = authSlice.actions;
 export default authSlice.reducer;

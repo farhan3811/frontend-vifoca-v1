@@ -24,9 +24,10 @@ export function Modal1({ onAdd }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [fileName, setFileName] = useState("");
   const [materi, setMateri] = useState([]);
+  const API_URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     axios
-      .get("http://localhost:5000/materi")
+      .get(`${API_URL}/materi`)
       .then((response) => {
         setMateri(
           Array.isArray(response.data.materi) ? response.data.materi : []
@@ -103,7 +104,7 @@ export function Modal1({ onAdd }) {
       data.append("deadline", formData.deadline.toISOString());
 
       const response = await axios.post(
-        "http://localhost:5000/tugas",
+        `${API_URL}/tugas`,
         data,
         { headers: { "Content-Type": "multipart/form-data" }, }
       );
@@ -128,7 +129,7 @@ export function Modal1({ onAdd }) {
     <section className="grid place-items-center">
       <Button
         onClick={handleOpen}
-        className="flex flex-wrap font-title font-medium text-xs gap-1 normal-case bg-edit"
+        className="flex flex-wrap font-title font-medium text-xs gap-1 normal-case bg-edit rounded"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +144,7 @@ export function Modal1({ onAdd }) {
         </svg>
         Tambah Latihan
       </Button>
-      <Dialog className="p-4" size="sm" open={open} handler={handleClose}>
+      <Dialog className="p-4 rounded" size="sm" open={open} handler={handleClose}>
         <DialogBody className="flex justify-center items-center overflow-y-auto max-h-[96vh] p-4">
           <Card color="transparent" shadow={false}>
             <Typography
@@ -347,7 +348,7 @@ export function Modal1({ onAdd }) {
                     fullWidth
                     type=""
                     onClick={handleClose}
-                    className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-batal"
+                    className="flex items-center rounded justify-center gap-2 mt-6 normal-case font-title font-medium bg-batal"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -367,7 +368,7 @@ export function Modal1({ onAdd }) {
                     fullWidth
                     onClick={handleSubmit}
                     type="submit"
-                    className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-blue"
+                    className="flex items-center rounded justify-center gap-2 mt-6 normal-case font-title font-medium bg-blue"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

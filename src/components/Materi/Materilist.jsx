@@ -27,11 +27,11 @@ const MateriList = () => {
   useEffect(() => {
     getMateri();
   }, [sortOrder, searchTerm, currentPage]);
-
+  const API_URL = process.env.REACT_APP_API_URL;
   const getMateri = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/Materi", {
+      const response = await axios.get(`${API_URL}/materi`, {
         params: {
           sortOrder,
           search: searchTerm,
@@ -202,7 +202,7 @@ const MateriList = () => {
                     <img
                       src={
                         materiItem.img_materi
-                          ? `http://localhost:5000/${materiItem.img_materi}`
+                          ? `${API_URL}/${materiItem.img_materi}`
                           : getDefaultAvatar()
                       }
                       alt={`Materi ${materiItem.name_materi}`}

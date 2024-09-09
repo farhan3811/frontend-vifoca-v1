@@ -33,11 +33,11 @@ const Userlist = () => {
     "Role",
     "Aksi",
   ];
-
+  const API_URL = process.env.REACT_APP_API_URL;
   const getUsers = async (page = 1) => {
     try {
       console.log("Fetching users with params:", { page, search, sortOrder });
-      const response = await axios.get(`http://localhost:5000/penila`, {
+      const response = await axios.get(`${API_URL}/penila`, {
         params: {
           page,
           search,

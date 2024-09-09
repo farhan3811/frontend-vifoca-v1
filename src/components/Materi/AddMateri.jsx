@@ -68,9 +68,9 @@ export function Modal1({ onAdd }) {
       data.append("img_materi", formData.img_materi);
       data.append("ket_materi", formData.ket_materi);
       data.append("vid_materi", formData.vid_materi);
-
+      const API_URL = process.env.REACT_APP_API_URL;
       const response = await axios.post(
-        "http://localhost:5000/materi",
+        `${API_URL}/materi`,
         data,
         {
           headers: {
