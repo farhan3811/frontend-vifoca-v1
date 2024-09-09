@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
-export function Modal1() {
+export function Modal1({ onAdd }) {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     materi_id: "",
@@ -112,6 +112,9 @@ export function Modal1() {
       setSuccessMessage("Data berhasil ditambahkan!");
       handleClose(); 
       setOpen(false);
+      if (onAdd) {
+        onAdd();
+      }
     } catch (error) {
       console.error(
         "Error adding data:",

@@ -79,6 +79,7 @@ const List = () => {
     getMateri();
     getUsers();
   }, [getTugas]);
+  console.log(users);
 
   const handleEdit = (tugas) => {
     setSelectedTugas(tugas);
@@ -103,6 +104,10 @@ const List = () => {
   };
   const handlePageChange = (page) => {
     setCurrentPage(page);
+  };
+  
+  const handleAdd = async () => {
+    await getTugas(currentPage);
   };
   const handleCloseDetailModal = () => {
     setOpenDetailModal(false);
@@ -158,7 +163,7 @@ const List = () => {
                 </div>
               </div>
               <div className="flex justify-end">
-                <AddTugas />
+                <AddTugas onAdd={handleAdd} />
               </div>
             </div>
             <table className="w-full min-w-max table-auto text-left">
@@ -259,7 +264,7 @@ const List = () => {
                           color="blue-gray"
                           className="font-normal truncate"
                         >
-                          {users.find((Users) => Users.id === item.userId)
+                          {users.find((users) => users.id === item.userId)
                             ?.name || "Unknown"}
                         </Typography>
                       </td>
