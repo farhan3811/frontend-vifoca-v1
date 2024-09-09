@@ -96,7 +96,7 @@ export function Modal1({ onAdd }) {
     <section className="grid place-items-center">
       <Button
         onClick={handleOpen}
-        className="flex flex-wrap font-tile font-medium text-xs gap-1 normal-case bg-edit"
+        className="flex flex-wrap font-tile font-medium text-xs gap-1 normal-case bg-edit rounded"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +111,7 @@ export function Modal1({ onAdd }) {
         </svg>
         Tambah Materi
       </Button>
-      <Dialog className="p-4" size="md" open={open} handler={handleClose}>
+      <Dialog className="p-4 rounded" size="md" open={open} handler={handleClose}>
         <DialogBody className="flex justify-center items-center">
           <Card color="transparent" shadow={false}>
             <Typography
@@ -243,7 +243,7 @@ export function Modal1({ onAdd }) {
                   <Button
                     fullWidth
                     onClick={handleClose}
-                    className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-batal"
+                    className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-batal rounded"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -263,7 +263,7 @@ export function Modal1({ onAdd }) {
                     fullWidth
                     onClick={handleSubmit}
                     type="submit"
-                    className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-blue"
+                    className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-blue rounded"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
