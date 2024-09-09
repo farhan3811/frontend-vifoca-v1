@@ -5,7 +5,9 @@ import axios from "axios";
 export default function DeleteModal({ tugas, open, onClose, getTugas }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = process.env.NODE_ENV === 'production'
+  ? process.env.REACT_APP_API_URL_PROD
+  : process.env.REACT_APP_API_URL_LOCAL; 
   const handleDelete = async (tugasid) => {
     try {
       console.log('Menghapus materi dengan UUID:', tugasid); // Tambahkan log untuk debugging

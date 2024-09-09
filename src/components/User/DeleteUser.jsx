@@ -5,7 +5,9 @@ import axios from "axios";
 export default function DeleteModal({ user, open, onClose, getUsers }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = process.env.NODE_ENV === 'production'
+  ? process.env.REACT_APP_API_URL_PROD
+  : process.env.REACT_APP_API_URL_LOCAL; 
   const handleDelete = async (userId) => {
     try {
     await axios.delete(`${API_URL}/users/${userId}`);

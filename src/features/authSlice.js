@@ -9,7 +9,9 @@ const initialState = {
     message: ""
 };
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.NODE_ENV === 'production'
+? process.env.REACT_APP_API_URL_PROD
+: process.env.REACT_APP_API_URL_LOCAL;
 
 export const LoginUser = createAsyncThunk("user/LoginUser", async(user, thunkAPI) => {
     try {

@@ -23,7 +23,9 @@ export function Modal1({ tugas, open, onClose }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [fileName, setFileName] = useState("");
   const [materi, setMateri] = useState([]);
-  const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = process.env.NODE_ENV === 'production'
+  ? process.env.REACT_APP_API_URL_PROD
+  : process.env.REACT_APP_API_URL_LOCAL;
   useEffect(() => {
     axios
       .get(`${API_URL}/materi`)

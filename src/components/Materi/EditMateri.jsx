@@ -23,7 +23,9 @@ export function EditModal({ materi, open, onClose }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [fileName, setFileName] = useState("");
-
+  const API_URL = process.env.NODE_ENV === 'production'
+  ? process.env.REACT_APP_API_URL_PROD
+  : process.env.REACT_APP_API_URL_LOCAL;
   useEffect(() => {
     if (materi) {
       setFormData({
@@ -70,7 +72,7 @@ export function EditModal({ materi, open, onClose }) {
       }
       data.append("ket_materi", formData.ket_materi);
       data.append("vid_materi", formData.vid_materi);
-      const API_URL = process.env.REACT_APP_API_URL;
+     
       await axios.patch(
         `${API_URL}/${materi.id}`,
         data,

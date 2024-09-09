@@ -35,7 +35,9 @@ const List = () => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openDetailModal, setOpenDetailModal] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = process.env.NODE_ENV === 'production'
+  ? process.env.REACT_APP_API_URL_PROD
+  : process.env.REACT_APP_API_URL_LOCAL;
   const getTugas = useCallback(async () => {
     setLoading(true);
     try {

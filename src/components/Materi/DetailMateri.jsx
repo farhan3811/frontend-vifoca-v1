@@ -53,7 +53,9 @@ export function EditModal({ materi, open, onClose }) {
       }));
     }
   };
-
+  const API_URL = process.env.NODE_ENV === 'production'
+  ? process.env.REACT_APP_API_URL_PROD
+  : process.env.REACT_APP_API_URL_LOCAL;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -69,8 +71,7 @@ export function EditModal({ materi, open, onClose }) {
         data.append("img_materi", formData.img_materi);
       }
       data.append("ket_materi", formData.ket_materi);
-      data.append("vid_materi", formData.vid_materi);
-      const API_URL = process.env.REACT_APP_API_URL;
+      data.append("vid_materi", formData.vid_materi);     
       await axios.patch(
         `${API_URL}/${materi.id}`,
         data,

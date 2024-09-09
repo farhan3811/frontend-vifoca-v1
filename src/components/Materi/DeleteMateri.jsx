@@ -6,7 +6,9 @@ export default function DeleteModal({ materi, open, onClose, getMateri }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = process.env.NODE_ENV === 'production'
+  ? process.env.REACT_APP_API_URL_PROD
+  : process.env.REACT_APP_API_URL_LOCAL;
   const handleDelete = async (materiid) => {
     try {
       console.log('Menghapus materi dengan ID:', materiid);

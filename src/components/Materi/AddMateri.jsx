@@ -53,7 +53,9 @@ export function Modal1({ onAdd }) {
       }));
     }
   };
-
+  const API_URL = process.env.NODE_ENV === 'production'
+  ? process.env.REACT_APP_API_URL_PROD
+  : process.env.REACT_APP_API_URL_LOCAL;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -68,7 +70,6 @@ export function Modal1({ onAdd }) {
       data.append("img_materi", formData.img_materi);
       data.append("ket_materi", formData.ket_materi);
       data.append("vid_materi", formData.vid_materi);
-      const API_URL = process.env.REACT_APP_API_URL;
       const response = await axios.post(
         `${API_URL}/materi`,
         data,
