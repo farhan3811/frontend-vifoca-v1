@@ -147,7 +147,7 @@ export function EditModal({ materi, open, onClose }) {
                     className="input input-bordered flex w-60 items-center gap-2 cursor-pointer relative"
                   >
                     <span className="text-gray-400 flex-grow font-title font-medium text-sm">
-                      {truncateText(fileName, 20)} {/* Gunakan truncateText untuk membatasi panjang teks */}
+                      {truncateText(fileName, 20)} 
                     </span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

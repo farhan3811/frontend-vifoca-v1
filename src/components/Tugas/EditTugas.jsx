@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Button, Dialog, DialogBody, Card, Typography } from "@material-tailwind/react";
+import {
+  Button,
+  Dialog,
+  DialogBody,
+  Card,
+  Typography,
+} from "@material-tailwind/react";
 
 export function Modal1({ tugas, open, onClose }) {
   const [formData, setFormData] = useState({
@@ -17,14 +23,17 @@ export function Modal1({ tugas, open, onClose }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [fileName, setFileName] = useState("");
   const [materi, setMateri] = useState([]);
-  const API_URL = process.env.NODE_ENV === 'production'
-  ? process.env.REACT_APP_API_URL_PROD
-  : process.env.REACT_APP_API_URL_LOCAL; 
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_API_URL_PROD
+      : process.env.REACT_APP_API_URL_LOCAL;
   useEffect(() => {
     axios
       .get(`${API_URL}/materi`)
       .then((response) => {
-        setMateri(Array.isArray(response.data.materi) ? response.data.materi : []);
+        setMateri(
+          Array.isArray(response.data.materi) ? response.data.materi : []
+        );
       })
       .catch((error) => {
         console.error("Error fetching materi data:", error);
@@ -34,15 +43,15 @@ export function Modal1({ tugas, open, onClose }) {
 
   useEffect(() => {
     if (tugas) {
-        setFormData({
-            materi_id: tugas.materi_id || "",
-            nama_soal: tugas.nama_soal || "",
-            status_level: tugas.status_level || "",
-            foto_tugas: null,
-            ket_assigment: tugas.ket_assigment || "",
-            deadline: new Date(tugas.deadline) || new Date(),
-          });
-          setFileName(tugas.foto_tugas ? tugas.foto_tugas.split('/').pop() : "");
+      setFormData({
+        materi_id: tugas.materi_id || "",
+        nama_soal: tugas.nama_soal || "",
+        status_level: tugas.status_level || "",
+        foto_tugas: null,
+        ket_assigment: tugas.ket_assigment || "",
+        deadline: new Date(tugas.deadline) || new Date(),
+      });
+      setFileName(tugas.foto_tugas ? tugas.foto_tugas.split("/").pop() : "");
     }
   }, [tugas]);
 
@@ -62,7 +71,12 @@ export function Modal1({ tugas, open, onClose }) {
       [name]: files ? files[0] : value,
     }));
   };
-
+  const truncateText = (text, maxLength) => {
+    if (!text) return "";
+    return text.length > maxLength
+      ? `${text.substring(0, maxLength)}...`
+      : text;
+  };
   const handleDateChange = (date) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -73,7 +87,11 @@ export function Modal1({ tugas, open, onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.nama_soal || !formData.ket_assigment || !formData.status_level) {
+    if (
+      !formData.nama_soal ||
+      !formData.ket_assigment ||
+      !formData.status_level
+    ) {
       setErrorMessage("Semua kolom harus diisi!");
       return;
     }
@@ -86,24 +104,25 @@ export function Modal1({ tugas, open, onClose }) {
       data.append("foto_tugas", formData.foto_tugas);
       data.append("ket_assigment", formData.ket_assigment);
       data.append("deadline", formData.deadline.toISOString());
-      const response = await axios.patch(
-        `${API_URL}/${tugas.id}`,
-        data,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+      const response = await axios.patch(`${API_URL}/${tugas.id}`, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       console.log("Data updated successfully:", response.data);
       setSuccessMessage("Data berhasil diperbarui!");
       onClose();
     } catch (error) {
-      console.error("Error updating data:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error updating data:",
+        error.response ? error.response.data : error.message
+      );
       setErrorMessage("Gagal memperbarui data. Silakan coba lagi.");
     }
   };
 
   return (
     <section className="grid place-items-center">
-      <Dialog className="p-4" size="sm" open={open} handler={onClose}>
+      <Dialog className="p-4 rounded" size="sm" open={open} handler={onClose}>
         <DialogBody className="flex justify-center items-center overflow-y-auto max-h-[96vh] p-4">
           <Card color="transparent" shadow={false}>
             <Typography
@@ -149,7 +168,7 @@ export function Modal1({ tugas, open, onClose }) {
                   <div className="col-span-2">
                     {" "}
                     <select
-                    type="text"
+                      type="text"
                       className="select select-bordered w-60 max-w-xs"
                       name="status_level"
                       value={formData.status_level}
@@ -202,7 +221,7 @@ export function Modal1({ tugas, open, onClose }) {
                     <select
                       className="select select-bordered w-60 max-w-xs"
                       name="materi_id"
-                                            type="text"
+                      type="text"
                       value={formData.materi_id}
                       onChange={handleChange}
                       placeholder="Materi"
@@ -240,7 +259,7 @@ export function Modal1({ tugas, open, onClose }) {
                       className="input input-bordered flex w-60 items-center gap-2 cursor-pointer relative"
                     >
                       <span className="text-gray-500 flex-grow">
-                        {fileName || "Foto"}
+                        {truncateText(fileName || "Foto", 20)}
                       </span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -272,7 +291,7 @@ export function Modal1({ tugas, open, onClose }) {
                       selected={formData.deadline}
                       onChange={handleDateChange}
                       showTimeSelect
-                                            type="text"
+                      type="text"
                       dateFormat="Pp"
                       className="border rounded p-2 w-60"
                     />
@@ -293,7 +312,7 @@ export function Modal1({ tugas, open, onClose }) {
                     <textarea
                       className="textarea textarea-bordered  w-60"
                       name="ket_assigment"
-                                            type="text"
+                      type="text"
                       value={formData.ket_assigment}
                       onChange={handleChange}
                       placeholder="Keterangan"
@@ -307,7 +326,7 @@ export function Modal1({ tugas, open, onClose }) {
                     fullWidth
                     type=""
                     onClick={onClose}
-                    className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-batal"
+                    className="flex items-center rounded justify-center gap-2 mt-6 normal-case font-title font-medium bg-batal"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -327,7 +346,7 @@ export function Modal1({ tugas, open, onClose }) {
                     fullWidth
                     onClick={handleSubmit}
                     type="submit"
-                    className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-blue"
+                    className="flex items-center rounded justify-center gap-2 mt-6 normal-case font-title font-medium bg-blue"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
