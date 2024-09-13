@@ -46,7 +46,6 @@ export function CardDefault() {
       console.error("Failed to fetch materi details:", error);
     }
   };
-  
   if (loading) {
     return <div>Loading tasks...</div>;
   }
@@ -54,11 +53,15 @@ export function CardDefault() {
     return "https://via.placeholder.com/150";
   };
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
-
+  const getYouTubeID = (url) => {
+    const regex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=|.*[?&]vi=)?([^"&?\/\s]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  };
   return (
     <div className="container py-16 px-20 bg-ground">
       {materi && (
-        <Card key={materi.id} className="w-full flex items-center justify-center py-6 px-6">
+        <Card className="w-full flex items-center justify-center py-6 px-6">
           <img
             src={
               materi.img_materi
@@ -84,6 +87,7 @@ export function CardDefault() {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
+        {materi && materi.vid_materi && (
           <Card className="mt-6 h-96">
             <CardBody>
               <Typography
@@ -98,7 +102,7 @@ export function CardDefault() {
               <iframe
                 width="560"
                 height="280"
-                src="https://www.youtube.com/embed/FDjqhoWwb40?si=qVTCK18CT4lHLobe"
+                src={`https://www.youtube.com/embed/${getYouTubeID(materi.vid_materi)}`}
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -107,6 +111,7 @@ export function CardDefault() {
               ></iframe>
             </Typography>
           </Card>
+        )}
         </div>
 
         <div>
