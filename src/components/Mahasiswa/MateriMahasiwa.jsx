@@ -96,7 +96,7 @@ export function ProfileCard() {
                 />
               </CardHeader>
               <CardBody className="text-left">
-                <a href="/mahasiswa/tugas">
+                <a href={`/mahasiswa/tugas/${materiItem.id}`}>
                   <Typography
                     variant="h4"
                     color="blue-gray"

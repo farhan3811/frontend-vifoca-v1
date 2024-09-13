@@ -28,7 +28,7 @@ function App() {
 
           {/* Mahasiswa Route */}
           <Route path="/mahasiswa/materi" element={<MateriMahasiswa />} />
-          <Route path="/mahasiswa/tugas" element={<TugasMahasiswa />} />
+          <Route path="/mahasiswa/tugas/:materi_id" element={<TugasMahasiswa />} />
         </Routes>
       </BrowserRouter>
     </div>
