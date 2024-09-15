@@ -11,14 +11,30 @@ function App() {
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const [editorContent, setEditorContent] = useState("");
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   const API_URL =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_API_URL_PROD
       : process.env.REACT_APP_API_URL_LOCAL;
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/get-user-id`);
+        setUserId(response.data.userId);
+      } catch (error) {
+        console.error("Failed to fetch user ID:", error);
+      }
+    };
+
+    fetchUserId();
+  }, [API_URL]);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     const getTugas = async () => {
@@ -34,13 +50,44 @@ function App() {
 
     getTugas();
   }, [id_tugas, API_URL]);
+
+  const handleSelesai = async () => {
+    setSubmitLoading(true);
+    try {
+      const data = {
+        tugas_id: id_tugas,
+        userId: userId,
+        answer: editorContent,
+        form_penilaian: "", 
+        ket_penilaian: "", 
+      };
+
+      const response = await axios.post(`${API_URL}/penilaian`, data);
+
+      if (response.status === 201) {
+        alert("Jawaban berhasil dikirim!");
+      } else {
+        console.error("Failed to submit jawaban:", response);
+      }
+    } catch (error) {
+      console.error("Error during submission:", error);
+    } finally {
+      setSubmitLoading(false);
+    }
+  };
+
+  const handleEditorChange = (content) => {
+    setEditorContent(content);
+  };
+
   const Loading = () => (
     <div className="flex items-center justify-center w-full h-full">
       <div className="flex flex-col items-center">
-      <ThreeDot variant="bounce" color="#10487A" size="large" text="Vifoca" textColor="#NaNNaNNaN" />
+        <ThreeDot variant="bounce" color="#10487A" size="large" text="Vifoca" textColor="#NaNNaNNaN" />
       </div>
     </div>
   );
+
   if (loading) {
     return (
       <div className="container py-16 px-20 bg-ground flex items-center justify-center h-screen">
@@ -80,14 +127,15 @@ function App() {
               </Typography>
             </div>
             <div>
-            <button
-              className="ml-4 mb-2 px-4 py-2 bg-blue text-white rounded font-title font-mediu,"
-              onClick={openModal}
-            >
-            Calculator
-            </button>
+              <button
+                className="ml-4 mb-2 px-4 py-2 bg-blue text-white rounded font-title font-medium"
+                onClick={openModal}
+              >
+                Calculator
+              </button>
             </div>
           </div>
+
           {isModalOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 z-50">
               <div className="relative bg-white rounded-lg shadow-lg w-96 p-6 z-50">
@@ -115,10 +163,15 @@ function App() {
             </div>
           )}
 
-          <Editor initialContent="" className="z-10" />
+          <Editor initialContent="" className="z-10" onChange={handleEditorChange} />
+          
           <div className="flex justify-end mt-4">
-            <button className="btn bg-blue text-white font-title font-medium px-28">
-              Selesai
+            <button
+              className="btn bg-blue text-white font-title font-medium px-28"
+              onClick={handleSelesai}
+              disabled={submitLoading}
+            >
+              {submitLoading ? "Mengirim..." : "Selesai"}
             </button>
           </div>
         </CardBody>
