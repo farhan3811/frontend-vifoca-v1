@@ -21,7 +21,7 @@ function App() {
           <Route path="/users" element={<Users />} />
           <Route path="/materi" element={<MateriList />} />
           <Route path="/latihan" element={<TugasList />} />
-          <Route path="/canvas" element={<Canvas />} />
+          <Route path="/tugas/:id_tugas" element={<Canvas />} />
           <Route path="/profil" element={<Profil />} />
           <Route path="/penilaian" element={<Penilaian />} />
           <Route path="/konfirmasi" element={<KonfirmasiMahasiswa />} />
