@@ -43,6 +43,8 @@ module.exports = withMT({
         'odd': '#F4F3FF',
         'konfirmasi': '#44A7FF',
         'sulit': '#FF3333',
+        'sedang': '#FFE033',
+        'mudah': '#56EC33',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
