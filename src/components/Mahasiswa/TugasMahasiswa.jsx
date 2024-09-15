@@ -188,7 +188,7 @@ export function CardDefault() {
                         </button>
                       </div>
                       <div className="flex justify-end items-center">
-                        <Link to="/canvas">
+                        <Link to={`/tugas/${task.id}`}>
                           <button className="btn btn-sm px-10 bg-blue font-title font-medium text-white">
                             Kerjakan
                           </button>
