@@ -11,6 +11,7 @@ import Profil from "./pages/Profil";
 import Penilaian from "./pages/PenilaianDosen";
 import KonfirmasiMahasiswa from "./pages/KonfirmasiMahasiswa";
 import PenilaianMahasiswa from "./pages/Mahasiswa/MahasiswaPenilaian";
+import PenilaianMahasiswas from "./pages/Penilaian";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/mahasiswa/tugas/:materi_id" element={<TugasMahasiswa />} />
           <Route path="/tugas/:id_tugas" element={<Canvas />} />
           <Route path="/mahasiswa/penilaian" element={<PenilaianMahasiswa />} />
+          <Route path="/mahasiswa/penilaians" element={<PenilaianMahasiswas />} />
         </Routes>
       </BrowserRouter>
     </div>

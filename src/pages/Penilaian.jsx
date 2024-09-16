@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Layout from "./Layout";
-import Canvas from "../components/Mahasiswa/Soal";
+import Penilaian from "../components/Penilaian/Mahasiswa/PenilaianMahasiswa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMe } from "../features/authSlice";
@@ -21,7 +21,7 @@ const Materi = () => {
   }, [isError, navigate]);
   return (
     <Layout>
-      <Canvas />
+      <Penilaian />
     </Layout>
   );
 };

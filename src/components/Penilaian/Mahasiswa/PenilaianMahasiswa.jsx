@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Card, CardBody, Typography } from "@material-tailwind/react";
-import Editor from "../components/EditorMahasiswa";
-import Calculator from "../components/Calculator";
+import Editor from "../../EditorMahasiswa";
+import Calculator from "../../Calculator";
 import { ThreeDot } from "react-loading-indicators";
 
 function App() {
@@ -21,16 +21,16 @@ function App() {
       : process.env.REACT_APP_API_URL_LOCAL;
 
   useEffect(() => {
-    const fetchUserId = async () => {
+    const getUsers = async () => {
       try {
-        const response = await axios.get(`${API_URL}/get-user-id`);
+        const response = await axios.get(`${API_URL}/users`);
         setUserId(response.data.userId);
       } catch (error) {
         console.error("Failed to fetch user ID:", error);
       }
     };
 
-    fetchUserId();
+    getUsers();
   }, [API_URL]);
 
   const openModal = () => setIsModalOpen(true);
@@ -39,7 +39,7 @@ function App() {
   useEffect(() => {
     const getTugas = async () => {
       try {
-        const response = await axios.get(`${API_URL}/tugas/${id_tugas}`);
+        const response = await axios.get(`${API_URL}/tugas `);
         setTask(response.data);
       } catch (error) {
         console.error("Failed to fetch task details:", error);
@@ -58,8 +58,8 @@ function App() {
         tugas_id: id_tugas,
         userId: userId,
         answer: editorContent,
-        form_penilaian: "", 
-        ket_penilaian: "", 
+        form_penilaian: "",
+        ket_penilaian: "",
       };
 
       const response = await axios.post(`${API_URL}/penilaian`, data);
@@ -83,7 +83,13 @@ function App() {
   const Loading = () => (
     <div className="flex items-center justify-center w-full h-full">
       <div className="flex flex-col items-center">
-        <ThreeDot variant="bounce" color="#10487A" size="large" text="Vifoca" textColor="#NaNNaNNaN" />
+        <ThreeDot
+          variant="bounce"
+          color="#10487A"
+          size="large"
+          text="Vifoca"
+          textColor="#NaNNaNNaN"
+        />
       </div>
     </div>
   );
@@ -163,9 +169,26 @@ function App() {
             </div>
           )}
 
-          <Editor initialContent="" className="z-10" onChange={handleEditorChange} />
-          
-          <div className="flex justify-end mt-4">
+          <Editor
+            initialContent=""
+            className="z-10"
+            onChange={handleEditorChange}
+          />
+          <div class="flex gap-4 mt-6 mb-6">
+            <div className="grow h-14">
+                <Typography>Catatan :</Typography>
+              <textarea
+                className="textarea textarea-bordered textarea-lg w-full"
+              ></textarea>
+            </div>
+            <div className="flex-none w-78 h-14">
+            <Typography>Nilai</Typography>
+              <textarea
+                className="textarea textarea-bordered textarea-lg w-full"
+              ></textarea>
+            </div>
+          </div>
+          <div className="flex justify-end mt-24">
             <button
               className="btn bg-blue text-white font-title font-medium px-28"
               onClick={handleSelesai}
