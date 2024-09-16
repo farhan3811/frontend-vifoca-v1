@@ -30,7 +30,6 @@ const List = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [pageSize] = useState(5);
   const [materi, setMateri] = useState([]);
-  const [users, setUsers] = useState([]);
   const [selectedTugas, setSelectedTugas] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openDetailModal, setOpenDetailModal] = useState(false);
@@ -56,6 +55,12 @@ const List = () => {
       setLoading(false);
     }
   }, [search, sortOrder, currentPage]);
+  const truncateText = (text, limit) => {
+    if (text.length > limit) {
+      return text.substring(0, limit) + "...";
+    }
+    return text;
+  };
 
   const getMateri = async () => {
     try {
@@ -66,22 +71,10 @@ const List = () => {
       console.error("Gagal mengambil data materi:", error);
     }
   };
-  const getUsers = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/users`);
-      const { users } = response.data;
-      setUsers(users);
-    } catch (error) {
-      console.error("Gagal mengambil data user:", error);
-    }
-  };
-
   useEffect(() => {
     getTugas();
     getMateri();
-    getUsers();
   }, [getTugas]);
-  console.log(users);
 
   const handleEdit = (tugas) => {
     setSelectedTugas(tugas);
@@ -168,6 +161,7 @@ const List = () => {
                 <AddTugas onAdd={handleAdd} />
               </div>
             </div>
+            <div className="overflow-x-auto">
             <table className="w-full min-w-max table-auto text-left">
               <thead>
                 <tr>
@@ -246,8 +240,9 @@ const List = () => {
                           variant="small"
                           color="blue-gray"
                           className="font-normal truncate"
+                          style={{ maxWidth: "150px" }}
                         >
-                          {item.ket_assigment}
+                          {truncateText(item.ket_assigment, 50)}
                         </Typography>
                       </td>
                       <td className="p-4">
@@ -268,8 +263,7 @@ const List = () => {
                           color="blue-gray"
                           className="font-normal truncate"
                         >
-                          {users.find((users) => users.id === item.userId)
-                            ?.name || "Unknown"}
+                          {item.user?.name}
                         </Typography>
                       </td>
 
@@ -347,6 +341,7 @@ const List = () => {
                 )}
               </tbody>
             </table>
+            </div>
             <DefaultPagination
           currentPage={currentPage}
           totalPages={totalPages}
