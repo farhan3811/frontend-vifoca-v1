@@ -198,8 +198,8 @@ export function CardDefault() {
                     <AccordionBody className="pt-0 text-base font-title">
                       {task.ket_assigment}
                       <div className="flex flex-row justify-end mt-4">
-                        <div className="mr-4">{task.user?.name}</div>
-                        <div>
+                        <div className="mr-4 border-2 px-2 py-1 rounded-full text-xs">{task.user?.name}</div>
+                        <div className=" border-2 px-2 py-1 rounded-full text-xs">
                           {new Date(task.deadline).toLocaleDateString()}{" "}
                           {new Date(task.deadline).toLocaleTimeString([], {
                             hour: '2-digit',
