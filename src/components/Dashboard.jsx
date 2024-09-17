@@ -20,37 +20,49 @@ const Dashboard = () => {
           <div>
             <div className="flex flex-nowrap gap-4">
               <div>
-                <Card className="mt-6 w-56">
-                  <CardBody>
-                    <Typography variant="h5" color="blue-gray" className="mb-2">
-                      UI/UX Review Check
+                <Card className="mt-6 w-56 bg-gradient-to-t from-materib to-materit">
+                <CardBody>
+                    <Typography variant="h1" color="white" className="mb-2 flex items-center justify-center font-title font-medium">
+                      9
+                    </Typography>
+                    <Typography className="flex justify-end text-white font-title font-medium text-xs">
+                      Materi
                     </Typography>
                   </CardBody>
                 </Card>
               </div>
               <div>
-                <Card className="mt-6 w-56">
+                <Card className="mt-6 w-56 bg-gradient-to-t from-mahat to-mahab">
                   <CardBody>
-                    <Typography variant="h5" color="blue-gray" className="mb-2">
-                      UI/UX Review Check
+                    <Typography variant="h1" color="white" className="mb-2 flex items-center justify-center font-title font-medium">
+                      20
+                    </Typography>
+                    <Typography className="flex justify-end text-white font-title font-medium text-xs">
+                      Mahasiswa
                     </Typography>
                   </CardBody>
                 </Card>
               </div>
               <div>
-                <Card className="mt-6 w-56">
-                  <CardBody>
-                    <Typography variant="h5" color="blue-gray" className="mb-2">
-                      UI/UX Review Check
+                <Card className="mt-6 w-56 bg-gradient-to-t from-latihant to-latihanb">
+                <CardBody>
+                    <Typography variant="h1" color="white" className="mb-2 flex items-center justify-center font-title font-medium">
+                      70
+                    </Typography>
+                    <Typography className="flex justify-end text-white font-title font-medium text-xs">
+                      Latihan
                     </Typography>
                   </CardBody>
                 </Card>
               </div>
               <div>
-                <Card className="mt-6 w-56">
-                  <CardBody>
-                    <Typography variant="h5" color="blue-gray" className="mb-2">
-                      UI/UX Review Check
+                <Card className="mt-6 w-56 bg-gradient-to-t from-penilaiant to-penilaianb">
+                <CardBody>
+                    <Typography variant="h1" color="white" className="mb-2 flex items-center justify-center font-title font-medium">
+                      24
+                    </Typography>
+                    <Typography className="flex justify-end text-white font-title font-medium text-xs">
+                      Penilaian
                     </Typography>
                   </CardBody>
                 </Card>
@@ -63,7 +75,7 @@ const Dashboard = () => {
                 {" "}
                 <Card className="mt-6 w-full">
                   <CardBody>
-                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                    <Typography variant="h5" color="white" className="mb-2">
                       Latihan
                     </Typography>
                     <Typography>
@@ -84,7 +96,7 @@ const Dashboard = () => {
                 {" "}
                 <Card className="mt-6 w-96 ml-4">
                   <CardBody>
-                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                    <Typography variant="h5" color="white" className="mb-2">
                       Statistik
                     </Typography>
                     <PieChart

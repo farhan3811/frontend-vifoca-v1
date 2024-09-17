@@ -31,7 +31,21 @@ module.exports = withMT({
     spacing: {
       '58': '230px',
     },
+    linearGradientColors: {
+      'custom-gradient': ['#69B9FF', '#0061B6'],
+    },
+    gradientColorStopPositions: {
+      33: '33%',
+    },
       colors: {
+        'materit':'#69B9FF',
+        'materib':'#0061B6',
+        'mahab':'#80F166',
+        'mahat':'#0A853C',
+        'latihanb':'#FFD800',
+        'latihant':'#F57B08',
+        'penilaianb':'#FF79B1',
+        'penilaiant':'#F5086C',
         'blue': '#10487A',
         'ground': '#FBF7F7',
         'sky': '#B4DCFF',
@@ -100,5 +114,5 @@ module.exports = withMT({
       },
     },
   },
-  plugins: [require("daisyui", "tailwindcss-animate")],
+  plugins: [require("daisyui", "tailwindcss-animate",'tailwindcss-gradients')],
 });

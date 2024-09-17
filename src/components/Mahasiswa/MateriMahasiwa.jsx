@@ -2,11 +2,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, CardHeader, CardBody, Typography } from "@material-tailwind/react";
 import DefaultPagination from "../Pagination/Pagination";
+import { ThreeDot } from "react-loading-indicators";
 
 const getDefaultAvatar = () => {
   return "https://via.placeholder.com/150";
 };
-
+const Loading = () => (
+  <div className="flex items-center justify-center w-full h-full">
+    <div className="flex flex-col items-center">
+    <ThreeDot variant="bounce" color="#10487A" size="large" text="Vifoca" textColor="#NaNNaNNaN" />
+    </div>
+  </div>
+);
 export function ProfileCard() {
   const [materi, setMateri] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -48,7 +55,11 @@ export function ProfileCard() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="container py-16 px-20 bg-ground flex items-center justify-center h-screen">
+        <Loading />
+      </div>
+    );
   }
 
   return (
@@ -123,27 +134,7 @@ export function ProfileCard() {
                       color="blue-gray"
                       className="font-medium font-title text-base pl-2"
                     >
-                      {materiItem.materiCount} Materi
-                    </Typography>
-                  </div>
-                  <div className="flex">
-                    <svg
-                      width="16"
-                      height="17"
-                      viewBox="0 0 12 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M6.21875 0C9.0625 0 11.9062 2.25 11.9062 5.1875C11.9062 7.96875 9.78125 8.96875 8.90625 9.5C8.875 9.90625 8.6875 10.3125 8.40625 10.5938C8.9375 11.1875 9.25 11.9375 9.25 12.75C9.25 14.5625 7.78125 16 6 16C4.1875 16 2.75 14.5625 2.75 12.75C2.75 11.9375 3.03125 11.1875 3.59375 10.5938C3.3125 10.3125 3.125 9.90625 3.09375 9.5C2.21875 8.96875 0.09375 7.96875 0.09375 5.1875C0.09375 2.25 2.90625 0 6.21875 0ZM6.21875 2C4.46875 2 2.9375 3.5625 2.9375 5.1875C2.9375 7.125 5.3125 7.6875 5.3125 9.5H7.09375C7.09375 7.71875 9.5 7.125 9.5 5.1875C9.5 3.5625 7.9375 2 6.21875 2ZM6 11.75C5.28125 11.75 4.75 12.2812 4.75 13C4.75 13.75 5.28125 14.25 6 14.25C6.71875 14.25 7.25 13.75 7.25 13C7.25 12.2812 6.71875 11.75 6 11.75Z"
-                        fill="#333333"
-                      />
-                    </svg>
-                    <Typography
-                      color="blue-gray"
-                      className="font-medium font-title text-base pl-2"
-                    >
-                      {materiItem.lecturerCount} Lecturer
+                      {materiItem.materiCount} Latihan
                     </Typography>
                   </div>
                 </div>
