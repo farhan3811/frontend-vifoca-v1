@@ -198,7 +198,7 @@ export function CardDefault() {
                     <AccordionBody className="pt-0 text-base font-title">
                       {task.ket_assigment}
                       <div className="flex flex-row justify-end mt-4">
-                        <div className="mr-4">Muhammad Farhan</div>
+                        <div className="mr-4">{task.user?.name}</div>
                         <div>
                           {new Date(task.deadline).toLocaleDateString()}{" "}
                           {new Date(task.deadline).toLocaleTimeString([], {
