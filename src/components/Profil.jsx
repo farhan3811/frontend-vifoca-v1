@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
+import Datepicker from "react-tailwindcss-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
   Tabs,
@@ -17,6 +17,10 @@ const Profil = () => {
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [fileName, setFileName] = useState("");
+  const [value, setValue] = useState({ 
+    startDate: null, 
+    endDate: null
+});
   const data = [
     {
       label: "Profile",
@@ -116,12 +120,12 @@ const Profil = () => {
                   <div className="flex items-center">
                     <Typography>Tanggal Lahir</Typography>
                   </div>
-                  <div className="col-span-2">
-                  <DatePicker
-                      onChange={handleDateChange}
-                      showTimeSelect
-                      dateFormat="Pp"
-                      className="border rounded p-2 w-60"
+                  <div className="col-span-2 border-2 rounded-xl">
+                    <Datepicker
+                      useRange={false}
+                      asSingle={true}
+                      value={value}
+                      onChange={(newValue) => setValue(newValue)}
                     />
                   </div>
                 </div>

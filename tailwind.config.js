@@ -9,6 +9,7 @@ module.exports = withMT({
     './components/**/*.{js,jsx}',
     './app/**/*.{js,jsx}',
     './src/**/*.{js,jsx}',
+    "./node_modules/react-tailwindcss-datepicker/dist/index.esm.{js,jsx,ts}",
   ],
   prefix: "",
   theme: {
