@@ -1,11 +1,12 @@
 import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
-const EditorMahasiswa = ({ onChange }) => {
+const EditorMahasiswa = ({ initialContent, onChange }) => {
   return (
     <div className="App">
       <Editor
         apiKey="ijde5ilasygmo15m0nuu5cfx0f5z6olerzelozcf4i10e0r0"
+        value={initialContent} 
         init={{
           height: 500,
           menubar: false,

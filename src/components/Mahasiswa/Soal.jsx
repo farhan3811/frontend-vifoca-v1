@@ -77,7 +77,7 @@ function App() {
   };
 
   const handleEditorChange = (content) => {
-    setEditorContent(content);
+    setEditorContent(content); // Update state with new content
   };
 
   const Loading = () => (
@@ -163,7 +163,7 @@ function App() {
             </div>
           )}
 
-          <Editor initialContent="" className="z-10" onChange={handleEditorChange} />
+          <Editor initialContent={editorContent} className="z-10" onChange={handleEditorChange} />
           
           <div className="flex justify-end mt-4">
             <button

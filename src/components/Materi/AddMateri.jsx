@@ -112,7 +112,7 @@ export function Modal1({ onAdd }) {
         </svg>
         Tambah Materi
       </Button>
-      <Dialog className="p-4 rounded" size="md" open={open} handler={handleClose}>
+      <Dialog className="p-4 rounded" size="sm" open={open} handler={handleClose}>
         <DialogBody className="flex justify-center items-center">
           <Card color="transparent" shadow={false}>
             <Typography

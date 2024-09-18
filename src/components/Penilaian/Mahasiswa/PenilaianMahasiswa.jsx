@@ -7,31 +7,19 @@ import Calculator from "../../Calculator";
 import { ThreeDot } from "react-loading-indicators";
 
 function App() {
+  const { penilaianId } = useParams();
   const { id_tugas } = useParams();
+  const [penilaian, setPenilaian] = useState(null);
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editorContent, setEditorContent] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
-  const [userId, setUserId] = useState(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const API_URL =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_API_URL_PROD
       : process.env.REACT_APP_API_URL_LOCAL;
-
-  useEffect(() => {
-    const getUsers = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/users`);
-        setUserId(response.data.userId);
-      } catch (error) {
-        console.error("Failed to fetch user ID:", error);
-      }
-    };
-
-    getUsers();
-  }, [API_URL]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -51,33 +39,52 @@ function App() {
     getTugas();
   }, [id_tugas, API_URL]);
 
-  const handleSelesai = async () => {
+  useEffect(() => {
+    const getPenilaian = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/penilaian/${penilaianId}`);
+        setPenilaian(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching penilaian:", error);
+        setLoading(false);
+      }
+    };
+
+    getPenilaian();
+  }, [penilaianId]);
+
+  const handleSave = async () => {
     setSubmitLoading(true);
     try {
-      const data = {
-        tugas_id: id_tugas,
-        userId: userId,
-        answer: editorContent,
-        form_penilaian: "",
-        ket_penilaian: "",
-      };
-
-      const response = await axios.post(`${API_URL}/penilaian`, data);
-
-      if (response.status === 201) {
-        alert("Jawaban berhasil dikirim!");
-      } else {
-        console.error("Failed to submit jawaban:", response);
-      }
+      await axios.patch(`${API_URL}/penilaian/${penilaianId}`, penilaian);
+      setShowSuccessModal(true); // Show success modal
     } catch (error) {
-      console.error("Error during submission:", error);
+      console.error("Error saving penilaian:", error);
     } finally {
       setSubmitLoading(false);
     }
   };
 
   const handleEditorChange = (content) => {
-    setEditorContent(content);
+    setPenilaian((prevPenilaian) => ({
+      ...prevPenilaian,
+      answer: content,
+    }));
+  };
+
+  const handleKetPenilaianChange = (event) => {
+    setPenilaian((prevPenilaian) => ({
+      ...prevPenilaian,
+      ket_penilaian: event.target.value,
+    }));
+  };
+
+  const handleFormPenilaianChange = (event) => {
+    setPenilaian((prevPenilaian) => ({
+      ...prevPenilaian,
+      form_penilaian: event.target.value,
+    }));
   };
 
   const Loading = () => (
@@ -90,6 +97,35 @@ function App() {
           text="Vifoca"
           textColor="#NaNNaNNaN"
         />
+      </div>
+    </div>
+  );
+
+  const SuccessModal = ({ onClose }) => (
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 z-50">
+      <div className="relative bg-white rounded-lg shadow-lg w-96 p-6 z-50">
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <Typography className="text-center text-green-600 font-medium">
+          Penilaian berhasil disimpan!
+        </Typography>
       </div>
     </div>
   );
@@ -110,14 +146,14 @@ function App() {
             <div className="card bg-base-100 w-96 m-6">
               <div className="card-body h-56">
                 <Typography variant="h5" color="blue-gray">
-                  {task.nama_soal}
+                  {penilaian?.tuga?.nama_soal}
                 </Typography>
               </div>
             </div>
           </div>
           <div>
             <Typography className="text-white mt-10 mr-4">
-              {task.ket_assigment}
+              {penilaian?.tuga?.ket_assigment}
             </Typography>
           </div>
         </div>
@@ -125,8 +161,8 @@ function App() {
           <div className="flex flex-nowrap items-center">
             <div>
               <Typography className="mb-2 bg-sulit text-white font-title font-medium px-10 py-2 rounded">
-                {new Date(task.deadline).toLocaleDateString()}{" "}
-                {new Date(task.deadline).toLocaleTimeString([], {
+                {new Date(penilaian?.tuga?.deadline).toLocaleDateString()}{" "}
+                {new Date(penilaian?.tuga?.deadline).toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",
                 })}
@@ -169,29 +205,37 @@ function App() {
             </div>
           )}
 
-          <Editor
-            initialContent=""
-            className="z-10"
-            onChange={handleEditorChange}
+          {showSuccessModal && (
+            <SuccessModal onClose={() => setShowSuccessModal(false)} />
+          )}
+
+          <Editor 
+            initialContent={penilaian?.answer || ""} 
+            className="z-10" 
+            onChange={handleEditorChange} 
           />
-          <div class="flex gap-4 mt-6 mb-6">
+          <div className="flex gap-4 mt-6 mb-6">
             <div className="grow h-14">
-                <Typography>Catatan :</Typography>
+              <Typography>Catatan :</Typography>
               <textarea
                 className="textarea textarea-bordered textarea-lg w-full"
+                value={penilaian?.ket_penilaian || ""}
+                onChange={handleKetPenilaianChange}
               ></textarea>
             </div>
             <div className="flex-none w-78 h-14">
-            <Typography>Nilai</Typography>
+              <Typography>Nilai</Typography>
               <textarea
                 className="textarea textarea-bordered textarea-lg w-full"
+                value={penilaian?.form_penilaian || ""}
+                onChange={handleFormPenilaianChange}
               ></textarea>
             </div>
           </div>
           <div className="flex justify-end mt-24">
             <button
               className="btn bg-blue text-white font-title font-medium px-28"
-              onClick={handleSelesai}
+              onClick={handleSave}
               disabled={submitLoading}
             >
               {submitLoading ? "Mengirim..." : "Selesai"}
