@@ -104,9 +104,17 @@ const PenilaianList = () => {
                 <td className="p-4">{item.tuga?.nama_soal || "N/A"}</td>
                 <td className="p-4">
                   {item.createdat
-                    ? new Date(item.createdat).toLocaleDateString()
+                    ? new Date(item.createdat).toLocaleString("id-ID", {
+                        weekday: "long",
+                        year: "numeric", 
+                        month: "long",
+                        day: "numeric", 
+                        hour: "2-digit", 
+                        minute: "2-digit",
+                      })
                     : "N/A"}
                 </td>
+
                 <td className="p-4 flex flex-wrap gap-2">
                   <Link to={`/penilaian/${item.id}`}>
                     <Typography color="blue" tooltip="Edit">

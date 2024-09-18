@@ -161,11 +161,21 @@ function App() {
           <div className="flex flex-nowrap items-center">
             <div>
               <Typography className="mb-2 bg-sulit text-white font-title font-medium px-10 py-2 rounded">
-                {new Date(penilaian?.tuga?.deadline).toLocaleDateString()}{" "}
-                {new Date(penilaian?.tuga?.deadline).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+              <td>
+                        {penilaian?.tuga.deadline
+                          ? new Date(penilaian?.tuga.deadline).toLocaleString(
+                              "id-ID",
+                              {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              }
+                            )
+                          : "N/A"}
+                      </td>
               </Typography>
             </div>
             <div>
@@ -226,6 +236,7 @@ function App() {
             <div className="flex-none w-78 h-14">
               <Typography>Nilai</Typography>
               <textarea
+                      type="number"
                 className="textarea textarea-bordered textarea-lg w-full"
                 value={penilaian?.form_penilaian || ""}
                 onChange={handleFormPenilaianChange}

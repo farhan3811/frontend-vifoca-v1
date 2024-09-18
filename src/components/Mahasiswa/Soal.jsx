@@ -118,12 +118,22 @@ function App() {
         <CardBody>
           <div className="flex flex-nowrap items-center">
             <div>
-              <Typography className="mb-2 bg-sulit text-white font-title font-medium px-10 py-2 rounded">
-                {new Date(task.deadline).toLocaleDateString()}{" "}
-                {new Date(task.deadline).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+              <Typography className="mb-2 bg-sulit text-white font-title font-medium px-6 py-2 rounded">
+              <td>
+                        {task.deadline
+                          ? new Date(task.deadline).toLocaleString(
+                              "id-ID",
+                              {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              }
+                            )
+                          : "N/A"}
+                      </td>
               </Typography>
             </div>
             <div>

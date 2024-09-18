@@ -251,10 +251,21 @@ const List = () => {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {format(
-                            new Date(item.deadline),
-                            "dd MMM yyyy, HH:mm"
-                          )}
+                      <td className="p-4">
+                        {item.deadline
+                          ? new Date(item.deadline).toLocaleString(
+                              "id-ID",
+                              {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              }
+                            )
+                          : "N/A"}
+                      </td>
                         </Typography>
                       </td>
                       <td className="p-4">

@@ -22,14 +22,22 @@ const MateriList = () => {
   const [openDetailModal, setOpenDetailModal] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
-  const TABLE_HEAD = ["No", "Ikon", "Nama Materi", "Deskripsi", "Tanggal Update", "Aksi"];
+  const TABLE_HEAD = [
+    "No",
+    "Ikon",
+    "Nama Materi",
+    "Deskripsi",
+    "Tanggal Update",
+    "Aksi",
+  ];
 
   useEffect(() => {
     getMateri();
   }, [sortOrder, searchTerm, currentPage]);
-  const API_URL = process.env.NODE_ENV === 'production'
-    ? process.env.REACT_APP_API_URL_PROD
-    : process.env.REACT_APP_API_URL_LOCAL;
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_API_URL_PROD
+      : process.env.REACT_APP_API_URL_LOCAL;
   const getMateri = async () => {
     setLoading(true);
     try {
@@ -121,7 +129,7 @@ const MateriList = () => {
 
   return (
     <div className="container px-20 mt-10">
-            <Breadcumbs/>
+      <Breadcumbs />
       <Card className="w-full h-full p-6">
         <div className="grid grid-cols-2 gap-4 my-4">
           <div className="flex flex-wrap gap-2">
@@ -236,7 +244,21 @@ const MateriList = () => {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {formatDate(materiItem.updatedat)}
+                      <td className="p-4">
+                        {materiItem.updatedat
+                          ? new Date(materiItem.updatedat).toLocaleString(
+                              "id-ID",
+                              {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              }
+                            )
+                          : "N/A"}
+                      </td>
                     </Typography>
                   </td>
                   <td className="p-4 flex flex-wrap gap-2">
