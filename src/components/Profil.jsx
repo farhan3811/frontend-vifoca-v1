@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import {
   Tabs,
@@ -13,39 +15,71 @@ import { UserCircleIcon, Cog6ToothIcon } from "@heroicons/react/24/solid";
 import Breadcumbs from "./Breadcumbs";
 
 const Profil = () => {
-  const [formData, setFormData] = useState("");
+  const { userId } = useParams();
+  const [user, setUser] = useState([]);
+  const [formData, setFormData] = useState({});
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [fileName, setFileName] = useState("");
-  const [value, setValue] = useState({ 
-    startDate: null, 
-    endDate: null
-});
-  const data = [
-    {
-      label: "Profile",
-      value: "profile",
-      icon: UserCircleIcon,
-    },
-    {
-      label: "Settings",
-      value: "settings",
-      icon: Cog6ToothIcon,
-    },
-  ];
+  const [value, setValue] = useState({ startDate: null, endDate: null });
+  
+  const API_URL = process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_API_URL_PROD
+    : process.env.REACT_APP_API_URL_LOCAL;
+
+    useEffect(() => {
+      const getUsers = async () => {
+        try {
+          const response = await axios.get(`${API_URL}/users/${userId}`);
+          setUser(response.data);
+        } catch (error) {
+          console.error("Error fetching penilaian:", error);
+        }
+      };
+  
+      getUsers();
+    }, [userId]);
+
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleUpdateProfile = async () => {
+    try {
+      const response = await axios.patch(`${API_URL}/Users/${user.id}`, formData);
+      alert('Profil berhasil diperbarui!');
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      alert('Terjadi kesalahan saat memperbarui profil.');
+    }
+  };
+
   const handleDateChange = (date) => {
     setFormData((prevData) => ({
       ...prevData,
-      deadline: date,
+      birthday: date,
     }));
   };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setFileName(file ? file.name : "");
   };
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+
+  const data = [
+    { label: "Profile", value: "profile", icon: UserCircleIcon },
+    { label: "Settings", value: "settings", icon: Cog6ToothIcon },
+  ];
+
   return (
     <div className="container px-20 pb-20">
       <Breadcumbs />
@@ -99,6 +133,8 @@ const Profil = () => {
                   <div className="col-span-2">
                     <input
                       type="text"
+                      value={user?.name || ""}
+                      onChange={handleInputChange}
                       placeholder="Ahmad Putut"
                       className="input input-bordered w-full max-w-sm"
                     />
@@ -111,6 +147,8 @@ const Profil = () => {
                   <div className="col-span-2">
                     <input
                       type="text"
+                      value={formData.prodi || ""}
+                      onChange={handleInputChange}
                       placeholder="S1 Informatika"
                       className="input input-bordered w-full max-w-sm"
                     />
@@ -136,6 +174,8 @@ const Profil = () => {
                   <div className="col-span-2">
                     <input
                       type="text"
+                      value={formData.nim || ""}
+                      onChange={handleInputChange}
                       placeholder="1234567"
                       className="input input-bordered w-full max-w-sm"
                     />
@@ -148,6 +188,8 @@ const Profil = () => {
                   <div className="col-span-2">
                     <input
                       type="text"
+                      value={formData.email || ""}
+                      onChange={handleInputChange}
                       placeholder="vifoca@gmail.com"
                       className="input input-bordered w-full max-w-sm"
                     />
@@ -160,6 +202,8 @@ const Profil = () => {
                   <div className="col-span-2">
                     <input
                       type="text"
+                      name="nomorhp"
+                      value={formData.nomorhp || ""}
                       placeholder="085924467356"
                       className="input input-bordered w-full max-w-sm"
                     />
@@ -339,7 +383,7 @@ const Profil = () => {
             </TabsBody>
           </Tabs>
           <div className="flex justify-end mr-4">
-            <button className="btn bg-blue text-white w-44 font-title font-medium">
+            <button onClick={handleUpdateProfile} className="btn bg-blue text-white w-44 font-title font-medium">
               Simpan
             </button>
           </div>

@@ -154,9 +154,9 @@ const Navbar = () => {
           className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
         >
           <li>
-            <Link to="/profil" className="justify-between">
+          <NavLink to={`/profile/${user?.uuid}`} className="justify-between">
               Profile
-            </Link>
+            </NavLink>
           </li>
           <li>
           <Link to="/profil" className="justify-between">

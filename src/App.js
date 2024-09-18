@@ -24,7 +24,7 @@ function App() {
           <Route path="/users" element={<Users />} />
           <Route path="/materi" element={<MateriList />} />
           <Route path="/latihan" element={<TugasList />} />
-          <Route path="/profil" element={<Profil />} />
+          <Route path="/profile/:id" element={<Profil />} />
           <Route path="/penilaian" element={<Penilaian />} />
           <Route path="/konfirmasi" element={<KonfirmasiMahasiswa />} />
 
