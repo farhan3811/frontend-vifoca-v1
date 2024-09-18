@@ -15,7 +15,7 @@ const API_URL = process.env.NODE_ENV === 'production'
 
 export const LoginUser = createAsyncThunk("user/LoginUser", async(user, thunkAPI) => {
     try {
-        const response = await axios.post(`${API_URL}/api/login`, {
+        const response = await axios.post(`${API_URL}/login`, {
             nim: user.nim,
             password: user.password
         });
@@ -30,7 +30,7 @@ export const LoginUser = createAsyncThunk("user/LoginUser", async(user, thunkAPI
 
 export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
     try {
-        const response = await axios.get(`${API_URL}/api/me`);
+        const response = await axios.get(`${API_URL}/me`);
         return response.data;
     } catch (error) {
         if (error.response) {
@@ -41,7 +41,7 @@ export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
 });
 
 export const LogOut = createAsyncThunk("user/LogOut", async() => {
-    await axios.delete(`${API_URL}/api/logout`);
+    await axios.delete(`${API_URL}/logout`);
 });
 
 export const authSlice = createSlice({
