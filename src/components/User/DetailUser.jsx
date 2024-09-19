@@ -64,7 +64,7 @@ export function EditModal({ user, open, onClose }) {
       console.log("Mengirim data:", validData); // Debugging
 
       await axios.patch(
-        `${API_URL}/${formData.id}`,
+        `${API_URL}/api/${formData.id}`,
         validData
       );
       onClose(); // Tutup modal setelah sukses

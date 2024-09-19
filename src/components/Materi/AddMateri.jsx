@@ -71,7 +71,7 @@ export function Modal1({ onAdd }) {
       data.append("ket_materi", formData.ket_materi);
       data.append("vid_materi", formData.vid_materi);
       const response = await axios.post(
-        `${API_URL}/materi`,
+        `${API_URL}/api/materi`,
         data,
         {
           headers: {

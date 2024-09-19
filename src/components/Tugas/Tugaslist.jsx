@@ -40,7 +40,7 @@ const List = () => {
   const getTugas = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/tugas`, {
+      const response = await axios.get(`${API_URL}/api/tugas`, {
         params: {
           search,
           sortOrder,
@@ -64,7 +64,7 @@ const List = () => {
 
   const getMateri = async () => {
     try {
-      const response = await axios.get(`${API_URL}/materi`);
+      const response = await axios.get(`${API_URL}/api/materi`);
       const { materi } = response.data;
       setMateri(materi);
     } catch (error) {
@@ -200,7 +200,7 @@ const List = () => {
                         <img
                       src={
                         item.foto_tugas
-                          ? `${API_URL}/${item.foto_tugas}`
+                          ? `${API_URL}/api/${item.foto_tugas}`
                           : getDefaultAvatar()
                       }
                           className="w-10 h-10 rounded-full"

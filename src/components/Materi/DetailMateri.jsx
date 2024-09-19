@@ -73,7 +73,7 @@ export function EditModal({ materi, open, onClose }) {
       data.append("ket_materi", formData.ket_materi);
       data.append("vid_materi", formData.vid_materi);     
       await axios.patch(
-        `${API_URL}/${materi.id}`,
+        `${API_URL}/api/${materi.id}`,
         data,
         {
           headers: {

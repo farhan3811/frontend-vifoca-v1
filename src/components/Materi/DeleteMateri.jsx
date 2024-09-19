@@ -12,7 +12,7 @@ export default function DeleteModal({ materi, open, onClose, getMateri }) {
   const handleDelete = async (materiid) => {
     try {
       console.log('Menghapus materi dengan ID:', materiid);
-      await axios.delete(`${API_URL}/${materiid}`);
+      await axios.delete(`${API_URL}/api/${materiid}`);
       getMateri();
       setSuccessMessage("Data berhasil dihapus!"); 
       onClose();

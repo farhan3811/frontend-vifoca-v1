@@ -16,6 +16,9 @@ const EditorMahasiswa = ({ initialContent, onChange }) => {
             "eqneditor image media undo redo | formatselect bold italic backcolor removeformat | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | help insertdatetime accordion anchor link || code ltr rtl",
             insertdatetime_formats: [ '%H:%M:%S', '%Y-%m-%d', '%I:%M:%S %p', '%D' ],
             link_default_target: '_blank',
+              file_picker_types: 'file image media',
+              image_title: true,
+              automatic_uploads: true,
           branding: false,
           setup: (editor) => {
             editor.on("init", () => {});

@@ -41,7 +41,7 @@ const MateriList = () => {
   const getMateri = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/materi`, {
+      const response = await axios.get(`${API_URL}/api/materi`, {
         params: {
           sortOrder,
           search: searchTerm,
@@ -212,7 +212,7 @@ const MateriList = () => {
                     <img
                       src={
                         materiItem.img_materi
-                          ? `${API_URL}/${materiItem.img_materi}`
+                          ? `${API_URL}/api/${materiItem.img_materi}`
                           : getDefaultAvatar()
                       }
                       alt={`Materi ${materiItem.name_materi}`}

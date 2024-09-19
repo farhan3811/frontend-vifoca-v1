@@ -27,7 +27,7 @@ function App() {
   useEffect(() => {
     const getTugas = async () => {
       try {
-        const response = await axios.get(`${API_URL}/tugas `);
+        const response = await axios.get(`${API_URL}/api/tugas `);
         setTask(response.data);
       } catch (error) {
         console.error("Failed to fetch task details:", error);
@@ -42,7 +42,7 @@ function App() {
   useEffect(() => {
     const getPenilaian = async () => {
       try {
-        const response = await axios.get(`${API_URL}/penilaian/${penilaianId}`);
+        const response = await axios.get(`${API_URL}/api/penilaian/${penilaianId}`);
         setPenilaian(response.data);
         setLoading(false);
       } catch (error) {
@@ -57,7 +57,7 @@ function App() {
   const handleSave = async () => {
     setSubmitLoading(true);
     try {
-      await axios.patch(`${API_URL}/penilaian/${penilaianId}`, penilaian);
+      await axios.patch(`${API_URL}/api/penilaian/${penilaianId}`, penilaian);
       setShowSuccessModal(true); // Show success modal
     } catch (error) {
       console.error("Error saving penilaian:", error);

@@ -32,7 +32,7 @@ export function ProfileCard() {
   const getMateri = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/materi`, {
+      const response = await axios.get(`${API_URL}/api/materi`, {
         params: {
           search: searchTerm,
           page: currentPage,
@@ -98,7 +98,7 @@ export function ProfileCard() {
                 <img
                   src={
                     materiItem.img_materi
-                      ? `${API_URL}/${materiItem.img_materi}`
+                      ? `${API_URL}/api/${materiItem.img_materi}`
                       : getDefaultAvatar()
                   }
                   alt={materiItem.name_materi}

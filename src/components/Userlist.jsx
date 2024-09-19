@@ -32,7 +32,6 @@ const Userlist = () => {
     "NIM",
     "Prodi",
     "Email",
-    "Role",
     "Aksi",
   ];
   const API_URL = process.env.NODE_ENV === 'production'
@@ -41,7 +40,7 @@ const Userlist = () => {
   const getUsers = async (page = 1) => {
     try {
       console.log("Fetching users with params:", { page, search, sortOrder });
-      const response = await axios.get(`${API_URL}/users`, {
+      const response = await axios.get(`${API_URL}/api/users`, {
         params: {
           page,
           search,
@@ -205,7 +204,6 @@ const Userlist = () => {
                   <td className="p-4">{user.nim}</td>
                   <td className="p-4">{user.prodi}</td>
                   <td className="p-4">{user.email}</td>
-                  <td className="p-4">{user.role}</td>
                   <td className="p-4 flex flex-wrap gap-2">
                     <Typography
                       color="red"

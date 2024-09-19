@@ -29,7 +29,7 @@ export function Modal1({ onAdd }) {
   : process.env.REACT_APP_API_URL_LOCAL;
   useEffect(() => {
     axios
-      .get(`${API_URL}/materi`)
+      .get(`${API_URL}/api/materi`)
       .then((response) => {
         setMateri(
           Array.isArray(response.data.materi) ? response.data.materi : []
@@ -106,7 +106,7 @@ export function Modal1({ onAdd }) {
       data.append("deadline", formData.deadline.toISOString());
 
       const response = await axios.post(
-        `${API_URL}/tugas`,
+        `${API_URL}/api/tugas`,
         data,
         { headers: { "Content-Type": "multipart/form-data" }, }
       );

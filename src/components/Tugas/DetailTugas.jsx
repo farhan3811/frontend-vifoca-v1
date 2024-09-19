@@ -28,7 +28,7 @@ export function Modal1({ tugas, open, onClose }) {
   : process.env.REACT_APP_API_URL_LOCAL;
   useEffect(() => {
     axios
-      .get(`${API_URL}/materi`)
+      .get(`${API_URL}/api/materi`)
       .then((response) => {
         setMateri(
           Array.isArray(response.data.materi) ? response.data.materi : []
@@ -100,7 +100,7 @@ export function Modal1({ tugas, open, onClose }) {
       data.append("deadline", formData.deadline.toISOString());
 
       const response = await axios.patch(
-        `${API_URL}/${tugas.id}`,
+        `${API_URL}/api/${tugas.id}`,
         data,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

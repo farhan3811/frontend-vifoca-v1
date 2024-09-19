@@ -30,7 +30,7 @@ const Profil = () => {
     useEffect(() => {
       const getUsers = async () => {
         try {
-          const response = await axios.get(`${API_URL}/users/${userId}`);
+          const response = await axios.get(`${API_URL}/api/users/${userId}`);
           setUser(response.data);
         } catch (error) {
           console.error("Error fetching penilaian:", error);
@@ -51,7 +51,7 @@ const Profil = () => {
 
   const handleUpdateProfile = async () => {
     try {
-      const response = await axios.patch(`${API_URL}/Users/${user.id}`, formData);
+      const response = await axios.patch(`${API_URL}/api/Users/${user.id}`, formData);
       alert('Profil berhasil diperbarui!');
     } catch (error) {
       console.error("Error updating profile:", error);

@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     const fetchUserId = async () => {
       try {
-        const response = await axios.get(`${API_URL}/get-user-id`);
+        const response = await axios.get(`${API_URL}/api/get-user-id`);
         setUserId(response.data.userId);
       } catch (error) {
         console.error("Failed to fetch user ID:", error);
@@ -39,7 +39,7 @@ function App() {
   useEffect(() => {
     const getTugas = async () => {
       try {
-        const response = await axios.get(`${API_URL}/tugas/${id_tugas}`);
+        const response = await axios.get(`${API_URL}/api/tugas/${id_tugas}`);
         setTask(response.data);
       } catch (error) {
         console.error("Failed to fetch task details:", error);
@@ -62,7 +62,7 @@ function App() {
         ket_penilaian: "", 
       };
 
-      const response = await axios.post(`${API_URL}/penilaian`, data);
+      const response = await axios.post(`${API_URL}/api/penilaian`, data);
 
       if (response.status === 201) {
         alert("Jawaban berhasil dikirim!");

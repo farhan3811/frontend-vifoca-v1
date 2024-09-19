@@ -61,7 +61,7 @@ export function Modal1({ onAdd }) {
         updated_at: timestamp,
       };
 
-      await axios.post(`${API_URL}/users`, userData);
+      await axios.post(`${API_URL}/api/users`, userData);
       setSuccessMessage("Data berhasil ditambahkan!");
       navigate("/users");
       onAdd(); 
