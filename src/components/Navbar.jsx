@@ -159,9 +159,9 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li>
-          <Link to="/profil" className="justify-between">
+          <NavLink to={`/profile/${user?.uuid}`} className="justify-between">
               Settings
-            </Link>
+              </NavLink>
           </li>
           <li>
             <a onClick={logout}>Logout</a>
