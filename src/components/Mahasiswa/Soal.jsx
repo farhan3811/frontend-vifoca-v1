@@ -14,6 +14,7 @@ function App() {
   const [editorContent, setEditorContent] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [isZoomed, setIsZoomed] = useState(false);
 
   const API_URL =
     process.env.NODE_ENV === "production"
@@ -35,6 +36,14 @@ function App() {
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleZoom = () => {
+    setIsZoomed(true); 
+  };
+
+  const closeZoom = () => {
+    setIsZoomed(false);
+  };
 
   useEffect(() => {
     const getTugas = async () => {
@@ -58,8 +67,8 @@ function App() {
         tugas_id: id_tugas,
         userId: userId,
         answer: editorContent,
-        form_penilaian: "", 
-        ket_penilaian: "", 
+        form_penilaian: "",
+        ket_penilaian: "",
       };
 
       const response = await axios.post(`${API_URL}/api/penilaian`, data);
@@ -77,13 +86,19 @@ function App() {
   };
 
   const handleEditorChange = (content) => {
-    setEditorContent(content); // Update state with new content
+    setEditorContent(content); 
   };
 
   const Loading = () => (
     <div className="flex items-center justify-center w-full h-full">
       <div className="flex flex-col items-center">
-        <ThreeDot variant="bounce" color="#10487A" size="large" text="Vifoca" textColor="#NaNNaNNaN" />
+        <ThreeDot
+          variant="bounce"
+          color="#10487A"
+          size="large"
+          text="Vifoca"
+          textColor="#NaNNaNNaN"
+        />
       </div>
     </div>
   );
@@ -103,9 +118,16 @@ function App() {
           <div>
             <div className="card bg-base-100 w-96 m-6">
               <div className="card-body h-56">
-                <Typography variant="h5" color="blue-gray">
-                  {task.nama_soal}
-                </Typography>
+                <img
+                  src={
+                    task.foto_tugas
+                      ? `${API_URL}/${task.foto_tugas}`
+                      : "getDefaultAvatar()"
+                  }
+                  className="w-full h-full cursor-pointer" // Add cursor pointer for clickability
+                  alt="Tugas Icon"
+                  onClick={handleZoom} // Open zoom modal when clicked
+                />
               </div>
             </div>
           </div>
@@ -119,21 +141,18 @@ function App() {
           <div className="flex flex-nowrap items-center">
             <div>
               <Typography className="mb-2 bg-sulit text-white font-title font-medium px-6 py-2 rounded">
-              <td>
-                        {task.deadline
-                          ? new Date(task.deadline).toLocaleString(
-                              "id-ID",
-                              {
-                                weekday: "long",
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              }
-                            )
-                          : "N/A"}
-                      </td>
+                <td>
+                  {task.deadline
+                    ? new Date(task.deadline).toLocaleString("id-ID", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })
+                    : "N/A"}
+                </td>
               </Typography>
             </div>
             <div>
@@ -173,8 +192,12 @@ function App() {
             </div>
           )}
 
-          <Editor initialContent={editorContent} className="z-10" onChange={handleEditorChange} />
-          
+          <Editor
+            initialContent={editorContent}
+            className="z-10"
+            onChange={handleEditorChange}
+          />
+
           <div className="flex justify-end mt-4">
             <button
               className="btn bg-blue text-white font-title font-medium px-28"
@@ -186,6 +209,28 @@ function App() {
           </div>
         </CardBody>
       </Card>
+
+      {isZoomed && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="relative">
+            <img
+              src={
+                task.foto_tugas
+                  ? `${API_URL}/${task.foto_tugas}`
+                  : "getDefaultAvatar()"
+              }
+              className="max-w-full max-h-screen"
+              alt="Zoomed Tugas Icon"
+            />
+            <button
+              onClick={closeZoom}
+              className="absolute top-0 right-0 mt-2 mr-2 text-white text-2xl"
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
