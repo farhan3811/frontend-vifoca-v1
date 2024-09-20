@@ -9,7 +9,6 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 import { ThreeDot } from "react-loading-indicators";
-
 import { Link, useParams } from "react-router-dom";
 
 const Loading = () => (
@@ -100,7 +99,7 @@ export function CardDefault() {
           <img
             src={
               materi.img_materi
-                ? `${API_URL}/api/${materi.img_materi}`
+                ? `${API_URL}/${materi.img_materi}`
                 : getDefaultAvatar()
             }
             className="flex items-center justify-between"

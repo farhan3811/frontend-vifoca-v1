@@ -212,7 +212,7 @@ const MateriList = () => {
                     <img
                       src={
                         materiItem.img_materi
-                          ? `${API_URL}/api/${materiItem.img_materi}`
+                          ? `${API_URL}/${materiItem.img_materi}`
                           : getDefaultAvatar()
                       }
                       alt={`Materi ${materiItem.name_materi}`}

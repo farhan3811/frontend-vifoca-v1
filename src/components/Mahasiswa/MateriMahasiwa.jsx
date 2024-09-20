@@ -98,7 +98,7 @@ export function ProfileCard() {
                 <img
                   src={
                     materiItem.img_materi
-                      ? `${API_URL}/api/${materiItem.img_materi}`
+                      ? `${API_URL}/${materiItem.img_materi}`
                       : getDefaultAvatar()
                   }
                   alt={materiItem.name_materi}

@@ -24,7 +24,7 @@ const PenilaianList = () => {
       });
       const filteredPenilaian = response.data.penilaian.filter(item => item.form_penilaian && item.form_penilaian.trim() !== "");
 
-      console.log("Filtered penilaian:", filteredPenilaian); // Tambahkan log ini
+      console.log("Filtered penilaian:", filteredPenilaian);
       setPenilaian(filteredPenilaian);
     } catch (error) {
       console.error("Error fetching penilaian:", error);
