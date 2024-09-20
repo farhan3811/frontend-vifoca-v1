@@ -49,7 +49,7 @@ module.exports = withMT({
         'penilaiant':'#F5086C',
         'blue': '#10487A',
         'ground': '#FBF7F7',
-        'sky': '#B4DCFF',
+        'sky': '#DAEDFF',
         'even': '#F4F3FF',
         'trash': '#CC0000',
         'edit': '#00B955',
