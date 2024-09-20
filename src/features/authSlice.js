@@ -18,6 +18,8 @@ export const LoginUser = createAsyncThunk("user/LoginUser", async(user, thunkAPI
         const response = await axios.post(`${API_URL}/api/login`, {
             nim: user.nim,
             password: user.password
+        }, {
+            withCredentials: true // Enable this to send cookies with the request
         });
         return response.data;
     } catch (error) {
@@ -30,7 +32,9 @@ export const LoginUser = createAsyncThunk("user/LoginUser", async(user, thunkAPI
 
 export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
     try {
-        const response = await axios.get(`${API_URL}/api/me`);
+        const response = await axios.get(`${API_URL}/api/me`, {
+            withCredentials: true // Add this to send cookies with the request
+        });
         return response.data;
     } catch (error) {
         if (error.response) {
@@ -39,6 +43,7 @@ export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
         }
     }
 });
+
 
 export const LogOut = createAsyncThunk("user/LogOut", async() => {
     await axios.delete(`${API_URL}/api/logout`);
