@@ -104,7 +104,7 @@ export function Modal1({ tugas, open, onClose }) {
       data.append("foto_tugas", formData.foto_tugas);
       data.append("ket_assigment", formData.ket_assigment);
       data.append("deadline", formData.deadline.toISOString());
-      const response = await axios.patch(`${API_URL}/api/${tugas.id}`, data, {
+      const response = await axios.patch(`${API_URL}/api/tugas/${tugas.id}`, data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

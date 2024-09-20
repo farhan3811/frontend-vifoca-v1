@@ -200,7 +200,7 @@ const List = () => {
                         <img
                       src={
                         item.foto_tugas
-                          ? `${API_URL}/api/${item.foto_tugas}`
+                          ? `${API_URL}/${item.foto_tugas}`
                           : getDefaultAvatar()
                       }
                           className="w-10 h-10 rounded-full"
