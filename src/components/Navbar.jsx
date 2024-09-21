@@ -40,7 +40,7 @@ const Navbar = () => {
           {user && user.role === "mahasiswa" && (
             <li>
               <NavLink 
-                to="/mahasiswa/penilaian" 
+                to={`/mahasiswa/penilaian/${user.uuid}`}
                 className={({ isActive }) => 
                   `nav-link ${isActive ? 'bg-transparent text-blue-500' : 'text-gray-800'}` // Transparent if active
                 }

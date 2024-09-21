@@ -66,7 +66,7 @@ export function EditModal({ user, open, onClose }) {
       console.log("Mengirim data:", validData);
 
       const response = await axios.patch(
-        `${API_URL}/api/users/${formData.id}`,
+        `${API_URL}/users/${formData.id}`,
         validData
       );
   

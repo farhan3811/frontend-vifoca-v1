@@ -39,7 +39,7 @@ export function CardDefault() {
   const getTugasByMateri = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/api/materi/${materi_id}/tugas`);
+      const response = await axios.get(`${API_URL}/materi/${materi_id}/tugas`);
       setTugas(response.data.tugas);
     } catch (error) {
       console.error("Failed to fetch tasks:", error);
@@ -50,7 +50,7 @@ export function CardDefault() {
 
   const getMateri = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/materi/${materi_id}`);
+      const response = await axios.get(`${API_URL}/materi/${materi_id}`);
       setMateri(response.data);
     } catch (error) {
       console.error("Failed to fetch materi details:", error);

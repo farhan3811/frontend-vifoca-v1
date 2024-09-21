@@ -32,7 +32,7 @@ function App() {
           <Route path="/mahasiswa/materi" element={<MateriMahasiswa />} />
           <Route path="/mahasiswa/tugas/:materi_id" element={<TugasMahasiswa />} />
           <Route path="/tugas/:id_tugas" element={<Canvas />} />
-          <Route path="/mahasiswa/penilaian" element={<PenilaianMahasiswa />} />
+          <Route path="/mahasiswa/penilaian/:userId" element={<PenilaianMahasiswa />} />
           <Route path="/mahasiswa/penilaians" element={<PenilaianMahasiswas />} />
           <Route path="/penilaian/:penilaianId" element={<PenilaianSoal />} />
         </Routes>

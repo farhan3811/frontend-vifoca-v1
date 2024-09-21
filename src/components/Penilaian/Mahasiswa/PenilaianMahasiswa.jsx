@@ -15,6 +15,7 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [isZoomed, setIsZoomed] = useState(false);
 
   const API_URL =
     process.env.NODE_ENV === "production"
@@ -23,11 +24,17 @@ function App() {
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  const handleZoom = () => {
+    setIsZoomed(true); 
+  };
 
+  const closeZoom = () => {
+    setIsZoomed(false);
+  };
   useEffect(() => {
     const getTugas = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/tugas `);
+        const response = await axios.get(`${API_URL}/tugas `);
         setTask(response.data);
       } catch (error) {
         console.error("Failed to fetch task details:", error);
@@ -42,7 +49,7 @@ function App() {
   useEffect(() => {
     const getPenilaian = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/penilaian/${penilaianId}`);
+        const response = await axios.get(`${API_URL}/penilaian/${penilaianId}`);
         setPenilaian(response.data);
         setLoading(false);
       } catch (error) {
@@ -57,8 +64,8 @@ function App() {
   const handleSave = async () => {
     setSubmitLoading(true);
     try {
-      await axios.patch(`${API_URL}/api/penilaian/${penilaianId}`, penilaian);
-      setShowSuccessModal(true); // Show success modal
+      await axios.patch(`${API_URL}/penilaian/${penilaianId}`, penilaian);
+      setShowSuccessModal(true);
     } catch (error) {
       console.error("Error saving penilaian:", error);
     } finally {
@@ -145,9 +152,16 @@ function App() {
           <div>
             <div className="card bg-base-100 w-96 m-6">
               <div className="card-body h-56">
-                <Typography variant="h5" color="blue-gray">
-                  {penilaian?.tuga?.nama_soal}
-                </Typography>
+              <img
+                  src={
+                    task.foto_tugas
+                      ? `${API_URL}/${task.foto_tugas}`
+                      : "getDefaultAvatar()"
+                  }
+                  className="w-full h-full cursor-pointer" // Add cursor pointer for clickability
+                  alt="Tugas Icon"
+                  onClick={handleZoom} // Open zoom modal when clicked
+                />
               </div>
             </div>
           </div>
@@ -254,6 +268,27 @@ function App() {
           </div>
         </CardBody>
       </Card>
+      {isZoomed && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="relative">
+            <img
+              src={
+                task.foto_tugas
+                  ? `${API_URL}/${task.foto_tugas}`
+                  : "getDefaultAvatar()"
+              }
+              className="max-w-full max-h-screen"
+              alt="Zoomed Tugas Icon"
+            />
+            <button
+              onClick={closeZoom}
+              className="absolute top-0 right-0 mt-2 mr-2 text-white text-2xl"
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

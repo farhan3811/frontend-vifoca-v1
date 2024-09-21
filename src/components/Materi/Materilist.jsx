@@ -41,7 +41,7 @@ const MateriList = () => {
   const getMateri = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/api/materi`, {
+      const response = await axios.get(`${API_URL}/materi`, {
         params: {
           sortOrder,
           search: searchTerm,

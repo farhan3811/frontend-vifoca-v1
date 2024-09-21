@@ -19,7 +19,7 @@ const PenilaianList = () => {
 
   const getPenilaian = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/penilaian`, {
+      const response = await axios.get(`${API_URL}/penilaian`, {
         params: { search },
       });
       const filteredPenilaian = response.data.penilaian.filter(item => item.form_penilaian && item.form_penilaian.trim() !== "");
@@ -33,7 +33,7 @@ const PenilaianList = () => {
 
   const getMateri = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/materi`);
+      const response = await axios.get(`${API_URL}/materi`);
       const materiData = response.data.materi.reduce((map, materi) => {
         map[materi.id] = materi.name_materi;
         return map;

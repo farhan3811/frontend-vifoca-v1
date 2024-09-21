@@ -32,7 +32,7 @@ export function ProfileCard() {
   const getMateri = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/api/materi`, {
+      const response = await axios.get(`${API_URL}/materi`, {
         params: {
           search: searchTerm,
           page: currentPage,

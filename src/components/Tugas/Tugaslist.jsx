@@ -39,7 +39,7 @@ const List = () => {
   const getTugas = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/api/tugas`, {
+      const response = await axios.get(`${API_URL}/tugas`, {
         params: {
           search,
           sortOrder,
@@ -63,7 +63,7 @@ const List = () => {
 
   const getMateri = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/materi`);
+      const response = await axios.get(`${API_URL}/materi`);
       const { materi } = response.data;
       setMateri(materi);
     } catch (error) {
