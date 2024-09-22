@@ -14,6 +14,7 @@ import KonfirmasiMahasiswa from "./pages/KonfirmasiMahasiswa";
 import PenilaianMahasiswa from "./pages/Mahasiswa/MahasiswaPenilaian";
 import PenilaianMahasiswas from "./pages/Penilaian";
 import PenilaianSoal from "./pages/PenilaianMahasiswa";
+import NotFound from "./components/404";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/profile/:id" element={<Profil />} />
           <Route path="/penilaian" element={<Penilaian />} />
           <Route path="/konfirmasi" element={<KonfirmasiMahasiswa />} />
+          <Route path="/404" element={<NotFound />} />
 
           {/* Mahasiswa Route */}
           <Route path="/mahasiswa/materi" element={<MateriMahasiswa />} />

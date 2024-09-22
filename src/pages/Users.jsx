@@ -19,9 +19,9 @@ const Users = () => {
       navigate("/");
     }
     if (user && user.role !== "admin") {
-      navigate("/dashboard");
-    }
-  }, [isError, navigate]);
+        navigate("../../404");
+      }
+    }, [isError, navigate, user]);
   return (
     <Layout>
       <Userlist />
