@@ -22,15 +22,16 @@ const RegisterPage = () => {
     ? process.env.REACT_APP_API_URL_PROD
     : process.env.REACT_APP_API_URL_LOCAL;
     try {
-      const response = await axios.post(`${API_URL}/auth/register`, {
+      const response = await axios.post(`${API_URL}/register`, {
         name,
         email,
         nim,
         password,
+        role: 'mahasiswa',
       });
 
-      alert(response.data.msg);  // Menampilkan pesan sukses
-      navigate('/');  // Redirect ke halaman login setelah sukses
+      alert(response.data.msg);
+      navigate('/');
     } catch (error) {
       setErrorMessage(error.response?.data?.msg || "Terjadi kesalahan.");
     }

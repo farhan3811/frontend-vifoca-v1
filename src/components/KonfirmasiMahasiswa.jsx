@@ -7,9 +7,6 @@ import {
   Option,
   Button,
 } from "@material-tailwind/react";
-import AddModal from "./User/AddUser";
-import EditModal from "./User/EditUser";
-import DetailModal from "./User/DetailUser";
 import DeleteModal from "./User/DeleteUser";
 import DefaultPagination from "./Pagination/Pagination";
 import Breadcumbs from "./User/Breadcumbs";
@@ -17,30 +14,19 @@ import Breadcumbs from "./User/Breadcumbs";
 const Userlist = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [openEditModal, setOpenEditModal] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [openDetailModal, setOpenDetailModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState("");
   const [sortOrder, setSortOrder] = useState("desc");
-  const TABLE_HEAD = [
-    "No",
-    "Profile",
-    "Nama",
-    "NIM",
-    "Prodi",
-    "Email",
-    "Role",
-    "Aksi",
-  ];
-  const API_URL = process.env.NODE_ENV === 'production'
-  ? process.env.REACT_APP_API_URL_PROD
-  : process.env.REACT_APP_API_URL_LOCAL;
-  const getUsers = async (page = 1) => {
+  const TABLE_HEAD = ["No", "Profile", "Nama", "NIM", "Email", "Aksi"];
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_API_URL_PROD
+      : process.env.REACT_APP_API_URL_LOCAL;
+  const getPendingUsers = async (page = 1) => {
     try {
-      console.log("Fetching users with params:", { page, search, sortOrder });
-      const response = await axios.get(`${API_URL}/users`, {
+      const response = await axios.get(`${API_URL}/users/pending`, {
         params: {
           page,
           search,
@@ -48,7 +34,7 @@ const Userlist = () => {
         },
       });
       console.log("Response data:", response.data);
-      setUsers(response.data.users || []);
+      setUsers(response.data.pendingUsers);
       setTotalPages(response.data.totalPages || 1);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -56,37 +42,20 @@ const Userlist = () => {
   };
 
   useEffect(() => {
-    getUsers(currentPage);
+    getPendingUsers(currentPage, search, sortOrder);
   }, [currentPage, search, sortOrder]);
+  
 
   const getDefaultAvatar = () => "https://via.placeholder.com/150";
-
-  const handleAdd = async () => {
-    await getUsers(currentPage);
+  const approveUser = async (userId) => {
+    try {
+      await axios.put(`${API_URL}/users/approve/${userId}`);
+      console.log(`User with ID ${userId} approved successfully.`);
+      getPendingUsers(currentPage);
+    } catch (error) {
+      console.error("Error approving user:", error);
+    }
   };
-
-  const handleEdit = (user) => {
-    setSelectedUser(user);
-    setOpenEditModal(true);
-  };
-
-  const handleCloseEditModal = () => {
-    setOpenEditModal(false);
-    setSelectedUser(null);
-    getUsers(currentPage);
-  };
-
-  const handleDetail = (user) => {
-    setSelectedUser(user);
-    setOpenDetailModal(true);
-  };
-
-  const handleCloseDetailModal = () => {
-    setOpenDetailModal(false);
-    setSelectedUser(null);
-    getUsers(currentPage);
-  };
-
   const handleDeleteClick = (user) => {
     setSelectedUser(user);
     setDeleteModalOpen(true);
@@ -153,11 +122,13 @@ const Userlist = () => {
                 viewBox="0 0 15 14"
                 className="h-4 w-4"
               >
-<path d="M13 0H2C1.15625 0 0.5 0.6875 0.5 1.5V12.5C0.5 13.3438 1.15625 14 2 14H13C13.8125 14 14.5 13.3438 14.5 12.5V1.5C14.5 0.6875 13.8125 0 13 0ZM13 12.5H2V1.5H13V12.5ZM11.875 4.96875C12 4.8125 12 4.59375 11.875 4.4375L11.1562 3.71875C11.0312 3.5625 10.7812 3.5625 10.625 3.71875L6.21875 8.09375L4.34375 6.21875C4.1875 6.0625 3.96875 6.0625 3.8125 6.21875L3.09375 6.90625C2.96875 7.0625 2.96875 7.3125 3.09375 7.4375L5.9375 10.3125C6.09375 10.4688 6.3125 10.4688 6.46875 10.3125L11.875 4.96875Z" fill="white"/>
+                <path
+                  d="M13 0H2C1.15625 0 0.5 0.6875 0.5 1.5V12.5C0.5 13.3438 1.15625 14 2 14H13C13.8125 14 14.5 13.3438 14.5 12.5V1.5C14.5 0.6875 13.8125 0 13 0ZM13 12.5H2V1.5H13V12.5ZM11.875 4.96875C12 4.8125 12 4.59375 11.875 4.4375L11.1562 3.71875C11.0312 3.5625 10.7812 3.5625 10.625 3.71875L6.21875 8.09375L4.34375 6.21875C4.1875 6.0625 3.96875 6.0625 3.8125 6.21875L3.09375 6.90625C2.96875 7.0625 2.96875 7.3125 3.09375 7.4375L5.9375 10.3125C6.09375 10.4688 6.3125 10.4688 6.46875 10.3125L11.875 4.96875Z"
+                  fill="white"
+                />
               </svg>
               Konfirmasi
             </Button>
-            <AddModal onAdd={handleAdd} />
           </div>
         </div>
 
@@ -197,9 +168,7 @@ const Userlist = () => {
                   </td>
                   <td className="p-4">{user.name}</td>
                   <td className="p-4">{user.nim}</td>
-                  <td className="p-4">{user.prodi}</td>
                   <td className="p-4">{user.email}</td>
-                  <td className="p-4">{user.role}</td>
                   <td className="p-4 flex flex-wrap gap-2">
                     <Typography
                       color="red"
@@ -222,25 +191,7 @@ const Userlist = () => {
                     </Typography>
                     <Typography
                       color="blue"
-                      onClick={() => handleDetail(user)}
-                      tooltip="Edit"
-                    >
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 19 12"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="bg-blue p-1 rounded cursor-pointer"
-                      >
-                        <path
-                          d="M9.13965 2.5C8.7959 2.53125 8.45215 2.5625 8.13965 2.65625C8.2959 2.90625 8.3584 3.21875 8.38965 3.5C8.38965 4.46875 7.57715 5.25 6.63965 5.25C6.32715 5.25 6.01465 5.1875 5.7959 5.03125C5.70215 5.34375 5.63965 5.65625 5.63965 6C5.63965 7.9375 7.20215 9.5 9.13965 9.5C11.0771 9.5 12.6396 7.9375 12.6396 6C12.6396 4.09375 11.0771 2.53125 9.13965 2.53125V2.5ZM18.0146 5.5625C16.3271 2.25 12.9521 0 9.13965 0C5.2959 0 1.9209 2.25 0.233398 5.5625C0.170898 5.6875 0.139648 5.84375 0.139648 6C0.139648 6.1875 0.170898 6.34375 0.233398 6.46875C1.9209 9.78125 5.2959 12 9.13965 12C12.9521 12 16.3271 9.78125 18.0146 6.46875C18.0771 6.34375 18.1084 6.1875 18.1084 6.03125C18.1084 5.84375 18.0771 5.6875 18.0146 5.5625ZM9.13965 10.5C6.0459 10.5 3.20215 8.78125 1.70215 6C3.20215 3.21875 6.0459 1.5 9.13965 1.5C12.2021 1.5 15.0459 3.21875 16.5459 6C15.0459 8.78125 12.2021 10.5 9.13965 10.5Z"
-                          fill="white"
-                        />
-                      </svg>
-                    </Typography>
-                    <Typography
-                      color="blue"
-                      onClick={() => handleEdit(user)}
+                      onClick={() => approveUser(user.uuid)}
                       tooltip="Edit"
                     >
                       <svg
@@ -251,7 +202,7 @@ const Userlist = () => {
                         className="bg-edit p-1 rounded cursor-pointer"
                       >
                         <path
-                          d="M12.7021 11.7812L13.7021 10.7812C13.8584 10.625 14.1396 10.75 14.1396 10.9688V15.5C14.1396 16.3438 13.4521 17 12.6396 17H1.63965C0.795898 17 0.139648 16.3438 0.139648 15.5V4.5C0.139648 3.6875 0.795898 3 1.63965 3H10.1709C10.3896 3 10.5146 3.28125 10.3584 3.4375L9.3584 4.4375C9.2959 4.5 9.2334 4.5 9.1709 4.5H1.63965V15.5H12.6396V11.9688C12.6396 11.9062 12.6396 11.8438 12.7021 11.7812ZM17.5771 5.5L9.38965 13.6875L6.5459 14C5.7334 14.0938 5.0459 13.4062 5.13965 12.5938L5.45215 9.75L13.6396 1.5625C14.3584 0.84375 15.5146 0.84375 16.2334 1.5625L17.5771 2.90625C18.2959 3.625 18.2959 4.78125 17.5771 5.5ZM14.5146 6.4375L12.7021 4.625L6.88965 10.4375L6.63965 12.5L8.70215 12.25L14.5146 6.4375ZM16.5146 3.96875L15.1709 2.625C15.0459 2.46875 14.8271 2.46875 14.7021 2.625L13.7646 3.5625L15.5771 5.40625L16.5459 4.4375C16.6709 4.28125 16.6709 4.09375 16.5146 3.96875Z"
+                          d="M20.0459 5.0625C20.1709 5.1875 20.1709 5.375 20.0459 5.5L15.9834 9.59375C15.8584 9.71875 15.6396 9.71875 15.5146 9.59375L13.2334 7.25C13.1084 7.125 13.1084 6.9375 13.2334 6.8125L13.8271 6.1875C13.9521 6.0625 14.1396 6.0625 14.2646 6.1875L15.7646 7.6875L18.9834 4.4375C19.1084 4.3125 19.2959 4.3125 19.4209 4.4375L20.0459 5.0625ZM7.13965 9C4.63965 9 2.63965 7 2.63965 4.5C2.63965 2.03125 4.63965 0 7.13965 0C9.6084 0 11.6396 2.03125 11.6396 4.5C11.6396 7 9.6084 9 7.13965 9ZM7.13965 1.5C5.4834 1.5 4.13965 2.875 4.13965 4.5C4.13965 6.15625 5.4834 7.5 7.13965 7.5C8.76465 7.5 10.1396 6.15625 10.1396 4.5C10.1396 2.875 8.76465 1.5 7.13965 1.5ZM9.9209 9.5C12.2334 9.5 14.1396 11.4062 14.1396 13.7188V14.5C14.1396 15.3438 13.4521 16 12.6396 16H1.63965C0.795898 16 0.139648 15.3438 0.139648 14.5V13.7188C0.139648 11.4062 2.01465 9.5 4.32715 9.5C5.2334 9.5 5.63965 10 7.13965 10C8.6084 10 9.01465 9.5 9.9209 9.5ZM12.6396 14.5V13.7188C12.6396 12.2188 11.4209 11 9.9209 11C9.45215 11 8.7334 11.5 7.13965 11.5C5.51465 11.5 4.7959 11 4.32715 11C2.82715 11 1.63965 12.2188 1.63965 13.7188V14.5H12.6396Z"
                           fill="white"
                         />
                       </svg>
@@ -275,21 +226,11 @@ const Userlist = () => {
           onPageChange={handlePageChange}
         />
       </Card>
-      <EditModal
-        user={selectedUser}
-        open={openEditModal}
-        onClose={handleCloseEditModal}
-      />
-      <DetailModal
-        user={selectedUser}
-        open={openDetailModal}
-        onClose={handleCloseDetailModal}
-      />
       <DeleteModal
         user={selectedUser}
         open={deleteModalOpen}
         onClose={handleCloseModal}
-        getUsers={getUsers}
+        getUsers={getPendingUsers}
       />
     </div>
   );
