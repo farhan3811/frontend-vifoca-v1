@@ -22,7 +22,6 @@ module.exports = withMT({
     },
     extend: {
       backgroundImage: {
-        'hero': "url('/sign.svg')",
         'footer-texture': "url('/img/footer-texture.png')",
       },
       fontFamily: {
