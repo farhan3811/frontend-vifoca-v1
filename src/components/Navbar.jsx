@@ -99,7 +99,7 @@ const Navbar = () => {
               </NavLink>
             </li>
           )}
-                    {user && (user.role === "admin" || user.role === "user") && (
+          {user && (user.role === "admin" ) && (
             <li>
               <NavLink 
                 to="/users" 
