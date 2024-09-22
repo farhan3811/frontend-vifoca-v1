@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
@@ -13,14 +20,15 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     if (password !== confirmPassword) {
-      setErrorMessage("Password dan konfirmasi password tidak cocok.");
+      setErrorMessage("Password and confirmation password do not match.");
       return;
     }
+
     const API_URL = process.env.NODE_ENV === 'production'
-    ? process.env.REACT_APP_API_URL_PROD
-    : process.env.REACT_APP_API_URL_LOCAL;
+      ? process.env.REACT_APP_API_URL_PROD
+      : process.env.REACT_APP_API_URL_LOCAL;
+
     try {
       const response = await axios.post(`${API_URL}/register`, {
         name,
@@ -33,67 +41,114 @@ const RegisterPage = () => {
       alert(response.data.msg);
       navigate('/');
     } catch (error) {
-      setErrorMessage(error.response?.data?.msg || "Terjadi kesalahan.");
+      setErrorMessage(error.response?.data?.msg || "An error occurred.");
     }
   };
 
   return (
     <div className="register-page">
-      <h1>Register</h1>
-      {errorMessage && <p className="error">{errorMessage}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="nim">NPM/NIDN</label>
-          <input
-            type="number"
-            id="nim"
-            value={nim}
-            onChange={(e) => setNim(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="confirmPassword">Confirm Password:</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Register</button>
-      </form>
+      <div className="flex items-center justify-center mt-10 pb-20 bg-no-repeat bg-cover">
+        <Card className="w-4/12 py-8 px-4">
+          <div className="text-center">
+            <Typography variant="h3" color="black" className="font-title">
+Daftar
+            </Typography>
+            <Typography color="black" className="font-title text-sm">
+            Masukkan NPM dan password Anda untuk melakukan pendaftaran
+            </Typography>
+          </div>
+          <CardBody className="flex flex-col">
+            <div className="mb-4">
+              <Typography className="font-title font-medium">Nama</Typography>
+              <label className="input input-bordered flex items-center gap-2">
+                <input 
+                  type="text" 
+                  className="grow" 
+                  placeholder="Nama"
+                  value={name} 
+                  onChange={(e) => setName(e.target.value)}
+                  required 
+                />
+              </label>
+            </div>
+            <div className="mb-4">
+              <Typography className="font-title font-medium">NPM</Typography>
+              <label className="input input-bordered flex items-center gap-2">
+                <input 
+                  type="text" 
+                  className="grow" 
+                  placeholder="NPM"
+                  value={nim} 
+                  onChange={(e) => setNim(e.target.value)}
+                  required 
+                />
+              </label>
+            </div>
+            <div className="mb-4">
+              <Typography className="font-title font-medium">E-mail</Typography>
+              <label className="input input-bordered flex items-center gap-2">
+                <input 
+                  type="email" 
+                  className="grow" 
+                  placeholder="email@example.com"
+                  value={email} 
+                  onChange={(e) => setEmail(e.target.value)}
+                  required 
+                />
+              </label>
+            </div>
+            <div className="mb-4">
+              <Typography className="font-title font-medium">Password</Typography>
+              <label className="input input-bordered flex items-center gap-2">
+                <input 
+                  type="password" 
+                  className="grow" 
+                  placeholder="Password"
+                  value={password} 
+                  onChange={(e) => setPassword(e.target.value)}
+                  required 
+                />
+              </label>
+            </div>
+            <div className="mb-4">
+              <Typography className="font-title font-medium">
+                Confirm Password
+              </Typography>
+              <label className="input input-bordered flex items-center gap-2">
+                <input 
+                  type="password" 
+                  className="grow" 
+                  placeholder="Confirm Password"
+                  value={confirmPassword} 
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required 
+                />
+              </label>
+            </div>
+          </CardBody>
+          {errorMessage && (
+            <div className="text-red-500 text-sm text-center mb-4">
+              {errorMessage}
+            </div>
+          )}
+          <CardFooter className="pt-0">
+            <Button 
+              onClick={handleSubmit} 
+              className="bg-blue font-title font-medium" 
+              fullWidth
+            >
+              Daftar
+            </Button>
+            <div className="py-3 flex items-center text-sm text-gray-800 before:flex-1 before:border-t before:border-gray-400 before:me-6 after:flex-1 after:border-t after:border-gray-400 after:ms-6 dark:text-white dark:before:border-neutral-600 dark:after:border-neutral-600">
+            Atau
+          </div>
+          <Link to="/">
+          <Button className="bg-white text-black border-2 font-title font-medium" fullWidth>
+            Masuk
+          </Button></Link>
+          </CardFooter>
+        </Card>
+      </div>
     </div>
   );
 };
