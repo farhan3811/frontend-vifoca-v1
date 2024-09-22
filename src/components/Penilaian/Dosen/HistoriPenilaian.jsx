@@ -83,8 +83,8 @@ const PenilaianList = () => {
                 <td className="p-4">{materiMap[item.tuga?.materi_id] || "N/A"}</td>
                 <td className="p-4">{item.tuga?.nama_soal || "N/A"}</td>
                 <td className="p-4">
-                  {item.createdat
-                    ? new Date(item.createdat).toLocaleString("id-ID", {
+                  {item.updatedat
+                    ? new Date(item.updatedat).toLocaleString("id-ID", {
                         weekday: "long",
                         year: "numeric", 
                         month: "long",

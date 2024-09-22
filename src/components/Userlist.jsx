@@ -40,7 +40,6 @@ const Userlist = () => {
 
   const getUsers = async (page = 1) => {
     try {
-      console.log("Fetching users with params:", { page, search, sortOrder });
       const response = await axios.get(`${API_URL}/users`, {
         params: {
           page,
@@ -48,14 +47,13 @@ const Userlist = () => {
           sortOrder,
         },
       });
-      console.log("Response data:", response.data);
-      setUsers(response.data.users || []);
+      const filteredUsers = response.data.users.filter(user => user.isApproved === true);
+      setUsers(filteredUsers);
       setTotalPages(response.data.totalPages || 1);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
   };
-
   useEffect(() => {
     getUsers(currentPage);
   }, [currentPage, search, sortOrder]);
