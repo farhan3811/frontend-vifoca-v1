@@ -1,18 +1,27 @@
-import React from "react";
-import { NavLink, useNavigate, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { LogOut, reset } from "../features/authSlice";
+import { LogOut, reset, getMe } from "../features/authSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
+  const { user, isLoading } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!user) {
+      dispatch(getMe());
+    }
+  }, [dispatch, user]);
 
   const logout = () => {
     dispatch(LogOut());
     dispatch(reset());
     navigate("/");
+  };
+  const getDefaultAvatar = () => {
+    return "https://via.placeholder.com/150";
   };
 
   return (
@@ -26,112 +35,119 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1 flex space-x-4">
           {/* Start Mahasiswa Only*/}
           {user && user.role === "mahasiswa" && (
-            <li>
-              <NavLink 
-                to="/mahasiswa/materi" 
-                className={({ isActive }) => 
-                  `nav-link ${isActive ? 'bg-transparent text-blue-500' : 'text-gray-800'}` // Transparent if active
-                }
-              >
-                Materi
-              </NavLink>
-            </li>
+            <>
+              <li>
+                <NavLink
+                  to="/mahasiswa/materi"
+                  className={({ isActive }) =>
+                    `nav-link ${
+                      isActive ? "bg-transparent text-blue-500" : "text-gray-800"
+                    }`
+                  }
+                >
+                  Materi
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to={`/mahasiswa/penilaian/${user.uuid}`}
+                  className={({ isActive }) =>
+                    `nav-link ${
+                      isActive ? "bg-transparent text-blue-500" : "text-gray-800"
+                    }`
+                  }
+                >
+                  Penilaian
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/#"
+                  className={({ isActive }) =>
+                    `nav-link ${
+                      isActive ? "bg-transparent text-blue-500" : "text-gray-800"
+                    }`
+                  }
+                >
+                  Tentang
+                </NavLink>
+              </li>
+            </>
           )}
-          {user && user.role === "mahasiswa" && (
-            <li>
-              <NavLink 
-                to={`/mahasiswa/penilaian/${user.uuid}`}
-                className={({ isActive }) => 
-                  `nav-link ${isActive ? 'bg-transparent text-blue-500' : 'text-gray-800'}` // Transparent if active
-                }
-              >
-                Penilaian
-              </NavLink>
-            </li>
-          )}
-          {user && user.role === "mahasiswa" && (
-            <li>
-              <NavLink 
-                to="/#" 
-                className={({ isActive }) => 
-                  `nav-link ${isActive ? 'bg-transparent text-blue-500' : 'text-gray-800'}` // Transparent if active
-                }
-              >
-                Tentang
-              </NavLink>
-            </li>
-          )}
-          {/* Start Mahasiswa End*/}
           {/* Start Admin dan Dosen */}
           {user && (user.role === "admin" || user.role === "user") && (
-            <li>
-              <NavLink 
-                to="/dashboard" 
-                className={({ isActive }) => 
-                  `nav-link ${isActive ? 'bg-transparent text-blue-500' : 'text-gray-800'}` // Transparent if active
-                }
-              >
-                Beranda
-              </NavLink>
-            </li>
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard"
+                  className={({ isActive }) =>
+                    `nav-link ${
+                      isActive ? "bg-transparent text-blue-500" : "text-gray-800"
+                    }`
+                  }
+                >
+                  Beranda
+                </NavLink>
+              </li>
+              {user.role === "admin" && (
+                <li>
+                  <NavLink
+                    to="/materi"
+                    className={({ isActive }) =>
+                      `nav-link ${
+                        isActive ? "bg-transparent text-blue-500" : "text-gray-800"
+                      }`
+                    }
+                  >
+                    Materi
+                  </NavLink>
+                </li>
+              )}
+              <li>
+                <NavLink
+                  to="/latihan"
+                  className={({ isActive }) =>
+                    `nav-link ${
+                      isActive ? "bg-transparent text-blue-500" : "text-gray-800"
+                    }`
+                  }
+                >
+                  Latihan
+                </NavLink>
+              </li>
+              {user.role === "admin" && (
+                <li>
+                  <NavLink
+                    to="/users"
+                    className={({ isActive }) =>
+                      `nav-link ${
+                        isActive ? "bg-transparent text-blue-500" : "text-gray-800"
+                      }`
+                    }
+                  >
+                    Mahasiswa
+                  </NavLink>
+                </li>
+              )}
+              <li>
+                <NavLink
+                  to="/penilaian"
+                  className={({ isActive }) =>
+                    `nav-link ${
+                      isActive ? "bg-transparent text-blue-500" : "text-gray-800"
+                    }`
+                  }
+                >
+                  Penilaian
+                </NavLink>
+              </li>
+            </>
           )}
-          {user && (user.role === "admin" ) && (
-            <li>
-              <NavLink 
-                to="/materi" 
-                className={({ isActive }) => 
-                  `nav-link ${isActive ? 'bg-transparent text-blue-500' : 'text-gray-800'}` // Transparent if active
-                }
-              >
-                Materi
-              </NavLink>
-            </li>
-          )}
-          {user && (user.role === "admin" || user.role === "user") && (
-            <li>
-              <NavLink 
-                to="/latihan" 
-                className={({ isActive }) => 
-                  `nav-link ${isActive ? 'bg-transparent text-blue-500' : 'text-gray-800'}` // Transparent if active
-                }
-              >
-                Latihan
-              </NavLink>
-            </li>
-          )}
-          {user && (user.role === "admin" ) && (
-            <li>
-              <NavLink 
-                to="/users" 
-                className={({ isActive }) => 
-                  `nav-link ${isActive ? 'bg-transparent text-blue-500' : 'text-gray-800'}` // Transparent if active
-                }
-              >
-                Mahasiswa
-              </NavLink>
-            </li>
-          )}
-          {user && (user.role === "admin" || user.role === "user") && (
-            <li>
-              <NavLink 
-                to="/penilaian" 
-                className={({ isActive }) => 
-                  `nav-link ${isActive ? 'bg-transparent text-blue-500' : 'text-gray-800'}` // Transparent if active
-                }
-              >
-                Penilaian
-              </NavLink>
-            </li>
-          )}
-
-
-
           {/* End Admin dan Dosen */}
-
         </ul>
       </div>
       <div className="dropdown dropdown-end">
-        <div tabIndex={0} role="button" className="">
+        <div tabIndex={0} role="button">
           <div className="flex items-center gap-2">
             <div className="h-10 w-10">
               <img
@@ -154,14 +170,14 @@ const Navbar = () => {
           className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
         >
           <li>
-          <NavLink to={`/profile/${user?.uuid}`} className="justify-between">
+            <NavLink to={`/profile/${user?.uuid}`} className="justify-between">
               Profile
             </NavLink>
           </li>
           <li>
-          <NavLink to={`/profile/${user?.uuid}`} className="justify-between">
+            <NavLink to={`/profile/${user?.uuid}`} className="justify-between">
               Settings
-              </NavLink>
+            </NavLink>
           </li>
           <li>
             <a onClick={logout}>Logout</a>

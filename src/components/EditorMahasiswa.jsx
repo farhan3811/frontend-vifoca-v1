@@ -10,9 +10,9 @@ const EditorMahasiswa = ({ initialContent, onChange }) => {
         init={{
           height: 500,
           menubar: false,
-          plugins: "eqneditor image media insertdatetime link autoresize code",
+          plugins: "eqneditor visualchars image media wordcount link autoresize code pagebreak lists",
           toolbar:
-            "customImageGallery | eqneditor image media undo redo | formatselect bold italic backcolor removeformat | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | help insertdatetime link code",
+            " undo redo customImageGallery | eqneditor image media numlist bullist | formatselect bold italic backcolor removeformat pagebreak | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link code",
           image_title: true,
           automatic_uploads: true,
           file_picker_types: 'image',
@@ -37,9 +37,9 @@ const EditorMahasiswa = ({ initialContent, onChange }) => {
               text: 'Image Gallery',
               onAction: () => {
                 const imageList = [
-                  { title: 'Local Image 1', value: 'https://w7.pngwing.com/pngs/94/824/png-transparent-square-frame-square-frame-white-thumbnail.png' },
-                  { title: 'Local Image 2', value: '' },
-                  { title: 'Online Image 1', value: 'https://png.pngtree.com/png-vector/20240322/ourmid/pngtree-api-application-programming-interface-software-integration-technology-png-image_12189159.png' },
+                  { title: 'Local Image 1', value: 'https://images.vexels.com/media/users/3/139342/isolated/svg/61cddf9cfe50f4baaa8f472c253d1cb4.svg' },
+                  { title: 'Local Image 2', value: 'https://png.pngtree.com/png-clipart/20200801/ourmid/pngtree-black-ring-png-image_2319165.png' },
+                  { title: 'Online Image 1', value: 'https://icon2.cleanpng.com/20180723/yzl/kisspng-canvas-painting-printing-picture-frames-censored-bar-5b55c2f45195f0.7504779415323471243342.jpg' },
                   { title: 'Online Image 2', value: 'https://www.shutterstock.com/image-vector/application-programming-interface-illustration-concept-260nw-2174940029.jpg' },
                 ];
 
@@ -73,6 +73,7 @@ const EditorMahasiswa = ({ initialContent, onChange }) => {
           external_plugins: {
             eqneditor: "/plugins/eqneditor.js",
           },
+          branding: false, 
         }}
         onEditorChange={(content) => {
           onChange(content);

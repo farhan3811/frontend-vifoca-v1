@@ -16,6 +16,7 @@ function App() {
   const [submitLoading, setSubmitLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [userRole, setUserRole] = useState(null);
 
   const API_URL =
     process.env.NODE_ENV === "production"
@@ -31,6 +32,18 @@ function App() {
   const closeZoom = () => {
     setIsZoomed(false);
   };
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/me`); // Ambil data pengguna
+        setUserRole(response.data.role); // Simpan role pengguna
+      } catch (error) {
+        console.error("Error fetching user role:", error);
+      }
+    };
+
+    fetchUserRole();
+  }, [API_URL]);
   useEffect(() => {
     const getTugas = async () => {
       try {
@@ -245,6 +258,7 @@ function App() {
                 className="textarea textarea-bordered textarea-lg w-full"
                 value={penilaian?.ket_penilaian || ""}
                 onChange={handleKetPenilaianChange}
+                disabled={userRole === "mahasiswa"}
               ></textarea>
             </div>
             <div className="flex-none w-78 h-14">
@@ -254,6 +268,7 @@ function App() {
                 className="textarea textarea-bordered textarea-lg w-full"
                 value={penilaian?.form_penilaian || ""}
                 onChange={handleFormPenilaianChange}
+                disabled={userRole === "mahasiswa"}
               ></textarea>
             </div>
           </div>
@@ -264,6 +279,7 @@ function App() {
               disabled={submitLoading}
             >
               {submitLoading ? "Mengirim..." : "Selesai"}
+              
             </button>
           </div>
         </CardBody>

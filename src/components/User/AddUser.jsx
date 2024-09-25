@@ -57,6 +57,7 @@ export function Modal1({ onAdd }) {
       const userData = {
         ...formData,
         password: hashedPassword,
+        isApproved: true,
         created_at: timestamp,
         updated_at: timestamp,
       };

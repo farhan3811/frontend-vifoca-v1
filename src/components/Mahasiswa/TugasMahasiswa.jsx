@@ -14,14 +14,15 @@ import { Link, useParams } from "react-router-dom";
 const Loading = () => (
   <div className="flex items-center justify-center w-full h-full">
     <div className="flex flex-col items-center">
-    <ThreeDot variant="bounce" color="#10487A" size="large" text="Vifoca" textColor="#NaNNaNNaN" />
+      <ThreeDot variant="bounce" color="#10487A" size="large" text="Vifoca" textColor="#NaNNaNNaN" />
     </div>
   </div>
 );
 
 export function CardDefault() {
-  const [open, setOpen] = React.useState(1);
+  const [open, setOpen] = useState(1);
   const [tugas, setTugas] = useState([]);
+  const [penilaian, setPenilaian] = useState([]);
   const [loading, setLoading] = useState(true);
   const { materi_id } = useParams();
   const [materi, setMateri] = useState(null);
@@ -30,6 +31,13 @@ export function CardDefault() {
     getTugasByMateri();
     getMateri();
   }, []);
+
+  // useEffect tambahan untuk mendapatkan penilaian setelah tugas diambil
+  useEffect(() => {
+    if (tugas.length > 0) {
+      getPenilaian(); // Panggil fungsi untuk mengambil penilaian
+    }
+  }, [tugas]);
 
   const API_URL =
     process.env.NODE_ENV === "production"
@@ -54,6 +62,16 @@ export function CardDefault() {
       setMateri(response.data);
     } catch (error) {
       console.error("Failed to fetch materi details:", error);
+    }
+  };
+
+  // Fungsi untuk mendapatkan data penilaian
+  const getPenilaian = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/penilaian`); // Pastikan endpoint ini mengembalikan semua penilaian
+      setPenilaian(response.data.penilaian);
+    } catch (error) {
+      console.error("Failed to fetch penilaian:", error);
     }
   };
 
@@ -92,25 +110,23 @@ export function CardDefault() {
     );
   }
 
+  // Filter tugas berdasarkan penilaian
+  const filteredTugas = tugas.filter((task) => {
+    const Answer = penilaian.some((pen) => pen.tugas_id === task.id);
+    return !Answer; // Tampilkan hanya tugas yang belum dijawab
+  });
+
   return (
     <div className="container py-16 px-20 bg-ground">
       {materi && (
         <Card className="w-full flex items-center justify-center py-6 px-6">
           <img
-            src={
-              materi.img_materi
-                ? `${API_URL}/${materi.img_materi}`
-                : getDefaultAvatar()
-            }
+            src={materi.img_materi ? `${API_URL}/${materi.img_materi}` : getDefaultAvatar()}
             className="flex items-center justify-between"
             width={150}
             alt={materi.name_materi || "Materi image"}
           />
-          <Typography
-            variant="h5"
-            color="blue-gray"
-            className="mb-2 mt-2 font-title"
-          >
+          <Typography variant="h5" color="blue-gray" className="mb-2 mt-2 font-title">
             {materi.name_materi}
           </Typography>
           <Typography className="text-center font-title">
@@ -124,11 +140,7 @@ export function CardDefault() {
           {materi && materi.vid_materi && (
             <Card className="mt-6 h-96">
               <CardBody>
-                <Typography
-                  variant="h5"
-                  color="blue-gray"
-                  className="font-medium font-title"
-                >
+                <Typography variant="h5" color="blue-gray" className="font-medium font-title">
                   Tutorial
                 </Typography>
               </CardBody>
@@ -151,16 +163,12 @@ export function CardDefault() {
         <div>
           <Card className="mt-6 h-96 overflow-y-auto">
             <CardBody>
-              <Typography
-                variant="h5"
-                color="blue-gray"
-                className="font-medium font-title"
-              >
+              <Typography variant="h5" color="blue-gray" className="font-medium font-title">
                 Latihan
               </Typography>
             </CardBody>
             <div className="px-8">
-              {tugas
+              {filteredTugas
                 .filter((task) => new Date(task.deadline) >= currentDate) // Filter tasks by deadline
                 .map((task, index) => (
                   <Accordion
@@ -198,22 +206,19 @@ export function CardDefault() {
                       {task.ket_assigment}
                       <div className="flex flex-row justify-end mt-4">
                         <div className="mr-4 border-2 px-2 py-1 rounded-full text-xs">{task.user?.name}</div>
-                        <div className=" border-2 px-2 py-1 rounded-full text-xs">
-                        <td>
-                        {task.deadline
-                          ? new Date(task.deadline).toLocaleString(
-                              "id-ID",
-                              {
-                                weekday: "long",
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              }
-                            )
-                          : "N/A"}
-                      </td>
+                        <div className="border-2 px-2 py-1 rounded-full text-xs">
+                          <td>
+                            {task.deadline
+                              ? new Date(task.deadline).toLocaleString("id-ID", {
+                                  weekday: "long",
+                                  year: "numeric",
+                                  month: "long",
+                                  day: "numeric",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })
+                              : "N/A"}
+                          </td>
                         </div>
                       </div>
                     </AccordionBody>

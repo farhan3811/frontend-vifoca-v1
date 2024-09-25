@@ -127,7 +127,7 @@ export function CardDefault({ userId }) {
                       color="black"
                       className="flex justify-end font-medium font-title mr-4 border-2 p-4 rounded"
                     >
-                      {penilaian.form_penilaian}
+                      {penilaian.form_penilaian || "-"}
                     </Typography>
                   </div>
                 </div>

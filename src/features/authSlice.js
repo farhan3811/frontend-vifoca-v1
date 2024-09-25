@@ -33,7 +33,7 @@ export const LoginUser = createAsyncThunk("user/LoginUser", async(user, thunkAPI
 export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
     try {
         const response = await axios.get(`${API_URL}/me`, {
-            withCredentials: true // Add this to send cookies with the request
+            withCredentials: true
         });
         return response.data;
     } catch (error) {
