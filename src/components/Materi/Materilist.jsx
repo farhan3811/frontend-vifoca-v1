@@ -28,6 +28,7 @@ const MateriList = () => {
     "Nama Materi",
     "Deskripsi",
     "Tanggal Update",
+    "Created By",
     "Aksi",
   ];
 
@@ -260,6 +261,15 @@ const MateriList = () => {
                             )
                           : "N/A"}
                       </td>
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {materiItem.user?.name}
                     </Typography>
                   </td>
                   <td className="p-4 flex flex-wrap gap-2">

@@ -18,7 +18,7 @@ const Materi = () => {
     if (isError) {
       navigate("/");
     }
-    if (user && user.role !== "admin") {
+    if (user && user.role !== "admin" && user.role !== "user") {
       navigate("../../404");
     }
   }, [isError, user, navigate]);

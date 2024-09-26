@@ -95,7 +95,6 @@ const Navbar = () => {
                   Beranda
                 </NavLink>
               </li>
-              {user.role === "admin" && (
                 <li>
                   <NavLink
                     to="/materi"
@@ -106,7 +105,6 @@ const Navbar = () => {
                     Materi
                   </NavLink>
                 </li>
-              )}
               <li>
                 <NavLink
                   to="/latihan"
