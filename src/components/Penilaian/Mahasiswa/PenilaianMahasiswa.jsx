@@ -35,8 +35,8 @@ function App() {
   useEffect(() => {
     const fetchUserRole = async () => {
       try {
-        const response = await axios.get(`${API_URL}/me`); // Ambil data pengguna
-        setUserRole(response.data.role); // Simpan role pengguna
+        const response = await axios.get(`${API_URL}/me`);
+        setUserRole(response.data.role);
       } catch (error) {
         console.error("Error fetching user role:", error);
       }
