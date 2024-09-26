@@ -73,7 +73,7 @@ const Login = () => {
                   <Typography className="flex justify-start mb-2 font-title font-medium">
                     NPM/NIDN
                   </Typography>
-                  <label className="input input-bordered flex items-center gap-2 bg-white">
+                  <label className="input input-bordered flex items-center gap-2 bg-white border-gray-300">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 14 16"
@@ -97,7 +97,7 @@ const Login = () => {
                 <Typography className="flex justify-start mb-2 font-title font-medium">
                   Password
                 </Typography>
-                <label className="input input-bordered flex items-center gap-2 bg-white">
+                <label className="input input-bordered flex items-center gap-2 bg-white border-gray-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"

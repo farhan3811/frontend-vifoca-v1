@@ -26,7 +26,7 @@ function App() {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   const handleZoom = () => {
-    setIsZoomed(true); 
+    setIsZoomed(true);
   };
 
   const closeZoom = () => {
@@ -163,22 +163,21 @@ function App() {
       <Card className="mt-6 w-full my-10">
         <div className="flex flex-row bg-blue py-4">
           <div>
-            <div className="card bg-base-100 w-96 m-6">
-            <div className="card-body h-56">
-  {task.foto_tugas ? (
-    <img
-      src={`${API_URL}/${task.foto_tugas}`}
-      className="w-full h-full cursor-pointer"
-      alt="Tugas Icon"
-      onClick={handleZoom}
-    />
-  ) : (
-    <Typography className="text-center text-gray-500">
-      Foto tugas tidak ada
-    </Typography>
-  )}
-</div>
-
+            <div className="card bg-white w-96 m-6">
+              <div className="card-body h-56">
+                {task.foto_tugas ? (
+                  <img
+                    src={`${API_URL}/${task.foto_tugas}`}
+                    className="w-full h-full cursor-pointer"
+                    alt="Tugas Icon"
+                    onClick={handleZoom}
+                  />
+                ) : (
+                  <Typography className="text-center text-gray-500">
+                    Foto tugas tidak ada
+                  </Typography>
+                )}
+              </div>
             </div>
           </div>
           <div>
@@ -191,21 +190,21 @@ function App() {
           <div className="flex flex-nowrap items-center">
             <div>
               <Typography className="mb-2 bg-sulit text-white font-title font-medium px-10 py-2 rounded">
-              <td>
-                        {penilaian?.tuga.deadline
-                          ? new Date(penilaian?.tuga.deadline).toLocaleString(
-                              "id-ID",
-                              {
-                                weekday: "long",
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              }
-                            )
-                          : "N/A"}
-                      </td>
+                <td>
+                  {penilaian?.tuga.deadline
+                    ? new Date(penilaian?.tuga.deadline).toLocaleString(
+                        "id-ID",
+                        {
+                          weekday: "long",
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        }
+                      )
+                    : "N/A"}
+                </td>
               </Typography>
             </div>
             <div>
@@ -249,16 +248,16 @@ function App() {
             <SuccessModal onClose={() => setShowSuccessModal(false)} />
           )}
 
-          <Editor 
-            initialContent={penilaian?.answer || ""} 
-            className="z-10" 
-            onChange={handleEditorChange} 
+          <Editor
+            initialContent={penilaian?.answer || ""}
+            className="z-10"
+            onChange={handleEditorChange}
           />
           <div className="flex gap-4 mt-6 mb-6">
             <div className="grow h-14">
               <Typography>Catatan :</Typography>
               <textarea
-                className="textarea textarea-bordered textarea-lg w-full"
+                className="textarea textarea-bordered textarea-lg w-full border-gray-300 disabled:border-gray-400 disabled:bg-white bg-white"
                 value={penilaian?.ket_penilaian || ""}
                 onChange={handleKetPenilaianChange}
                 disabled={userRole === "mahasiswa"}
@@ -267,8 +266,8 @@ function App() {
             <div className="flex-none w-78 h-14">
               <Typography>Nilai</Typography>
               <textarea
-                      type="number"
-                className="textarea textarea-bordered textarea-lg w-full"
+                type="number"
+                className="textarea textarea-bordered textarea-lg w-full border-gray-300 disabled:border-gray-400 disabled:bg-white bg-white"
                 value={penilaian?.form_penilaian || ""}
                 onChange={handleFormPenilaianChange}
                 disabled={userRole === "mahasiswa"}
@@ -277,12 +276,11 @@ function App() {
           </div>
           <div className="flex justify-end mt-24">
             <button
-              className="btn bg-blue text-white font-title font-medium px-28"
+              className="btn bg-blue text-white font-title font-medium px-28 border-none"
               onClick={handleSave}
               disabled={submitLoading}
             >
               {submitLoading ? "Mengirim..." : "Selesai"}
-              
             </button>
           </div>
         </CardBody>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import {
   Card,
   Typography,
@@ -44,7 +45,6 @@ const Userlist = () => {
   useEffect(() => {
     getPendingUsers(currentPage, search, sortOrder);
   }, [currentPage, search, sortOrder]);
-  
 
   const getDefaultAvatar = () => "https://via.placeholder.com/150";
   const approveUser = async (userId) => {
@@ -82,6 +82,7 @@ const Userlist = () => {
           <div className="flex flex-wrap gap-2">
             <div className="w-50">
               <Select
+                className="border-gray-300 rounded"
                 label="Sort By"
                 value={sortOrder}
                 onChange={(value) => setSortOrder(value)}
@@ -91,10 +92,10 @@ const Userlist = () => {
               </Select>
             </div>
             <div className="w-full md:w-72">
-              <label className="input input-bordered h-10 flex items-center gap-2">
+              <label className="input input-bordered border-gray-300 bg-white h-10 flex items-center gap-2">
                 <input
                   type="text"
-                  className="grow"
+                  className="grow bg-white"
                   placeholder="Cari"
                   value={search}
                   onChange={handleSearchChange}
@@ -115,20 +116,22 @@ const Userlist = () => {
             </div>
           </div>
           <div className="flex justify-end gap-2">
-            <Button className="flex flex-wrap font-tile font-medium text-xs gap-1 normal-case bg-konfirmasi rounded">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 15 14"
-                className="h-4 w-4"
-              >
-                <path
-                  d="M13 0H2C1.15625 0 0.5 0.6875 0.5 1.5V12.5C0.5 13.3438 1.15625 14 2 14H13C13.8125 14 14.5 13.3438 14.5 12.5V1.5C14.5 0.6875 13.8125 0 13 0ZM13 12.5H2V1.5H13V12.5ZM11.875 4.96875C12 4.8125 12 4.59375 11.875 4.4375L11.1562 3.71875C11.0312 3.5625 10.7812 3.5625 10.625 3.71875L6.21875 8.09375L4.34375 6.21875C4.1875 6.0625 3.96875 6.0625 3.8125 6.21875L3.09375 6.90625C2.96875 7.0625 2.96875 7.3125 3.09375 7.4375L5.9375 10.3125C6.09375 10.4688 6.3125 10.4688 6.46875 10.3125L11.875 4.96875Z"
-                  fill="white"
-                />
-              </svg>
-              Konfirmasi
-            </Button>
+            <Link to="/users">
+              <Button className="flex flex-wrap font-tile font-medium text-xs gap-1 normal-case bg-konfirmasi rounded">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 19 12"
+                  className="h-4 w-4"
+                >
+                  <path
+                    d="M9.13965 2.5C8.7959 2.53125 8.45215 2.5625 8.13965 2.65625C8.2959 2.90625 8.3584 3.21875 8.38965 3.5C8.38965 4.46875 7.57715 5.25 6.63965 5.25C6.32715 5.25 6.01465 5.1875 5.7959 5.03125C5.70215 5.34375 5.63965 5.65625 5.63965 6C5.63965 7.9375 7.20215 9.5 9.13965 9.5C11.0771 9.5 12.6396 7.9375 12.6396 6C12.6396 4.09375 11.0771 2.53125 9.13965 2.53125V2.5ZM18.0146 5.5625C16.3271 2.25 12.9521 0 9.13965 0C5.2959 0 1.9209 2.25 0.233398 5.5625C0.170898 5.6875 0.139648 5.84375 0.139648 6C0.139648 6.1875 0.170898 6.34375 0.233398 6.46875C1.9209 9.78125 5.2959 12 9.13965 12C12.9521 12 16.3271 9.78125 18.0146 6.46875C18.0771 6.34375 18.1084 6.1875 18.1084 6.03125C18.1084 5.84375 18.0771 5.6875 18.0146 5.5625ZM9.13965 10.5C6.0459 10.5 3.20215 8.78125 1.70215 6C3.20215 3.21875 6.0459 1.5 9.13965 1.5C12.2021 1.5 15.0459 3.21875 16.5459 6C15.0459 8.78125 12.2021 10.5 9.13965 10.5Z"
+                    fill="white"
+                  />
+                </svg>
+                List User
+              </Button>
+            </Link>
           </div>
         </div>
 

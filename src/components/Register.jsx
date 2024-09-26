@@ -60,10 +60,10 @@ Daftar
           <CardBody className="flex flex-col">
             <div className="mb-4">
               <Typography className="font-title font-medium">Nama</Typography>
-              <label className="input input-bordered flex items-center gap-2">
+              <label className="input input-bordered flex items-center gap-2 bg-white border-gray-300">
                 <input 
                   type="text" 
-                  className="grow bg-white" 
+                  className="grow" 
                   placeholder="Nama"
                   value={name} 
                   onChange={(e) => setName(e.target.value)}
@@ -73,7 +73,7 @@ Daftar
             </div>
             <div className="mb-4">
               <Typography className="font-title font-medium">NPM</Typography>
-              <label className="input input-bordered flex items-center gap-2">
+              <label className="input input-bordered flex items-center gap-2 bg-white border-gray-300">
                 <input 
                   type="text" 
                   className="grow bg-white" 
@@ -86,7 +86,7 @@ Daftar
             </div>
             <div className="mb-4">
               <Typography className="font-title font-medium">E-mail</Typography>
-              <label className="input input-bordered flex items-center gap-2">
+              <label className="input input-bordered flex items-center gap-2 bg-white border-gray-300">
                 <input 
                   type="email" 
                   className="grow bg-white" 
@@ -99,7 +99,7 @@ Daftar
             </div>
             <div className="mb-4">
               <Typography className="font-title font-medium">Password</Typography>
-              <label className="input input-bordered flex items-center gap-2">
+              <label className="input input-bordered flex items-center gap-2 bg-white border-gray-300">
                 <input 
                   type="password" 
                   className="grow bg-white" 
@@ -114,7 +114,7 @@ Daftar
               <Typography className="font-title font-medium">
                 Confirm Password
               </Typography>
-              <label className="input input-bordered flex items-center gap-2">
+              <label className="input input-bordered flex items-center gap-2 bg-white border-gray-300">
                 <input 
                   type="password" 
                   className="grow bg-white" 

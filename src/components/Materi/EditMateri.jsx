@@ -140,12 +140,12 @@ export function EditModal({ materi, open, onClose }) {
                     name="img_materi"
                     id="file-input"
                     accept="image/*"
-                    className="absolute opacity-0 w-0 h-0 font-title bg-white"
+                    className="absolute opacity-0 w-0 h-0 font-title"
                     onChange={handleChange}
                   />
                   <label
                     htmlFor="file-input"
-                    className="input input-bordered flex w-60 items-center gap-2 cursor-pointer relative"
+                    className="input input-bordered border-gray-300 flex w-60 items-center bg-white gap-2 cursor-pointer relative"
                   >
                     <span className="text-gray-400 flex-grow font-title font-medium text-sm">
                       {truncateText(fileName, 20)} 
@@ -178,7 +178,7 @@ export function EditModal({ materi, open, onClose }) {
                   placeholder="Nama Materi"
                   name="name_materi"
                   value={formData.name_materi}
-                  className="input input-bordered w-60 col-span-2 bg-white"
+                  className="input input-bordered w-60 border-gray-300 col-span-2 bg-white"
                   onChange={handleChange}
                 />
               </div>
@@ -195,7 +195,7 @@ export function EditModal({ materi, open, onClose }) {
                   name="ket_materi"
                   placeholder="Keterangan"
                   value={formData.ket_materi}
-                  className="input input-bordered w-60 col-span-2 bg-white"
+                  className="input input-bordered w-60 border-gray-300 col-span-2 bg-white"
                   onChange={handleChange}
                 />
               </div>
@@ -213,7 +213,7 @@ export function EditModal({ materi, open, onClose }) {
                   placeholder="Link Video"
                   name="vid_materi"
                   value={formData.vid_materi}
-                  className="input input-bordered w-60 col-span-2 bg-white"
+                  className="input input-bordered w-60 border-gray-300 col-span-2 bg-white"
                   onChange={handleChange}
                 />
               </div>

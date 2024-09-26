@@ -144,7 +144,7 @@ export function EditModal({ materi, open, onClose }) {
                   />
                   <label
                     htmlFor="file-input"
-                    className="input input-bordered flex w-60 items-center gap-2 cursor-pointer relative"
+                    className="input input-bordered bg-white border-gray-400  flex w-60 items-center gap-2 cursor-pointer relative"
                   >
                     <span className="text-gray-400 flex-grow font-title font-medium text-sm">
                       {truncateText(fileName, 20)}
@@ -177,7 +177,7 @@ export function EditModal({ materi, open, onClose }) {
                   placeholder="Nama Materi"
                   name="name_materi"
                   value={formData.name_materi}
-                  className="input input-bordered w-60 col-span-2"
+                  className="input input-bordered w-60 col-span-2 border-gray-300 disabled:border-gray-400 disabled:bg-white"
                   onChange={handleChange}
                   disabled
                 />
@@ -195,7 +195,7 @@ export function EditModal({ materi, open, onClose }) {
                   name="ket_materi"
                   placeholder="Keterangan"
                   value={formData.ket_materi}
-                  className="input input-bordered w-60 col-span-2"
+                  className="input input-bordered border-gray-300 disabled:border-gray-400 disabled:bg-white w-60 col-span-2"
                   onChange={handleChange}
                   disabled
                 />
@@ -214,7 +214,7 @@ export function EditModal({ materi, open, onClose }) {
                   placeholder="Link Video"
                   name="vid_materi"
                   value={formData.vid_materi}
-                  className="input input-bordered w-60 col-span-2"
+                  className="input input-bordered border-gray-300 disabled:border-gray-400 disabled:bg-white w-60 col-span-2"
                   onChange={handleChange}
                   disabled
                 />

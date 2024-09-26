@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { LogOut, reset, getMe } from "../features/authSlice";
-import { FaBars, FaTimes } from "react-icons/fa"; // Import icons for hamburger menu
+import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -145,9 +145,9 @@ const Navbar = () => {
       </div>
 
       {/* User Profile Section */}
-      <div className="dropdown dropdown-end hidden lg:block">
+      <div className="dropdown dropdown-end hidden lg:block bg-white">
         <div tabIndex={0} role="button">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 bg-white">
             <div className="h-10 w-10">
               <img
                 className="rounded-full"
@@ -159,14 +159,14 @@ const Navbar = () => {
               />
             </div>
             <div className="text-sm">
-              <p className="font-semibold">{user?.name || "Nama Pengguna"}</p>
+              <p className="font-semibold text-gray-500">{user?.name || "Nama Pengguna"}</p>
               <p className="text-gray-500">{user?.nim || "NIM"}</p>
             </div>
           </div>
         </div>
         <ul
           tabIndex={0}
-          className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+          className="menu bg-white menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
         >
           <li>
             <NavLink to={`/profile/${user?.uuid}`} className="justify-between">

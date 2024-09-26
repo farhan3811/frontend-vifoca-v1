@@ -64,11 +64,9 @@ export function CardDefault() {
       console.error("Failed to fetch materi details:", error);
     }
   };
-
-  // Fungsi untuk mendapatkan data penilaian
   const getPenilaian = async () => {
     try {
-      const response = await axios.get(`${API_URL}/penilaian`); // Pastikan endpoint ini mengembalikan semua penilaian
+      const response = await axios.get(`${API_URL}/penilaian`);
       setPenilaian(response.data.penilaian);
     } catch (error) {
       console.error("Failed to fetch penilaian:", error);
@@ -109,11 +107,9 @@ export function CardDefault() {
       </div>
     );
   }
-
-  // Filter tugas berdasarkan penilaian
   const filteredTugas = tugas.filter((task) => {
     const Answer = penilaian.some((pen) => pen.tugas_id === task.id);
-    return !Answer; // Tampilkan hanya tugas yang belum dijawab
+    return !Answer;
   });
 
   return (
@@ -190,13 +186,13 @@ export function CardDefault() {
                         </AccordionHeader>
                       </div>
                       <div className="flex justify-end items-center mr-6">
-                        <button className={`btn btn-sm font-title font-medium text-white ${getStatusClass(task.status_level)}`}>
+                        <button className={`btn btn-sm font-title border-none font-medium text-white ${getStatusClass(task.status_level)}`}>
                           {task.status_level}
                         </button>
                       </div>
                       <div className="flex justify-end items-center">
                         <Link to={`/tugas/${task.id}`}>
-                          <button className="btn btn-sm px-10 bg-blue font-title font-medium text-white">
+                          <button className="btn btn-sm px-10 bg-blue font-title border-none font-medium text-white">
                             Kerjakan
                           </button>
                         </Link>

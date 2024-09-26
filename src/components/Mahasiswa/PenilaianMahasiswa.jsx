@@ -67,7 +67,7 @@ export function CardDefault({ userId }) {
         Penilaian
       </Typography>
       <div className="flex justify-center items-center">
-        <label className="input input-bordered flex items-center w-96 gap-2">
+        <label className="input input-bordered border-gray-300 bg-white flex items-center w-96 gap-2">
           <input
             type="text"
             className="grow"

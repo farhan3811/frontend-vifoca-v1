@@ -24,9 +24,10 @@ export function Modal1({ onAdd }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [fileName, setFileName] = useState("");
   const [materi, setMateri] = useState([]);
-  const API_URL = process.env.NODE_ENV === 'production'
-  ? process.env.REACT_APP_API_URL_PROD
-  : process.env.REACT_APP_API_URL_LOCAL;
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_API_URL_PROD
+      : process.env.REACT_APP_API_URL_LOCAL;
   useEffect(() => {
     axios
       .get(`${API_URL}/materi`)
@@ -91,7 +92,11 @@ export function Modal1({ onAdd }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.nama_soal || !formData.ket_assigment || !formData.status_level) {
+    if (
+      !formData.nama_soal ||
+      !formData.ket_assigment ||
+      !formData.status_level
+    ) {
       setErrorMessage("Semua kolom harus diisi!");
       return;
     }
@@ -105,15 +110,13 @@ export function Modal1({ onAdd }) {
       data.append("ket_assigment", formData.ket_assigment);
       data.append("deadline", formData.deadline.toISOString());
 
-      const response = await axios.post(
-        `${API_URL}/tugas`,
-        data,
-        { headers: { "Content-Type": "multipart/form-data" }, }
-      );
+      const response = await axios.post(`${API_URL}/tugas`, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       console.log("Data added successfully:", response.data);
       setSuccessMessage("Data berhasil ditambahkan!");
-      handleClose(); 
+      handleClose();
       setOpen(false);
       if (onAdd) {
         onAdd();
@@ -146,7 +149,12 @@ export function Modal1({ onAdd }) {
         </svg>
         Tambah Latihan
       </Button>
-      <Dialog className="p-4 rounded" size="sm" open={open} handler={handleClose}>
+      <Dialog
+        className="p-4 rounded"
+        size="sm"
+        open={open}
+        handler={handleClose}
+      >
         <DialogBody className="flex justify-center items-center overflow-y-auto max-h-[96vh] p-4">
           <Card color="transparent" shadow={false}>
             <Typography
@@ -192,8 +200,8 @@ export function Modal1({ onAdd }) {
                   <div className="col-span-2">
                     {" "}
                     <select
-                    type="text"
-                      className="select select-bordered w-60 max-w-xs bg-white"
+                      type="text"
+                      className="select select-bordered border-gray-300 w-60 max-w-xs bg-white"
                       name="status_level"
                       value={formData.status_level}
                       onChange={handleChange}
@@ -226,7 +234,7 @@ export function Modal1({ onAdd }) {
                       onChange={handleChange}
                       placeholder="Nama Soal"
                       type="text"
-                      className="input input-bordered w-60 max-w-xs bg-white"
+                      className="input input-bordered border-gray-300 w-60 max-w-xs bg-white"
                     />
                   </div>
                 </div>
@@ -243,9 +251,9 @@ export function Modal1({ onAdd }) {
                   <div className="col-span-2">
                     {" "}
                     <select
-                      className="select select-bordered w-60 max-w-xs bg-white"
+                      className="select select-bordered border-gray-300 w-60 max-w-xs bg-white"
                       name="materi_id"
-                                            type="text"
+                      type="text"
                       value={formData.materi_id}
                       onChange={handleChange}
                       placeholder="Materi"
@@ -275,12 +283,12 @@ export function Modal1({ onAdd }) {
                       type="file"
                       id="file-input"
                       accept="image/*"
-                      className="absolute opacity-0 w-0 h-0 bg-white"
+                      className="absolute opacity-0 w-0 h-0"
                       onChange={handleFileChange}
                     />
                     <label
                       htmlFor="file-input"
-                      className="input input-bordered flex w-60 items-center gap-2 cursor-pointer relative"
+                      className="input input-bordered border-gray-300 bg-white flex w-60 items-center gap-2 cursor-pointer relative"
                     >
                       <span className="text-gray-500 flex-grow">
                         {fileName || "Foto"}
@@ -315,9 +323,9 @@ export function Modal1({ onAdd }) {
                       selected={formData.deadline}
                       onChange={handleDateChange}
                       showTimeSelect
-                                            type="text"
+                      type="text"
                       dateFormat="Pp"
-                      className="border rounded p-2 w-60 bg-white"
+                      className="border rounded p-2 w-60 bg-white border-gray-300"
                     />
                   </div>
                 </div>
@@ -334,9 +342,9 @@ export function Modal1({ onAdd }) {
                   <div className="col-span-2">
                     {" "}
                     <textarea
-                      className="textarea textarea-bordered  w-60 bg-white"
+                      className="textarea textarea-bordered  w-60 bg-white border-gray-300"
                       name="ket_assigment"
-                                            type="text"
+                      type="text"
                       value={formData.ket_assigment}
                       onChange={handleChange}
                       placeholder="Keterangan"

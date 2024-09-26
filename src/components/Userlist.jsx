@@ -112,6 +112,7 @@ const Userlist = () => {
           <div className="flex flex-wrap gap-2">
             <div className="w-50">
               <Select
+                className="border-gray-300 rounded"
                 label="Sort By"
                 value={sortOrder}
                 onChange={(value) => setSortOrder(value)}
@@ -121,10 +122,10 @@ const Userlist = () => {
               </Select>
             </div>
             <div className="w-full md:w-72">
-              <label className="input input-bordered h-10 flex items-center gap-2">
+            <label className="input input-bordered border-gray-300 h-10 flex items-center gap-2 bg-white">
                 <input
                   type="text"
-                  className="grow"
+                  className="grow bg-white"
                   placeholder="Cari"
                   value={search}
                   onChange={handleSearchChange}

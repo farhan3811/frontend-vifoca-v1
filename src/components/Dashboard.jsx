@@ -14,7 +14,7 @@ const Dashboard = () => {
   ];
   return (
     <div className="w-full">
-      <div className="card rounded-none card-side bg-base-100 shadow-xl px-16 pb-10">
+      <div className="card rounded-none card-side bg-base-100 shadow-xl px-16 pb-10 bg-white">
         {" "}
         <div className="flex-col">
           <div>

@@ -169,7 +169,7 @@ export function Modal1({ tugas, open, onClose }) {
                     {" "}
                     <select
                       type="text"
-                      className="select select-bordered w-60 max-w-xs bg-white"
+                      className="select select-bordered border-gray-300 w-60 max-w-xs bg-white"
                       name="status_level"
                       value={formData.status_level}
                       onChange={handleChange}
@@ -202,7 +202,7 @@ export function Modal1({ tugas, open, onClose }) {
                       onChange={handleChange}
                       placeholder="Nama Soal"
                       type="text"
-                      className="input input-bordered w-60 max-w-xs bg-white"
+                      className="input input-bordered border-gray-300 w-60 max-w-xs bg-white"
                     />
                   </div>
                 </div>
@@ -219,7 +219,7 @@ export function Modal1({ tugas, open, onClose }) {
                   <div className="col-span-2">
                     {" "}
                     <select
-                      className="select select-bordered w-60 max-w-xs bg-white"
+                      className="select select-bordered border-gray-300 w-60 max-w-xs bg-white"
                       name="materi_id"
                       type="text"
                       value={formData.materi_id}
@@ -256,7 +256,7 @@ export function Modal1({ tugas, open, onClose }) {
                     />
                     <label
                       htmlFor="file-input"
-                      className="input input-bordered flex w-60 items-center gap-2 cursor-pointer relative"
+                      className="input input-bordered border-gray-300 bg-white flex w-60 items-center gap-2 cursor-pointer relative"
                     >
                       <span className="text-gray-500 flex-grow">
                         {truncateText(fileName || "Foto", 20)}
@@ -293,7 +293,7 @@ export function Modal1({ tugas, open, onClose }) {
                       showTimeSelect
                       type="text"
                       dateFormat="Pp"
-                      className="border rounded p-2 w-60 bg-white"
+                      className="border rounded border-gray-300 p-2 w-60 bg-white"
                     />
                   </div>
                 </div>
@@ -310,7 +310,7 @@ export function Modal1({ tugas, open, onClose }) {
                   <div className="col-span-2">
                     {" "}
                     <textarea
-                      className="textarea textarea-bordered  w-60 bg-white"
+                      className="textarea textarea-bordered border-gray-300 w-60 bg-white"
                       name="ket_assigment"
                       type="text"
                       value={formData.ket_assigment}

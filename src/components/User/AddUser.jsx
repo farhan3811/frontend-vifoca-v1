@@ -142,7 +142,7 @@ export function Modal1({ onAdd }) {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Nama Lengkap"
-                      className="input input-bordered bg-white w-full h-10 max-w-xs"
+                      className="input input-bordered border-gray-300 bg-white w-full h-10 max-w-xs"
                     />
                   </div>
                 </div>
@@ -162,7 +162,7 @@ export function Modal1({ onAdd }) {
                       value={formData.nim}
                       onChange={handleChange}
                       placeholder="NIM"
-                      className="input input-bordered w-full bg-white h-10 max-w-xs"
+                      className="input input-bordered border-gray-300 w-full bg-white h-10 max-w-xs"
                     />
                   </div>
                 </div>
@@ -182,7 +182,7 @@ export function Modal1({ onAdd }) {
                       value={formData.prodi}
                       onChange={handleChange}
                       placeholder="Program Studi"
-                      className="input input-bordered w-full bg-white h-10 max-w-xs"
+                      className="input input-bordered border-gray-300 w-full bg-white h-10 max-w-xs"
                     />
                   </div>
                 </div>
@@ -202,7 +202,7 @@ export function Modal1({ onAdd }) {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="Email"
-                      className="input input-bordered w-full bg-white h-10 max-w-xs"
+                      className="input input-bordered border-gray-300 w-full bg-white h-10 max-w-xs"
                     />
                   </div>
                 </div>
@@ -220,7 +220,7 @@ export function Modal1({ onAdd }) {
                       name="role"
                       value={formData.role}
                       onChange={handleChange}
-                      className="input input-bordered flex bg-white justify-end w-58 h-10 max-w-xs"
+                      className="input input-bordered border-gray-300 flex bg-white justify-end w-58 h-10 max-w-xs"
                     >
                       <option value="" disabled>Pilih Role</option>
                       <option value="admin">Admin</option>

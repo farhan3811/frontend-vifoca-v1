@@ -65,7 +65,7 @@ export function ProfileCard() {
   return (
     <div className="container px-20 mb-8">
       <div className="flex justify-center items-center">
-        <label className="input input-bordered flex items-center w-96 gap-2">
+        <label className="input input-bordered border-gray-300 bg-white flex items-center w-96 gap-2">
           <input
             type="text"
             className="grow"

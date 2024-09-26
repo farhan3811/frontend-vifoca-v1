@@ -21,7 +21,7 @@ export function EditModal({ user, open, onClose }) {
         prodi: user.prodi || "",
         email: user.email || "",
         role: user.role || "",
-        id: user.uuid || "" // Pastikan id disesuaikan dengan field uuid di controller
+        id: user.uuid || ""
       });
     }
   }, [user]);
@@ -61,13 +61,13 @@ export function EditModal({ user, open, onClose }) {
         role: formData.role
       };
 
-      console.log("Mengirim data:", validData); // Debugging
+      console.log("Mengirim data:", validData);
 
       await axios.patch(
         `${API_URL}/${formData.id}`,
         validData
       );
-      onClose(); // Tutup modal setelah sukses
+      onClose();
     } catch (error) {
       console.error("Error updating user:", error);
       setFormErrors({ submit: "Gagal memperbarui data pengguna. Silakan coba lagi." });
@@ -75,7 +75,7 @@ export function EditModal({ user, open, onClose }) {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} size="sm" className="p-10">
+    <Dialog open={open} onClose={onClose} size="sm" className="p-10 rounded">
       <Typography
         variant="h4"
         color="blue-gray"
@@ -97,7 +97,7 @@ export function EditModal({ user, open, onClose }) {
               value={formData.name}
               onChange={handleChange}
               placeholder="Nama Lengkap"
-              className="input input-bordered w-full h-10 max-w-xs"
+              className="input input-bordered border-gray-300 disabled:border-gray-400 disabled:bg-white w-full bg-white h-10 max-w-xs"
               disabled
             />
             {formErrors.name && (
@@ -118,7 +118,7 @@ export function EditModal({ user, open, onClose }) {
               value={formData.nim}
               onChange={handleChange}
               placeholder="NIM"
-              className="input input-bordered w-full h-10 max-w-xs"
+              className="input input-bordered border-gray-300 disabled:border-gray-400 disabled:bg-white w-full bg-white h-10 max-w-xs"
               disabled
             />
             {formErrors.nim && (
@@ -139,7 +139,7 @@ export function EditModal({ user, open, onClose }) {
               value={formData.prodi}
               onChange={handleChange}
               placeholder="Program Studi"
-              className="input input-bordered w-full h-10 max-w-xs"
+              className="input input-bordered border-gray-300 disabled:border-gray-400 disabled:bg-white w-full bg-white h-10 max-w-xs"
               disabled
             />
             {formErrors.prodi && (
@@ -160,7 +160,7 @@ export function EditModal({ user, open, onClose }) {
               value={formData.email}
               onChange={handleChange}
               placeholder="Email"
-              className="input input-bordered w-full h-10 max-w-xs"
+              className="input input-bordered border-gray-300 disabled:border-gray-400 disabled:bg-white w-full bg-white h-10 max-w-xs"
               disabled
             />
             {formErrors.email && (
@@ -179,7 +179,7 @@ export function EditModal({ user, open, onClose }) {
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className="select select-bordered w-full h-10 max-w-xs"
+              className="select select-bordered border-gray-300 disabled:border-gray-400 disabled:bg-white w-full bg-white h-10 max-w-xs"
               disabled
             >
               <option value="" disabled>
@@ -201,7 +201,7 @@ export function EditModal({ user, open, onClose }) {
                 fullWidth
                 onClick={onClose}
                 type="submit"
-                className="flex items-center justify-center w-40 gap-2 mt-6 normal-case font-title font-medium bg-blue"
+                className="flex items-center rounded justify-center w-40 gap-2 mt-6 normal-case font-title font-medium bg-blue"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -12,7 +12,7 @@ export default function DeleteModal({ user, open, onClose, getUsers }) {
     try {
     await axios.delete(`${API_URL}/users/${userId}`);
     getUsers();
-    setSuccessMessage("Data berhasil dihapus!");// Refresh data after deletion
+    setSuccessMessage("Data berhasil dihapus!");
     onClose();
     } catch (error) {
       console.error("Error deleting data:", error);
@@ -21,7 +21,7 @@ export default function DeleteModal({ user, open, onClose, getUsers }) {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} size="sm" className="p-6">
+    <Dialog open={open} onClose={onClose} size="sm" className="p-6 rounded">
       <DialogBody className="mt-2 mb-2">
         <Typography>Yakin Untuk Menghapus Data ?</Typography>
         <div className="grid grid-cols-2 gap-4">
@@ -29,7 +29,7 @@ export default function DeleteModal({ user, open, onClose, getUsers }) {
             <Button
               fullWidth
               onClick={onClose}
-              className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-blue"
+              className="flex items-center rounded justify-center gap-2 mt-6 normal-case font-title font-medium bg-blue"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +48,7 @@ export default function DeleteModal({ user, open, onClose, getUsers }) {
             <Button
               fullWidth
               onClick={() => handleDelete(user.uuid)}
-              className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-batal"
+              className="flex items-center rounded justify-center gap-2 mt-6 normal-case font-title font-medium bg-batal"
             >
                     <svg
                       viewBox="0 0 17 17"

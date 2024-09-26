@@ -85,7 +85,7 @@ export function Modal1({ onAdd }) {
       setOpen(false);
 
       if (onAdd) {
-        onAdd();  // Panggil callback jika ada
+        onAdd();
       }
     } catch (error) {
       console.error("Gagal menambahkan data:", error.response ? error.response.data : error.message);
@@ -160,12 +160,12 @@ export function Modal1({ onAdd }) {
                       name="img_materi"
                       id="file-input"
                       accept="image/*"
-                      className="absolute opacity-0 w-0 h-0 font-title  bg-white"
+                      className="absolute opacity-0 w-0 h-0 font-title"
                       onChange={handleChange}
                     />
                     <label
                       htmlFor="file-input"
-                      className="input input-bordered flex w-60 items-center gap-2 cursor-pointer relative"
+                      className="input input-bordered border-gray-300 flex w-60 items-center gap-2 bg-white cursor-pointer relative"
                     >
                       <span className="text-gray-400 flex-grow font-title font-medium text-sm">
                         {fileName || "Foto"}
@@ -197,7 +197,7 @@ export function Modal1({ onAdd }) {
                     type="text"
                     placeholder="Nama Materi"
                     name="name_materi"
-                    className="input input-bordered w-60 col-span-2 bg-white"
+                    className="input input-bordered border-gray-300 w-60 col-span-2 bg-white"
                     value={formData.name_materi}
                     onChange={handleChange}
                   />
@@ -214,7 +214,7 @@ export function Modal1({ onAdd }) {
                   <textarea
                     name="ket_materi"
                     placeholder="Deskripsi"
-                    className="textarea textarea-bordered w-60 col-span-2 bg-white"
+                    className="textarea textarea-bordered border-gray-300 w-60 col-span-2 bg-white"
                     rows="3"
                     value={formData.ket_materi}
                     onChange={handleChange}
@@ -233,7 +233,7 @@ export function Modal1({ onAdd }) {
                     type="text"
                     name="vid_materi"
                     placeholder="Link Video"
-                    className="input input-bordered w-60 col-span-2 bg-white"
+                    className="input input-bordered w-60 border-gray-300 col-span-2 bg-white"
                     value={formData.vid_materi}
                     onChange={handleChange}
                   />

@@ -10,6 +10,10 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
+const truncateText = (text, maxLength) => {
+  if (!text) return "";
+  return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+};
 export function Modal1({ tugas, open, onClose }) {
   const [formData, setFormData] = useState({
     materi_id: "",
@@ -119,7 +123,7 @@ export function Modal1({ tugas, open, onClose }) {
 
   return (
     <section className="grid place-items-center">
-      <Dialog className="p-4" size="sm" open={open} handler={onClose}>
+      <Dialog className="p-4 rounded" size="sm" open={open} handler={onClose}>
         <DialogBody className="flex justify-center items-center overflow-y-auto max-h-[96vh] p-4">
           <Card color="transparent" shadow={false}>
             <Typography
@@ -166,7 +170,7 @@ export function Modal1({ tugas, open, onClose }) {
                     {" "}
                     <select
                       type="text"
-                      className="select select-bordered w-60 max-w-xs"
+                      className="select select-bordered border-gray-300 disabled:border-gray-400 disabled:bg-white w-60 max-w-xs"
                       name="status_level"
                       value={formData.status_level}
                       onChange={handleChange}
@@ -201,7 +205,7 @@ export function Modal1({ tugas, open, onClose }) {
                       placeholder="Nama Soal"
                       type="text"
                       disabled
-                      className="input input-bordered w-60 max-w-xs"
+                      className="input input-bordered border-gray-300 disabled:border-gray-400 disabled:bg-white w-60 max-w-xs"
                     />
                   </div>
                 </div>
@@ -218,7 +222,7 @@ export function Modal1({ tugas, open, onClose }) {
                   <div className="col-span-2">
                     {" "}
                     <select
-                      className="select select-bordered w-60 max-w-xs"
+                      className="select select-bordered border-gray-300 disabled:border-gray-400 disabled:bg-white w-60 max-w-xs"
                       name="materi_id"
                       type="text"
                       value={formData.materi_id}
@@ -257,10 +261,10 @@ export function Modal1({ tugas, open, onClose }) {
                     />
                     <label
                       htmlFor="file-input"
-                      className="input input-bordered flex w-60 items-center gap-2 cursor-pointer relative"
+                      className="input input-bordered border-gray-300 disabled:border-gray-400 disabled:bg-white bg-white flex w-60 items-center gap-2 cursor-pointer relative"
                     >
                       <span className="text-gray-500 flex-grow">
-                        {fileName || "Foto"}
+                      {truncateText(fileName, 20)}
                       </span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -294,7 +298,7 @@ export function Modal1({ tugas, open, onClose }) {
                       showTimeSelect
                       type="text"
                       dateFormat="Pp"
-                      className="border rounded p-2 w-60"
+                      className="border rounded border-gray-300 disabled:border-gray-400 disabled:bg-white p-2 w-60"
                       disabled
                     />
                   </div>
@@ -312,7 +316,7 @@ export function Modal1({ tugas, open, onClose }) {
                   <div className="col-span-2">
                     {" "}
                     <textarea
-                      className="textarea textarea-bordered  w-60"
+                      className="textarea textarea-bordered border-gray-300 disabled:border-gray-400 disabled:bg-white w-60"
                       name="ket_assigment"
                       type="text"
                       value={formData.ket_assigment}
@@ -328,7 +332,7 @@ export function Modal1({ tugas, open, onClose }) {
                   fullWidth
                   onClick={onClose}
                   type="submit"
-                  className="flex items-center justify-center w-40 gap-2 mt-6 normal-case font-title font-medium bg-blue"
+                  className="flex rounded items-center justify-center w-40 gap-2 mt-6 normal-case font-title font-medium bg-blue"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

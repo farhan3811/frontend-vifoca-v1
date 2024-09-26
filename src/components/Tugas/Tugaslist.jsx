@@ -124,6 +124,7 @@ const List = () => {
               <div className="flex flex-wrap gap-2">
                 <div className="w-50">
                   <Select
+                  className="border-gray-300 rounded"
                     label="Sort By"
                     value={sortOrder}
                     onChange={(e) => setSortOrder(e.target.value)}
@@ -133,10 +134,10 @@ const List = () => {
                   </Select>
                 </div>
                 <div className="w-full md:w-72">
-                  <label className="input input-bordered h-10 flex items-center gap-2">
+                  <label className="input input-bordered border-gray-300 bg-white h-10 flex items-center gap-2">
                     <input
                       type="text"
-                      className="grow"
+                      className="grow bg-white"
                       placeholder="Search"
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
@@ -203,7 +204,7 @@ const List = () => {
                           : getDefaultAvatar()
                       }
                           className="w-10 h-10 rounded-full"
-                          alt="Tugas Icon" // Add alt text for accessibility
+                          alt="Tugas Icon"
                         />
                       </td>
                       <td className="p-4">

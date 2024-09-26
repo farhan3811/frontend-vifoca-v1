@@ -32,17 +32,18 @@ const Profil = () => {
   });
   const [avatarFile, setAvatarFile] = useState(null);
 
-  const API_URL = process.env.NODE_ENV === "production"
-    ? process.env.REACT_APP_API_URL_PROD
-    : process.env.REACT_APP_API_URL_LOCAL;
-    const formatDate = (date) => {
-      const d = new Date(date);
-      const year = d.getFullYear();
-      const month = String(d.getMonth() + 1).padStart(2, '0'); // Menambahkan 0 di depan bulan
-      const day = String(d.getDate()).padStart(2, '0'); // Menambahkan 0 di depan tanggal
-      return `${year}-${month}-${day}`;
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_API_URL_PROD
+      : process.env.REACT_APP_API_URL_LOCAL;
+  const formatDate = (date) => {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0"); // Menambahkan 0 di depan bulan
+    const day = String(d.getDate()).padStart(2, "0"); // Menambahkan 0 di depan tanggal
+    return `${year}-${month}-${day}`;
   };
-  
+
   useEffect(() => {
     axios
       .get(`${API_URL}/users/${id}`)
@@ -61,10 +62,10 @@ const Profil = () => {
           });
           if (!isNaN(dateOfBirth.getTime())) {
             setValue({ startDate: dateOfBirth, endDate: null }); // Menetapkan nilai awal pada Datepicker
-        } else {
+          } else {
             console.error("Tanggal lahir tidak valid:", response.data.tgllahir);
-        }
-          setOldNim(response.data.nim); 
+          }
+          setOldNim(response.data.nim);
         }
       })
       .catch((error) => {
@@ -86,42 +87,42 @@ const Profil = () => {
     setErrorMessage("");
 
     const updatedData = {
-        ...formData,
-        tgllahir: value.startDate,
-        nim: formData.nim === oldNim ? oldNim : formData.nim
+      ...formData,
+      tgllahir: value.startDate,
+      nim: formData.nim === oldNim ? oldNim : formData.nim,
     };
-    
+
     if (!formData.nim) {
-        delete updatedData.nim;
+      delete updatedData.nim;
     }
 
     try {
-        const formDataToSubmit = new FormData();
-        
-        for (const key in updatedData) {
-            formDataToSubmit.append(key, updatedData[key]);
-        }
+      const formDataToSubmit = new FormData();
 
-        if (avatarFile) {
-            formDataToSubmit.append("avatar", avatarFile); // Meng-upload avatar baru
-        }
+      for (const key in updatedData) {
+        formDataToSubmit.append(key, updatedData[key]);
+      }
 
-        await axios.patch(`${API_URL}/users/${id}`, formDataToSubmit, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
+      if (avatarFile) {
+        formDataToSubmit.append("avatar", avatarFile); // Meng-upload avatar baru
+      }
 
-        alert("Profile updated successfully");
+      await axios.patch(`${API_URL}/users/${id}`, formDataToSubmit, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      alert("Profile updated successfully");
     } catch (error) {
-        console.error("Error updating profile:", error);
-        if (error.response && error.response.status === 400) {
-            setErrorMessage(error.response.data.msg || "Update failed");
-        } else {
-            setErrorMessage("Error updating profile");
-        }
+      console.error("Error updating profile:", error);
+      if (error.response && error.response.status === 400) {
+        setErrorMessage(error.response.data.msg || "Update failed");
+      } else {
+        setErrorMessage("Error updating profile");
+      }
     }
-};
+  };
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setAvatarFile(file);
@@ -132,7 +133,7 @@ const Profil = () => {
       reader.onloadend = () => {
         setFormData((prevData) => ({
           ...prevData,
-          avatar: reader.result
+          avatar: reader.result,
         }));
       };
       reader.readAsDataURL(file);
@@ -147,12 +148,18 @@ const Profil = () => {
   return (
     <div className="container px-20 pb-20">
       <Breadcumbs />
-      <div className="card card-side bg-base-100 shadow-xl w-5/6 px-20 pt-10">
+      <div className="card card-side bg-white shadow-xl w-5/6 px-20 pt-10">
         <div className="grid grid-rows-2">
           <div>
             <div className="avatar mt-16">
               <div className="w-52 h-52 rounded-full">
-                <img src={formData.avatar || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"} alt="Profile" />
+                <img
+                  src={
+                    formData.avatar ||
+                    "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  }
+                  alt="Profile"
+                />
               </div>
             </div>
           </div>
@@ -200,7 +207,7 @@ const Profil = () => {
                       value={formData.name || ""}
                       onChange={handleInputChange}
                       placeholder="Ahmad Putut"
-                      className="input input-bordered w-full max-w-sm"
+                      className="input input-bordered border-gray-300 bg-white w-full max-w-sm"
                     />
                   </div>
                 </div>
@@ -215,7 +222,7 @@ const Profil = () => {
                       value={formData.prodi || ""}
                       onChange={handleInputChange}
                       placeholder="S1 Informatika"
-                      className="input input-bordered w-full max-w-sm"
+                      className="input input-bordered border-gray-300 bg-white w-full max-w-sm"
                     />
                   </div>
                 </div>
@@ -223,19 +230,19 @@ const Profil = () => {
                   <div className="flex items-center">
                     <Typography>Tanggal Lahir</Typography>
                   </div>
-                  <div className="col-span-2 border-2 rounded-xl">
-                  <Datepicker
-    useRange={false}
-    asSingle={true}
-    value={value} // Ini harus berisi { startDate: dateOfBirth, endDate: null }
-    onChange={(newValue) => {
-        setValue(newValue);
-        setFormData((prevData) => ({
-            ...prevData,
-            tgllahir: newValue.startDate // Update tanggal lahir pada formData
-        }));
-    }}
-/>
+                  <div className="col-span-2 border-2 border-gray-300 bg-white rounded-xl">
+                    <Datepicker
+                      useRange={false}
+                      asSingle={true}
+                      value={value}
+                      onChange={(newValue) => {
+                        setValue(newValue);
+                        setFormData((prevData) => ({
+                          ...prevData,
+                          tgllahir: newValue.startDate,
+                        }));
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-4 mb-4">
@@ -249,7 +256,7 @@ const Profil = () => {
                       value={formData.nim || ""}
                       onChange={handleInputChange}
                       placeholder="1234567"
-                      className="input input-bordered w-full max-w-sm"
+                      className="input input-bordered border-gray-300 bg-white w-full max-w-sm"
                     />
                   </div>
                 </div>
@@ -264,7 +271,7 @@ const Profil = () => {
                       value={formData.email || ""}
                       onChange={handleInputChange}
                       placeholder="email@example.com"
-                      className="input input-bordered w-full max-w-sm"
+                      className="input input-bordered border-gray-300 bg-white w-full max-w-sm"
                     />
                   </div>
                 </div>
@@ -279,23 +286,23 @@ const Profil = () => {
                       value={formData.nomorhp || ""}
                       onChange={handleInputChange}
                       placeholder="08123456789"
-                      className="input input-bordered w-full max-w-sm"
+                      className="input input-bordered border-gray-300 bg-white w-full max-w-sm"
                     />
                   </div>
                 </div>
                 <div className="flex justify-end">
                   <button
-                    className="btn bg-blue text-white"
+                    className="bg-blue text-white font-title font-medium px-4 py-2 rounded"
                     onClick={handleSubmit}
                   >
-                    Simpan Perubahan
+                    Simpan
                   </button>
                 </div>
                 {errorMessage && <p className="text-red-500">{errorMessage}</p>}
               </TabPanel>
               <TabPanel value="settings">
                 <Typography variant="h5" color="blue-gray">
-                 Dalam Pengembangan
+                  Dalam Pengembangan
                 </Typography>
               </TabPanel>
             </TabsBody>

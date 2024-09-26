@@ -101,7 +101,7 @@ export function EditModal({ user, open, onClose }) {
               value={formData.name}
               onChange={handleChange}
               placeholder="Nama Lengkap"
-              className="input input-bordered w-full bg-white h-10 max-w-xs"
+              className="input input-bordered w-full border-gray-300l bg-white h-10 max-w-xs"
             />
             {formErrors.name && (
               <p className="text-red-500 text-xs">{formErrors.name}</p>
@@ -121,7 +121,7 @@ export function EditModal({ user, open, onClose }) {
               value={formData.nim}
               onChange={handleChange}
               placeholder="NIM"
-              className="input input-bordered w-full bg-white h-10 max-w-xs"
+              className="input input-bordered w-full border-gray-300 bg-white h-10 max-w-xs"
             />
             {formErrors.nim && (
               <p className="text-red-500 text-xs">{formErrors.nim}</p>
@@ -141,7 +141,7 @@ export function EditModal({ user, open, onClose }) {
               value={formData.prodi}
               onChange={handleChange}
               placeholder="Program Studi"
-              className="input input-bordered w-full bg-white h-10 max-w-xs"
+              className="input input-bordered w-full border-gray-300 bg-white h-10 max-w-xs"
             />
             {formErrors.prodi && (
               <p className="text-red-500 text-xs">{formErrors.prodi}</p>
@@ -161,7 +161,7 @@ export function EditModal({ user, open, onClose }) {
               value={formData.email}
               onChange={handleChange}
               placeholder="Email"
-              className="input input-bordered w-full bg-white h-10 max-w-xs"
+              className="input input-bordered w-full border-gray-300 bg-white h-10 max-w-xs"
             />
             {formErrors.email && (
               <p className="text-red-500 text-xs">{formErrors.email}</p>
@@ -179,7 +179,7 @@ export function EditModal({ user, open, onClose }) {
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className="select select-bordered w-full bg-white h-10 max-w-xs"
+              className="select select-bordered w-full border-gray-300 bg-white h-10 max-w-xs"
             >
               <option value="" disabled>
                 Pilih Role
@@ -198,7 +198,7 @@ export function EditModal({ user, open, onClose }) {
             <Button
               fullWidth
               onClick={onClose}
-              className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-batal"
+              className="flex items-center rounded justify-center gap-2 mt-6 normal-case font-title font-medium bg-batal"
             >
               Batal
             </Button>
@@ -207,7 +207,7 @@ export function EditModal({ user, open, onClose }) {
             <Button
               fullWidth
               onClick={handleSubmit}
-              className="flex items-center justify-center gap-2 mt-6 normal-case font-title font-medium bg-blue"
+              className="flex items-center rounded justify-center gap-2 mt-6 normal-case font-title font-medium bg-blue"
             >
               Simpan
             </Button>

@@ -104,7 +104,7 @@ function App() {
       <Card className="mt-6 w-full my-10">
         <div className="flex flex-row bg-blue py-4">
           <div>
-            <div className="card bg-base-100 w-96 m-6">
+            <div className="card bg-white w-96 m-6">
               <div className="card-body h-56">
                 <img
                   src={
@@ -112,9 +112,9 @@ function App() {
                       ? `${API_URL}/${task.foto_tugas}`
                       : "getDefaultAvatar()"
                   }
-                  className="w-full h-full cursor-pointer" // Add cursor pointer for clickability
+                  className="w-full h-full cursor-pointer"
                   alt="Tugas Icon"
-                  onClick={handleZoom} // Open zoom modal when clicked
+                  onClick={handleZoom}
                 />
               </div>
             </div>
