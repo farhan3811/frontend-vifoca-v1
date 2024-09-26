@@ -98,8 +98,10 @@ export function CardDefault({ userId }) {
                   <div className="flex items-center">
                     <img
                       src={
-                        penilaian.img_materi
-                          ? `${API_URL}/${penilaian.img_materi}`
+                        materiMap[penilaian.tuga?.materi_id]?.img
+                          ? `${API_URL}/${
+                              materiMap[penilaian.tuga?.materi_id]?.img
+                            }`
                           : getDefaultAvatar()
                       }
                       className="flex items-center justify-between"
