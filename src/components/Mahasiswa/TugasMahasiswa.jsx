@@ -107,6 +107,7 @@ export function CardDefault() {
       </div>
     );
   }
+
   const filteredTugas = tugas.filter((task) => {
     const Answer = penilaian.some((pen) => pen.tugas_id === task.id);
     return !Answer;
@@ -164,62 +165,68 @@ export function CardDefault() {
               </Typography>
             </CardBody>
             <div className="px-8">
-              {filteredTugas
-                .filter((task) => new Date(task.deadline) >= currentDate) // Filter tasks by deadline
-                .map((task, index) => (
-                  <Accordion
-                    key={task.id}
-                    open={open === index + 1}
-                    className="mb-2 rounded border border-blue-gray-100 px-4"
-                  >
-                    <div className="grid grid-cols-4 gap-4">
-                      <div className="col-span-2">
-                        <AccordionHeader
-                          onClick={() => handleOpen(index + 1)}
-                          className={`border-b-0 font-title text-sm transition-colors ${
-                            open === index + 1
-                              ? "text-black hover:!text-blue-700"
-                              : ""
-                          }`}
-                        >
-                          {task.nama_soal}
-                        </AccordionHeader>
-                      </div>
-                      <div className="flex justify-end items-center mr-6">
-                        <button className={`btn btn-sm font-title border-none font-medium text-white ${getStatusClass(task.status_level)}`}>
-                          {task.status_level}
-                        </button>
-                      </div>
-                      <div className="flex justify-end items-center">
-                        <Link to={`/tugas/${task.id}`}>
-                          <button className="btn btn-sm px-10 bg-blue font-title border-none font-medium text-white">
-                            Kerjakan
+              {filteredTugas.length > 0 ? (
+                filteredTugas
+                  .filter((task) => new Date(task.deadline) >= currentDate)
+                  .map((task, index) => (
+                    <Accordion
+                      key={task.id}
+                      open={open === index + 1}
+                      className="mb-2 rounded border border-blue-gray-100 px-4"
+                    >
+                      <div className="grid grid-cols-4 gap-4">
+                        <div className="col-span-2">
+                          <AccordionHeader
+                            onClick={() => handleOpen(index + 1)}
+                            className={`border-b-0 font-title text-sm transition-colors ${
+                              open === index + 1
+                                ? "text-black hover:!text-blue-700"
+                                : ""
+                            }`}
+                          >
+                            {task.nama_soal}
+                          </AccordionHeader>
+                        </div>
+                        <div className="flex justify-end items-center mr-6">
+                          <button className={`btn btn-sm font-title border-none font-medium text-white ${getStatusClass(task.status_level)}`}>
+                            {task.status_level}
                           </button>
-                        </Link>
-                      </div>
-                    </div>
-                    <AccordionBody className="pt-0 text-base font-title">
-                      {task.ket_assigment}
-                      <div className="flex flex-row justify-end mt-4">
-                        <div className="mr-4 border-2 px-2 py-1 rounded-full text-xs">{task.user?.name}</div>
-                        <div className="border-2 px-2 py-1 rounded-full text-xs">
-                          <td>
-                            {task.deadline
-                              ? new Date(task.deadline).toLocaleString("id-ID", {
-                                  weekday: "long",
-                                  year: "numeric",
-                                  month: "long",
-                                  day: "numeric",
-                                  hour: "2-digit",
-                                  minute: "2-digit",
-                                })
-                              : "N/A"}
-                          </td>
+                        </div>
+                        <div className="flex justify-end items-center">
+                          <Link to={`/tugas/${task.id}`}>
+                            <button className="btn btn-sm px-10 bg-blue font-title border-none font-medium text-white">
+                              Kerjakan
+                            </button>
+                          </Link>
                         </div>
                       </div>
-                    </AccordionBody>
-                  </Accordion>
-                ))}
+                      <AccordionBody className="pt-0 text-base font-title">
+                        {task.ket_assigment}
+                        <div className="flex flex-row justify-end mt-4">
+                          <div className="mr-4 border-2 px-2 py-1 rounded-full text-xs">{task.user?.name}</div>
+                          <div className="border-2 px-2 py-1 rounded-full text-xs">
+                            <td>
+                              {task.deadline
+                                ? new Date(task.deadline).toLocaleString("id-ID", {
+                                    weekday: "long",
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                  })
+                                : "N/A"}
+                            </td>
+                          </div>
+                        </div>
+                      </AccordionBody>
+                    </Accordion>
+                  ))
+              ) : (
+                <Typography className="text-center font-title text-gray-500 mt-4">
+                  Tidak ada latihan
+                </Typography>
+              )}
             </div>
           </Card>
         </div>
