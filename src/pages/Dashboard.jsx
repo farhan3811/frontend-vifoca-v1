@@ -19,7 +19,7 @@ const Dashboard = () => {
       navigate("/");
     }
     if (user && user.role !== "admin" && user.role !== "user") {
-      navigate("../../404");
+      navigate("/mahasiswa/materi");
     }
   }, [isError, navigate, user]);
 
