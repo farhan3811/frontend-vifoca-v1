@@ -64,7 +64,7 @@ function App() {
       try {
         const response = await axios.get(`${API_URL}/penilaian/${penilaianId}`);
         setPenilaian(response.data);
-        setLoading(false);
+        setLoading(true);
       } catch (error) {
         console.error("Error fetching penilaian:", error);
         setLoading(false);
@@ -164,18 +164,21 @@ function App() {
         <div className="flex flex-row bg-blue py-4">
           <div>
             <div className="card bg-base-100 w-96 m-6">
-              <div className="card-body h-56">
-              <img
-                  src={
-                    task.foto_tugas
-                      ? `${API_URL}/${task.foto_tugas}`
-                      : "getDefaultAvatar()"
-                  }
-                  className="w-full h-full cursor-pointer" // Add cursor pointer for clickability
-                  alt="Tugas Icon"
-                  onClick={handleZoom} // Open zoom modal when clicked
-                />
-              </div>
+            <div className="card-body h-56">
+  {task.foto_tugas ? (
+    <img
+      src={`${API_URL}/${task.foto_tugas}`}
+      className="w-full h-full cursor-pointer"
+      alt="Tugas Icon"
+      onClick={handleZoom}
+    />
+  ) : (
+    <Typography className="text-center text-gray-500">
+      Foto tugas tidak ada
+    </Typography>
+  )}
+</div>
+
             </div>
           </div>
           <div>

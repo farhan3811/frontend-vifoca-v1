@@ -11,7 +11,7 @@ export default function DeleteModal({ tugas, open, onClose, getTugas }) {
   const handleDelete = async (tugasid) => {
     try {
       console.log('Menghapus materi dengan UUID:', tugasid); // Tambahkan log untuk debugging
-      await axios.delete(`${API_URL}/${tugasid}`);
+      await axios.delete(`${API_URL}/tugas/${tugasid}`);
       getTugas();
       setSuccessMessage("Data berhasil dihapus!"); // Refresh data setelah penghapusan
       onClose();

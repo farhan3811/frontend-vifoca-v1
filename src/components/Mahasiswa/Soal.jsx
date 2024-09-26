@@ -21,18 +21,6 @@ function App() {
       ? process.env.REACT_APP_API_URL_PROD
       : process.env.REACT_APP_API_URL_LOCAL;
 
-  useEffect(() => {
-    const fetchUserId = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/get-user-id`);
-        setUserId(response.data.userId);
-      } catch (error) {
-        console.error("Failed to fetch user ID:", error);
-      }
-    };
-
-    fetchUserId();
-  }, [API_URL]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);

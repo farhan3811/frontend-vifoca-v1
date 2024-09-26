@@ -193,7 +193,7 @@ export function Modal1({ onAdd }) {
                     {" "}
                     <select
                     type="text"
-                      className="select select-bordered w-60 max-w-xs"
+                      className="select select-bordered w-60 max-w-xs bg-white"
                       name="status_level"
                       value={formData.status_level}
                       onChange={handleChange}
@@ -226,7 +226,7 @@ export function Modal1({ onAdd }) {
                       onChange={handleChange}
                       placeholder="Nama Soal"
                       type="text"
-                      className="input input-bordered w-60 max-w-xs"
+                      className="input input-bordered w-60 max-w-xs bg-white"
                     />
                   </div>
                 </div>
@@ -243,7 +243,7 @@ export function Modal1({ onAdd }) {
                   <div className="col-span-2">
                     {" "}
                     <select
-                      className="select select-bordered w-60 max-w-xs"
+                      className="select select-bordered w-60 max-w-xs bg-white"
                       name="materi_id"
                                             type="text"
                       value={formData.materi_id}
@@ -275,7 +275,7 @@ export function Modal1({ onAdd }) {
                       type="file"
                       id="file-input"
                       accept="image/*"
-                      className="absolute opacity-0 w-0 h-0"
+                      className="absolute opacity-0 w-0 h-0 bg-white"
                       onChange={handleFileChange}
                     />
                     <label
@@ -317,7 +317,7 @@ export function Modal1({ onAdd }) {
                       showTimeSelect
                                             type="text"
                       dateFormat="Pp"
-                      className="border rounded p-2 w-60"
+                      className="border rounded p-2 w-60 bg-white"
                     />
                   </div>
                 </div>
@@ -334,7 +334,7 @@ export function Modal1({ onAdd }) {
                   <div className="col-span-2">
                     {" "}
                     <textarea
-                      className="textarea textarea-bordered  w-60"
+                      className="textarea textarea-bordered  w-60 bg-white"
                       name="ket_assigment"
                                             type="text"
                       value={formData.ket_assigment}

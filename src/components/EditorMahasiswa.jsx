@@ -12,7 +12,7 @@ const EditorMahasiswa = ({ initialContent, onChange }) => {
           menubar: false,
           plugins: "eqneditor visualchars image media wordcount link autoresize code pagebreak lists",
           toolbar:
-            " undo redo customImageGallery | eqneditor image media numlist bullist | formatselect bold italic backcolor removeformat pagebreak | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link code",
+            " undo redo customImageGallery | eqneditor image media numlist bullist | formatselect bold italic backcolor removeformat pagebreak | alignleft aligncenter alignright alignjustify | link outdent indent",
           image_title: true,
           automatic_uploads: true,
           file_picker_types: 'image',

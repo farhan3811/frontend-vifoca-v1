@@ -63,7 +63,7 @@ Daftar
               <label className="input input-bordered flex items-center gap-2">
                 <input 
                   type="text" 
-                  className="grow" 
+                  className="grow bg-white" 
                   placeholder="Nama"
                   value={name} 
                   onChange={(e) => setName(e.target.value)}
@@ -76,7 +76,7 @@ Daftar
               <label className="input input-bordered flex items-center gap-2">
                 <input 
                   type="text" 
-                  className="grow" 
+                  className="grow bg-white" 
                   placeholder="NPM"
                   value={nim} 
                   onChange={(e) => setNim(e.target.value)}
@@ -89,7 +89,7 @@ Daftar
               <label className="input input-bordered flex items-center gap-2">
                 <input 
                   type="email" 
-                  className="grow" 
+                  className="grow bg-white" 
                   placeholder="email@example.com"
                   value={email} 
                   onChange={(e) => setEmail(e.target.value)}
@@ -102,7 +102,7 @@ Daftar
               <label className="input input-bordered flex items-center gap-2">
                 <input 
                   type="password" 
-                  className="grow" 
+                  className="grow bg-white" 
                   placeholder="Password"
                   value={password} 
                   onChange={(e) => setPassword(e.target.value)}
@@ -117,7 +117,7 @@ Daftar
               <label className="input input-bordered flex items-center gap-2">
                 <input 
                   type="password" 
-                  className="grow" 
+                  className="grow bg-white" 
                   placeholder="Confirm Password"
                   value={confirmPassword} 
                   onChange={(e) => setConfirmPassword(e.target.value)}

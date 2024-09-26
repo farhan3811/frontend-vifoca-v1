@@ -160,7 +160,7 @@ export function Modal1({ onAdd }) {
                       name="img_materi"
                       id="file-input"
                       accept="image/*"
-                      className="absolute opacity-0 w-0 h-0 font-title"
+                      className="absolute opacity-0 w-0 h-0 font-title  bg-white"
                       onChange={handleChange}
                     />
                     <label
@@ -197,7 +197,7 @@ export function Modal1({ onAdd }) {
                     type="text"
                     placeholder="Nama Materi"
                     name="name_materi"
-                    className="input input-bordered w-60 col-span-2"
+                    className="input input-bordered w-60 col-span-2 bg-white"
                     value={formData.name_materi}
                     onChange={handleChange}
                   />
@@ -214,7 +214,7 @@ export function Modal1({ onAdd }) {
                   <textarea
                     name="ket_materi"
                     placeholder="Deskripsi"
-                    className="textarea textarea-bordered w-60 col-span-2"
+                    className="textarea textarea-bordered w-60 col-span-2 bg-white"
                     rows="3"
                     value={formData.ket_materi}
                     onChange={handleChange}
@@ -233,7 +233,7 @@ export function Modal1({ onAdd }) {
                     type="text"
                     name="vid_materi"
                     placeholder="Link Video"
-                    className="input input-bordered w-60 col-span-2"
+                    className="input input-bordered w-60 col-span-2 bg-white"
                     value={formData.vid_materi}
                     onChange={handleChange}
                   />

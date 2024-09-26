@@ -140,7 +140,7 @@ export function EditModal({ materi, open, onClose }) {
                     name="img_materi"
                     id="file-input"
                     accept="image/*"
-                    className="absolute opacity-0 w-0 h-0 font-title"
+                    className="absolute opacity-0 w-0 h-0 font-title bg-white"
                     onChange={handleChange}
                   />
                   <label
@@ -178,7 +178,7 @@ export function EditModal({ materi, open, onClose }) {
                   placeholder="Nama Materi"
                   name="name_materi"
                   value={formData.name_materi}
-                  className="input input-bordered w-60 col-span-2"
+                  className="input input-bordered w-60 col-span-2 bg-white"
                   onChange={handleChange}
                 />
               </div>
@@ -195,7 +195,7 @@ export function EditModal({ materi, open, onClose }) {
                   name="ket_materi"
                   placeholder="Keterangan"
                   value={formData.ket_materi}
-                  className="input input-bordered w-60 col-span-2"
+                  className="input input-bordered w-60 col-span-2 bg-white"
                   onChange={handleChange}
                 />
               </div>
@@ -213,7 +213,7 @@ export function EditModal({ materi, open, onClose }) {
                   placeholder="Link Video"
                   name="vid_materi"
                   value={formData.vid_materi}
-                  className="input input-bordered w-60 col-span-2"
+                  className="input input-bordered w-60 col-span-2 bg-white"
                   onChange={handleChange}
                 />
               </div>

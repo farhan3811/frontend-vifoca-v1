@@ -105,7 +105,7 @@ const Userlist = () => {
   };
 
   return (
-    <div className="container px-20 mt-10">
+    <div className="container lg:px-20 mt-10">
       <Breadcumbs />
       <Card className="w-full h-full p-6 mb-6">
         <div className="grid grid-cols-2 gap-4 my-4">
@@ -164,7 +164,7 @@ const Userlist = () => {
             <AddModal onAdd={handleAdd} />
           </div>
         </div>
-
+        <div className="overflow-x-auto">
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
@@ -271,7 +271,7 @@ const Userlist = () => {
             )}
           </tbody>
         </table>
-
+        </div>
         <DefaultPagination
           currentPage={currentPage}
           totalPages={totalPages}
