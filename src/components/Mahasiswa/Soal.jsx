@@ -15,18 +15,18 @@ function App() {
   const [submitLoading, setSubmitLoading] = useState(false);
   const [userId, setUserId] = useState(null);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const API_URL =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_API_URL_PROD
       : process.env.REACT_APP_API_URL_LOCAL;
 
-
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   const handleZoom = () => {
-    setIsZoomed(true); 
+    setIsZoomed(true);
   };
 
   const closeZoom = () => {
@@ -38,6 +38,10 @@ function App() {
       try {
         const response = await axios.get(`${API_URL}/tugas/${id_tugas}`);
         setTask(response.data);
+        const penilaianResponse = await axios.get(
+          `${API_URL}/penilaian/check/${id_tugas}/${userId}`
+        );
+        setIsSubmitted(penilaianResponse.data.submitted);
       } catch (error) {
         console.error("Failed to fetch task details:", error);
       } finally {
@@ -46,9 +50,14 @@ function App() {
     };
 
     getTugas();
-  }, [id_tugas, API_URL]);
+  }, [id_tugas, userId, API_URL]);
 
   const handleSelesai = async () => {
+    if (isSubmitted) {
+      alert("Tugas sudah dikumpulkan");
+      return;
+    }
+
     setSubmitLoading(true);
     try {
       const data = {
@@ -63,6 +72,7 @@ function App() {
 
       if (response.status === 201) {
         alert("Jawaban berhasil dikirim!");
+        setIsSubmitted(true);
       } else {
         console.error("Failed to submit jawaban:", response);
       }
@@ -74,7 +84,7 @@ function App() {
   };
 
   const handleEditorChange = (content) => {
-    setEditorContent(content); 
+    setEditorContent(content);
   };
 
   const Loading = () => (
@@ -188,11 +198,15 @@ function App() {
 
           <div className="flex justify-end mt-4">
             <button
-              className="btn bg-blue text-white font-title font-medium px-28"
+              className="btn bg-blue text-white font-title font-medium px-28 disabled:bg-blue disabled:text-white"
               onClick={handleSelesai}
-              disabled={submitLoading}
+              disabled={submitLoading || isSubmitted}
             >
-              {submitLoading ? "Mengirim..." : "Selesai"}
+              {submitLoading
+                ? "Mengirim..."
+                : isSubmitted
+                ? "Tugas sudah dikumpulkan"
+                : "Selesai"}
             </button>
           </div>
         </CardBody>
