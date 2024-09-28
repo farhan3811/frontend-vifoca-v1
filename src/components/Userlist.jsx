@@ -193,12 +193,15 @@ const Userlist = () => {
                   className={index % 2 === 0 ? "bg-odd" : "bg-white"}
                 >
                   <td className="p-4">{index + 1}</td>
-                  <td className="p-4">
-                    <img
-                      src={user.avatar || getDefaultAvatar()}
-                      alt={`Profile of ${user.name}`}
-                      className="w-10 h-10 rounded-full"
-                    />
+                  <td className="p-4 w-16 h-16 rounded-full">
+                  <img
+                  src={
+                    user.avatar
+                      ? `${API_URL}/${user.avatar}`
+                      : getDefaultAvatar()
+                  }
+                  alt="Profile"
+                />
                   </td>
                   <td className="p-4">{user.name}</td>
                   <td className="p-4">{user.nim}</td>
