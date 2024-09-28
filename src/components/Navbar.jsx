@@ -27,6 +27,13 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const API_URL =
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_API_URL_PROD
+    : process.env.REACT_APP_API_URL_LOCAL;
+    const getDefaultAvatar = () => {
+      return "https://via.placeholder.com/150";
+    };
   return (
     <div className="navbar bg-white flex items-center justify-between px-4 lg:px-20 shadow-md">
       {/* Logo */}
@@ -147,14 +154,14 @@ const Navbar = () => {
         <div tabIndex={0} role="button">
           <div className="flex items-center gap-2 bg-white">
             <div className="h-10 w-10">
-              <img
-                className="rounded-full"
-                alt="User Avatar"
-                src={
-                  user?.avatar ||
-                  "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                }
-              />
+            <img
+                  src={
+                    user?.avatar
+                      ? `${API_URL}/${user?.avatar}`
+                      : getDefaultAvatar()
+                  }
+                  alt="Profile"
+                />
             </div>
             <div className="text-sm">
               <p className="font-semibold text-gray-500">{user?.name || "Nama Pengguna"}</p>
