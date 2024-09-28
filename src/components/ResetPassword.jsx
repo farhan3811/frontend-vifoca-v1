@@ -1,77 +1,56 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import logo from "../assets/sign.svg";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useParams, Link } from 'react-router-dom';
 import {
-  Card,
-  CardBody,
-  CardFooter,
-  Typography,
-  Button,
-} from "@material-tailwind/react";
-import { LoginUser, reset } from "../features/authSlice";
+    Card,
+    CardBody,
+    CardFooter,
+    Typography,
+    Button,
+  } from "@material-tailwind/react";
 
-const Login = () => {
-  const [nim, setNim] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { user, isError, isSuccess, isLoading, message } = useSelector(
-    (state) => state.auth
-  );
+const ResetPassword = () => {
+    const { token } = useParams();
+    const [newPassword, setNewPassword] = useState('');
+    const [message, setMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
-  useEffect(() => {
-    if (user || isSuccess) {
-      if (user.role === "admin" || user.role === "user") {
-        navigate("/dashboard");
-      } else {
-        navigate("/mahasiswa/materi");
-      }
-    }
-    dispatch(reset());
-  }, [user, isSuccess, dispatch, navigate]);
-  
-
-  const Auth = (e) => {
-    e.preventDefault();
-    dispatch(LoginUser({ nim, password })); 
-  };
-
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-  };
-
-  return (
-    <div className="lg:grid lg:grid-cols-2">
-      <div className="flex items-center justify-center pl-6">
-        <img
-          src={logo}
-          alt="profile cover"
-          className="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-center"
-          style={{
-            width: "550px",
-            height: "auto",
-          }}
-        />
-      </div>
-      <div className="flex justify-end place-content-end py-20 lg:px-20">
+    const API_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_API_URL_PROD
+      : process.env.REACT_APP_API_URL_LOCAL;
+      
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post(`${API_URL}/reset-password/${token}`, { newPassword });
+            setMessage(response.data.msg);
+        } catch (error) {
+            setMessage(error.response.data.msg);
+        }
+    };
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+      };
+    return (
+        <div className="flex justify-center place-content-end py-20 lg:px-20">
         <Card className="w-96 py-8 px-4">
           <div className="text-center">
-            <form onSubmit={Auth}>
-              {isError && (
-                <p className="has-text-centered text-red-500">{message}</p>
-              )}
+            <form onSubmit={handleSubmit}>
+            {message && <p>{message}</p>}
+              {isError && <p className="text-red-500">{message}</p>}
               <Typography variant="h3" color="black" className="font-title">
-                Masuk
+                Reset Password
               </Typography>
               <Typography color="black" className="font-title text-sm">
-                Masukkan NPM/NIDN dan Password Anda untuk melakukan login
+                Masukkan Password Anda untuk reset password
               </Typography>
               <CardBody className="flex flex-col">
                 <div className="mb-2">
                   <Typography className="flex justify-start mb-2 font-title font-medium">
-                    NPM/NIDN
+                    Password
                   </Typography>
                   <label className="input input-bordered flex items-center gap-2 bg-white border-gray-300">
                     <svg
@@ -85,38 +64,14 @@ const Login = () => {
                       />
                     </svg>
                     <input
-                      type="text"
-                      className="grow"
-                      value={nim} 
-                      onChange={(e) => setNim(e.target.value)} 
-                      placeholder="NPM/NIDN"
-                      required
-                    />
-                  </label>
-                </div>
-                <Typography className="flex justify-start mb-2 font-title font-medium">
-                  Password
-                </Typography>
-                <label className="input input-bordered flex items-center gap-2 bg-white border-gray-300">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16"
-                    className="h-4 w-4 opacity-70"
-                  >
-                    <path
-                      d="M10 1.5C12.4688 1.5 14.5 3.53125 14.5 6C14.5 8.5 12.4688 10.5 10 10.5C9.40625 10.5 8.8125 10.4062 8.3125 10.1875L7 11.5H6V13H4.5V14.5H1.5V11.5L5.6875 7.3125C5.5625 6.90625 5.5 6.46875 5.5 6.03125C5.5 6.03125 5.5 6.03125 5.5 6C5.5 3.53125 7.5 1.5 10 1.5ZM10 0C6.65625 0 4 2.6875 4 6C4 6.28125 4 6.5625 4.03125 6.84375L0.21875 10.6875C0.0625 10.8125 0 11 0 11.2188V15.25C0 15.6875 0.3125 16 0.75 16H5.25C5.65625 16 6 15.6875 6 15.25V14.5H6.75C7.15625 14.5 7.5 14.1875 7.5 13.75V13.125L8.75 11.875C9.15625 11.9688 9.5625 12 10 12C13.3125 12 16 9.34375 16 6C16 2.6875 13.3125 0 10 0ZM10 4.5C10 5.34375 10.6562 6 11.5 6C12.3125 6 13 5.34375 13 4.5C13 3.6875 12.3125 3 11.5 3C10.6562 3 10 3.6875 10 4.5Z"
-                      fill="#999999"
-                    />
-                  </svg>
-                  <input
                     type={passwordVisible ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
                     className="grow"
-                    placeholder="Password"
-                    required
-                  />
-                  <button
+                    value={newPassword} 
+                    onChange={(e) => setNewPassword(e.target.value)} 
+                    placeholder="Enter new password" 
+                    required 
+                    />
+                    <button
                     type="button"
                     onClick={togglePasswordVisibility}
                     className="text-gray-500 focus:outline-none"
@@ -145,42 +100,24 @@ const Login = () => {
                       </svg>
                     )}
                   </button>
-                </label>
-                <Typography>
-                <Link
-                    to="/forgot-password"
-                    className="flex justify-end font-title text-xs text-blue mt-2"
-                  >
-                    Lupa Password?
-                  </Link>
-                </Typography>
+                  </label>
+                </div>
               </CardBody>
               <CardFooter className="pt-0">
                 <Button
                   className="bg-blue font-title font-medium rounded"
                   type="submit"
                   fullWidth
+                  disabled={isLoading}
                 >
-                  {isLoading ? "Loading..." : "Masuk"}
+                  {isLoading ? "Loading..." : "Kirim"}
                 </Button>
-                <div className="py-3 flex items-center text-sm text-gray-800 before:flex-1 before:border-t before:border-gray-400 before:me-6 after:flex-1 after:border-t after:border-gray-400 after:ms-6 dark:text-white dark:before:border-neutral-600 dark:after:border-neutral-600">
-                  Atau
-                </div>
-                <Link to="/register">
-                  <Button
-                    className="bg-white text-black border-2 font-title font-medium rounded"
-                    fullWidth
-                  >
-                    Daftar
-                  </Button>
-                </Link>
               </CardFooter>
             </form>
           </div>
         </Card>
       </div>
-    </div>
-  );
+    );
 };
 
-export default Login;
+export default ResetPassword;

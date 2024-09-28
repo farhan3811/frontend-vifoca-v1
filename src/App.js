@@ -15,6 +15,8 @@ import PenilaianMahasiswa from "./pages/Mahasiswa/MahasiswaPenilaian";
 import PenilaianMahasiswas from "./pages/Penilaian";
 import PenilaianSoal from "./pages/PenilaianMahasiswa";
 import NotFound from "./components/404";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
           <Route path="/penilaian" element={<Penilaian />} />
           <Route path="/konfirmasi" element={<KonfirmasiMahasiswa />} />
           <Route path="/404" element={<NotFound />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           {/* Mahasiswa Route */}
           <Route path="/mahasiswa/materi" element={<MateriMahasiswa />} />
