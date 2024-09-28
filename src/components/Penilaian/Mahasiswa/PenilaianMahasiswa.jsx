@@ -38,7 +38,6 @@ function App() {
         const response = await axios.get(`${API_URL}/me`);
         setUserRole(response.data.role);
       } catch (error) {
-        console.error("Error fetching user role:", error);
       }
     };
 
@@ -50,7 +49,6 @@ function App() {
         const response = await axios.get(`${API_URL}/tugas `);
         setTask(response.data);
       } catch (error) {
-        console.error("Failed to fetch task details:", error);
       } finally {
         setLoading(false);
       }
@@ -61,16 +59,16 @@ function App() {
 
   useEffect(() => {
     const getPenilaian = async () => {
+      setLoading(true); // Set loading to true before fetching
       try {
         const response = await axios.get(`${API_URL}/penilaian/${penilaianId}`);
         setPenilaian(response.data);
-        setLoading(true);
       } catch (error) {
-        console.error("Error fetching penilaian:", error);
-        setLoading(false);
+        console.error(error); // Log the error for debugging
+      } finally {
+        setLoading(false); // Always set loading to false
       }
-    };
-
+    };    
     getPenilaian();
   }, [penilaianId]);
 
@@ -80,7 +78,6 @@ function App() {
       await axios.patch(`${API_URL}/penilaian/${penilaianId}`, penilaian);
       setShowSuccessModal(true);
     } catch (error) {
-      console.error("Error saving penilaian:", error);
     } finally {
       setSubmitLoading(false);
     }

@@ -23,7 +23,7 @@ const TABLE_HEAD = [
 const List = () => {
   const [tugas, setTugas] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [sortOrder, setSortOrder] = useState("desc");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -33,9 +33,11 @@ const List = () => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openDetailModal, setOpenDetailModal] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
   const API_URL = process.env.NODE_ENV === 'production'
   ? process.env.REACT_APP_API_URL_PROD
   : process.env.REACT_APP_API_URL_LOCAL;
+  
   const getTugas = useCallback(async () => {
     setLoading(true);
     try {
@@ -109,9 +111,11 @@ const List = () => {
     getTugas();
   };
   const handleDeleteClick = (tugas) => {
-    console.log("Memilih materi untuk dihapus:", tugas);
     setSelectedTugas(tugas);
     setDeleteModalOpen(true);
+  };
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
   };
   if (loading) return <div>Loading...</div>;
 
@@ -134,14 +138,14 @@ const List = () => {
                   </Select>
                 </div>
                 <div className="w-full md:w-72">
-                  <label className="input input-bordered border-gray-300 bg-white h-10 flex items-center gap-2">
-                    <input
-                      type="text"
-                      className="grow bg-white"
-                      placeholder="Search"
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                    />
+                <label className="input input-bordered border-gray-300 h-10 flex items-center gap-2 bg-white">
+                <input
+                  type="text"
+                  className="grow bg-white"
+                  placeholder="Cari"
+                  value={search}
+                  onChange={handleSearchChange}
+                />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 16 16"
