@@ -1,5 +1,10 @@
 import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
+import persegipanjang from '../assets/persegiempat1.png';
+import lingkaran from '../assets/lingkaran.png';
+import oval from '../assets/oval.png';
+import persegiempat from '../assets/persegiempat.png';
+import segitiga from '../assets/segitiga.png';
 
 const EditorMahasiswa = ({ initialContent, onChange }) => {
   return (
@@ -37,10 +42,11 @@ const EditorMahasiswa = ({ initialContent, onChange }) => {
               text: 'Image Gallery',
               onAction: () => {
                 const imageList = [
-                  { title: 'Local Image 1', value: 'https://images.vexels.com/media/users/3/139342/isolated/svg/61cddf9cfe50f4baaa8f472c253d1cb4.svg' },
-                  { title: 'Local Image 2', value: 'https://png.pngtree.com/png-clipart/20200801/ourmid/pngtree-black-ring-png-image_2319165.png' },
-                  { title: 'Online Image 1', value: 'https://icon2.cleanpng.com/20180723/yzl/kisspng-canvas-painting-printing-picture-frames-censored-bar-5b55c2f45195f0.7504779415323471243342.jpg' },
-                  { title: 'Online Image 2', value: 'https://www.shutterstock.com/image-vector/application-programming-interface-illustration-concept-260nw-2174940029.jpg' },
+                  { title: 'Local Image 1', value: persegipanjang },
+                  { title: 'Local Image 2', value: oval},
+                  { title: 'Online Image 1', value: lingkaran},
+                  { title: 'Online Image 2', value: segitiga},
+                  { title: 'Online Image 3', value: persegiempat},
                 ];
 
                 const imageItems = imageList.map((img) => {
