@@ -46,9 +46,9 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="register-page">
-      <div className="flex items-center justify-center mt-10 pb-20 bg-no-repeat bg-cover">
-        <Card className="w-4/12 py-8 px-4">
+    <div className="w-full">
+      <div className="flex items-center justify-center mt-10 pb-20">
+        <Card className="lg:w-4/12 py-8 px-4 sm:w-80">
           <div className="text-center">
             <Typography variant="h3" color="black" className="font-title">
 Daftar

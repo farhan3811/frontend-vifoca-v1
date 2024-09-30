@@ -43,7 +43,7 @@ const Login = () => {
   };
 
   return (
-    <div className="lg:grid lg:grid-cols-2">
+    <div className="lg:grid lg:grid-cols-2 sm:p-20">
       <div className="flex items-center justify-center pl-6">
         <img
           src={logo}
@@ -55,7 +55,7 @@ const Login = () => {
           }}
         />
       </div>
-      <div className="flex justify-end place-content-end py-20 lg:px-20">
+      <div className="flex justify-end place-content-end py-20 lg:px-20 sm:p-20">
         <Card className="w-96 py-8 px-4">
           <div className="text-center">
             <form onSubmit={Auth}>
