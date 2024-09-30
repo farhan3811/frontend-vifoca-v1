@@ -28,12 +28,12 @@ const Navbar = () => {
   };
 
   const API_URL =
-  process.env.NODE_ENV === "production"
-    ? process.env.REACT_APP_API_URL_PROD
-    : process.env.REACT_APP_API_URL_LOCAL;
-    const getDefaultAvatar = () => {
-      return "https://via.placeholder.com/150";
-    };
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_API_URL_PROD
+      : process.env.REACT_APP_API_URL_LOCAL;
+  const getDefaultAvatar = () => {
+    return "https://via.placeholder.com/150";
+  };
   return (
     <div className="navbar bg-white flex items-center justify-between px-4 lg:px-20 shadow-md">
       {/* Logo */}
@@ -51,7 +51,11 @@ const Navbar = () => {
       </div>
 
       {/* Menu Items */}
-      <div className={`lg:flex ${isMenuOpen ? "block" : "hidden"} lg:flex-1 lg:justify-center`}>
+      <div
+        className={`lg:flex ${
+          isMenuOpen ? "block" : "hidden"
+        } lg:flex-1 lg:justify-center`}
+      >
         <ul className="menu menu-horizontal flex-col lg:flex-row lg:space-x-4 lg:px-1">
           {/* Mahasiswa Only */}
           {user && user.role === "mahasiswa" && (
@@ -102,16 +106,16 @@ const Navbar = () => {
                   Beranda
                 </NavLink>
               </li>
-                <li>
-                  <NavLink
-                    to="/materi"
-                    className={({ isActive }) =>
-                      `nav-link ${isActive ? "text-blue-500" : "text-gray-800"}`
-                    }
-                  >
-                    Materi
-                  </NavLink>
-                </li>
+              <li>
+                <NavLink
+                  to="/materi"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? "text-blue-500" : "text-gray-800"}`
+                  }
+                >
+                  Materi
+                </NavLink>
+              </li>
               <li>
                 <NavLink
                   to="/latihan"
@@ -153,18 +157,21 @@ const Navbar = () => {
       <div className="dropdown dropdown-end hidden lg:block bg-white">
         <div tabIndex={0} role="button">
           <div className="flex items-center gap-2 bg-white">
-            <div className="h-10 w-10">
-            <img
-                  src={
-                    user?.avatar
-                      ? `${API_URL}/${user?.avatar}`
-                      : getDefaultAvatar()
-                  }
-                  alt="Profile"
-                />
+            <div>
+              <img
+                className="rounded-full w-12 h-12 "
+                src={
+                  user?.avatar
+                    ? `${API_URL}/${user?.avatar}`
+                    : getDefaultAvatar()
+                }
+                alt="Profile"
+              />
             </div>
             <div className="text-sm">
-              <p className="font-semibold text-gray-500">{user?.name || "Nama Pengguna"}</p>
+              <p className="font-semibold text-gray-500">
+                {user?.name || "Nama Pengguna"}
+              </p>
               <p className="text-gray-500">{user?.nim || "NIM"}</p>
             </div>
           </div>
