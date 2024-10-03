@@ -37,8 +37,7 @@ function App() {
       try {
         const response = await axios.get(`${API_URL}/me`);
         setUserRole(response.data.role);
-      } catch (error) {
-      }
+      } catch (error) {}
     };
 
     fetchUserRole();
@@ -59,16 +58,16 @@ function App() {
 
   useEffect(() => {
     const getPenilaian = async () => {
-      setLoading(true); // Set loading to true before fetching
+      setLoading(true);
       try {
         const response = await axios.get(`${API_URL}/penilaian/${penilaianId}`);
         setPenilaian(response.data);
       } catch (error) {
-        console.error(error); // Log the error for debugging
+        console.error(error); 
       } finally {
-        setLoading(false); // Always set loading to false
+        setLoading(false); 
       }
-    };    
+    };
     getPenilaian();
   }, [penilaianId]);
 
@@ -83,13 +82,24 @@ function App() {
     }
   };
 
-  const handleEditorChange = (content) => {
+  const handleEditorChangevisual = (content) => {
     setPenilaian((prevPenilaian) => ({
       ...prevPenilaian,
-      answer: content,
+      answervisual: content,
     }));
   };
-
+  const handleEditorChangeformula = (content) => {
+    setPenilaian((prevPenilaian) => ({
+      ...prevPenilaian,
+      answerformula: content,
+    }));
+  };
+  const handleEditorChangecalcu = (content) => {
+    setPenilaian((prevPenilaian) => ({
+      ...prevPenilaian,
+      answercalcu: content,
+    }));
+  };
   const handleKetPenilaianChange = (event) => {
     setPenilaian((prevPenilaian) => ({
       ...prevPenilaian,
@@ -164,7 +174,7 @@ function App() {
               <div className="card-body h-56">
                 {task.foto_tugas ? (
                   <img
-                    src={`${API_URL}/${task.foto_tugas}`}
+                    src={`${API_URL}/${task?.foto_tugas}`}
                     className="w-full h-full cursor-pointer"
                     alt="Tugas Icon"
                     onClick={handleZoom}
@@ -244,12 +254,30 @@ function App() {
           {showSuccessModal && (
             <SuccessModal onClose={() => setShowSuccessModal(false)} />
           )}
-
-          <Editor
-            initialContent={penilaian?.answer || ""}
-            className="z-10"
-            onChange={handleEditorChange}
-          />
+          <Card className="mb-6 shadow p-6">
+            <Typography className="mb-2 text-black font-title font-medium">Visualization</Typography>
+            <Editor
+              initialContent={penilaian?.answervisual || ""}
+              className="z-10"
+              onChange={handleEditorChangevisual}
+            />
+          </Card>
+          <Card className="mb-6 shadow p-6">
+            <Typography className="mb-2 text-black font-title font-medium">Formulation</Typography>
+            <Editor
+              initialContent={penilaian?.answerformula || ""}
+              className="z-10"
+              onChange={handleEditorChangeformula}
+            />
+          </Card>
+          <Card className="mb-6 shadow p-6">
+            <Typography className="mb-2 text-black font-title font-medium">Calculation</Typography>
+            <Editor
+              initialContent={penilaian?.answercalcu || ""}
+              className="z-10"
+              onChange={handleEditorChangecalcu}
+            />
+          </Card>
           <div className="flex gap-4 mt-6 mb-6">
             <div className="grow h-14">
               <Typography>Catatan :</Typography>

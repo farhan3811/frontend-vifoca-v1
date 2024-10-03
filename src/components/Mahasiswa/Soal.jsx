@@ -11,7 +11,9 @@ function App() {
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editorContent, setEditorContent] = useState("");
+  const [editorContentVisual, setEditorContentVisual] = useState("");
+  const [editorContentFormula, setEditorContentFormula] = useState("");
+  const [editorContentCalcu, setEditorContentCalcu] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
   const [userId, setUserId] = useState(null);
   const [isZoomed, setIsZoomed] = useState(false);
@@ -63,7 +65,9 @@ function App() {
       const data = {
         tugas_id: id_tugas,
         userId: userId,
-        answer: editorContent,
+        answervisual: editorContentVisual,
+        answerformula: editorContentFormula,
+        answercalcu: editorContentCalcu,
         form_penilaian: "",
         ket_penilaian: "",
       };
@@ -83,8 +87,16 @@ function App() {
     }
   };
 
-  const handleEditorChange = (content) => {
-    setEditorContent(content);
+  const handleEditorChangeVisual = (content) => {
+    setEditorContentVisual(content);
+  };
+
+  const handleEditorChangeFormula = (content) => {
+    setEditorContentFormula(content);
+  };
+
+  const handleEditorChangeCalcu = (content) => {
+    setEditorContentCalcu(content);
   };
 
   const Loading = () => (
@@ -191,9 +203,19 @@ function App() {
           )}
 
           <Editor
-            initialContent={editorContent}
+            initialContent={editorContentVisual}
             className="z-10"
-            onChange={handleEditorChange}
+            onChange={handleEditorChangeVisual}
+          />
+          <Editor
+            initialContent={editorContentFormula}
+            className="z-10"
+            onChange={handleEditorChangeFormula}
+          />
+          <Editor
+            initialContent={editorContentCalcu}
+            className="z-10"
+            onChange={handleEditorChangeCalcu}
           />
 
           <div className="flex justify-end mt-4">
