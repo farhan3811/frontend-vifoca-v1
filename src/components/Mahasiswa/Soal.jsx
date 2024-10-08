@@ -202,22 +202,36 @@ function App() {
             </div>
           )}
 
-          <Editor
-            initialContent={editorContentVisual}
-            className="z-10"
-            onChange={handleEditorChangeVisual}
-          />
-          <Editor
-            initialContent={editorContentFormula}
-            className="z-10"
-            onChange={handleEditorChangeFormula}
-          />
-          <Editor
-            initialContent={editorContentCalcu}
-            className="z-10"
-            onChange={handleEditorChangeCalcu}
-          />
-
+          <Card className="mb-6 shadow p-6">
+            <Typography className="mb-2 text-black font-title font-medium">
+            Visualization
+            </Typography>
+            <Editor
+              initialContent={editorContentVisual}
+              className="z-10"
+              onChange={handleEditorChangeVisual}
+            />
+          </Card>
+          <Card className="mb-6 shadow p-6">
+            <Typography className="mb-2 text-black font-title font-medium">
+            Formulation
+            </Typography>
+            <Editor
+              initialContent={editorContentFormula}
+              className="z-10"
+              onChange={handleEditorChangeFormula}
+            />
+          </Card>
+          <Card className="mb-6 shadow p-6">
+            <Typography className="mb-2 text-black font-title font-medium">
+              Calculation
+            </Typography>
+            <Editor
+              initialContent={editorContentCalcu}
+              className="z-10"
+              onChange={handleEditorChangeCalcu}
+            />
+          </Card>
           <div className="flex justify-end mt-4">
             <button
               className="btn bg-blue text-white font-title font-medium px-28 disabled:bg-blue disabled:text-white"
@@ -248,7 +262,7 @@ function App() {
             />
             <button
               onClick={closeZoom}
-              className="absolute top-0 right-0 mt-2 mr-2 text-white text-2xl"
+              className="absolute bg-blue p-1 rounded top-0 right-0 mt-2 mr-2 text-white text-2xl"
             >
               &times;
             </button>
