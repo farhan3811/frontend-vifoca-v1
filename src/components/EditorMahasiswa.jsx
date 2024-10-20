@@ -1,10 +1,5 @@
 import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
-import persegipanjang from '../assets/persegiempat1.png';
-import lingkaran from '../assets/lingkaran.png';
-import oval from '../assets/oval.png';
-import persegiempat from '../assets/persegiempat.png';
-import segitiga from '../assets/segitiga.png';
 
 const EditorMahasiswa = ({ initialContent, onChange }) => {
   return (
@@ -14,72 +9,84 @@ const EditorMahasiswa = ({ initialContent, onChange }) => {
         value={initialContent}
         init={{
           height: 500,
-          menubar: false,
-          plugins: "eqneditor visualchars image media wordcount link autoresize code pagebreak lists",
-          toolbar:
-            " undo redo customImageGallery | eqneditor image media numlist bullist | formatselect bold italic backcolor removeformat pagebreak | alignleft aligncenter alignright alignjustify | link outdent indent",
+          menubar: true,
+          plugins: "eqneditor visualchars image table media wordcount link autoresize code pagebreak lists",
+          toolbar: "undo redo customImageGallery drawioButton table | eqneditor image media numlist bullist | formatselect bold italic backcolor removeformat pagebreak | alignleft aligncenter alignright alignjustify | link outdent indent downloadImage",
           image_title: true,
+          table_toolbar: "tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol",
           automatic_uploads: true,
-          file_picker_types: 'image',
+          file_picker_types: "image",
           file_picker_callback: (callback, value, meta) => {
-            const input = document.createElement('input');
-            input.setAttribute('type', 'file');
-            input.setAttribute('accept', 'image/*');
-            
-            input.onchange = function() {
+            const input = document.createElement("input");
+            input.setAttribute("type", "file");
+            input.setAttribute("accept", ".svg");
+
+            input.onchange = function () {
               const file = this.files[0];
               const reader = new FileReader();
-              reader.onload = function(e) {
+              reader.onload = function (e) {
                 callback(e.target.result, { alt: file.name });
               };
               reader.readAsDataURL(file);
             };
-            
+
             input.click();
           },
           setup: (editor) => {
-            editor.ui.registry.addButton('customImageGallery', {
-              text: 'Image Gallery',
+            editor.ui.registry.addButton("drawioButton", {
+              text: "Insert Diagram",
               onAction: () => {
-                const imageList = [
-                  { title: 'Local Image 1', value: persegipanjang },
-                  { title: 'Local Image 2', value: oval},
-                  { title: 'Online Image 1', value: lingkaran},
-                  { title: 'Online Image 2', value: segitiga},
-                  { title: 'Online Image 3', value: persegiempat},
-                ];
+                const drawioUrl = "https://app.diagrams.net/?dev=1#R"
+                const win = window.open(drawioUrl, "DrawIO", "width=1000,height=800");
+                window.addEventListener("message", (event) => {
+                  if (event.origin === "https://app.diagrams.net") {
+                    const diagramLink = event.data; 
+                    editor.insertContent(
+                      `<img src="${diagramLink}" alt="Diagram from Draw.io" data-edit-url="${diagramLink}" style="max-width: 100%; height: auto;" />`
+                    );
 
-                const imageItems = imageList.map((img) => {
-                  return {
-                    type: 'htmlpanel',
-                    html: `<img src="${img.value}" alt="${img.title}" style="width:100px;height:auto;cursor:pointer;margin:5px;" onclick="insertImage('${img.value}')"/>`,
-                  };
-                });
-
-                const panel = editor.windowManager.open({
-                  title: 'Select an image',
-                  body: {
-                    type: 'panel',
-                    items: imageItems,
-                  },
-                  buttons: [
-                    {
-                      type: 'cancel',
-                      text: 'Close',
-                    },
-                  ],
-                });
-                window.insertImage = (src) => {
-                  editor.insertContent(`<img src="${src}" alt="Selected Image" />`);
-                  panel.close(); 
-                };
+                    win.close();
+                  }
+                }, false);
               },
+            });
+            editor.ui.registry.addButton("downloadImage", {
+              text: "Download Image",
+              onAction: () => {
+                const selectedImg = editor.selection.getNode();
+                if (selectedImg.nodeName === "IMG" && selectedImg.src) {
+                  const link = document.createElement('a');
+                  link.href = selectedImg.src;
+                  link.download = 'downloaded-image.svg'; 
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                } else {
+                  alert("Silakan pilih gambar terlebih dahulu.");
+                }
+              },
+            });
+
+            editor.on("click", (event) => {
+              const target = event.target;
+              if (target.nodeName === "IMG" && target.getAttribute("data-edit-url")) {
+                const editUrl = target.getAttribute("data-edit-url");
+                const win = window.open(editUrl, "EditDiagram", "width=1000,height=800");
+                window.addEventListener("message", (event) => {
+                  if (event.origin === "https://app.diagrams.net") {
+                    const updatedDiagramLink = event.data;
+                    target.src = updatedDiagramLink;
+                    target.setAttribute("data-edit-url", updatedDiagramLink);
+                    win.close();
+                  }
+                }, false);
+              }
             });
           },
           external_plugins: {
             eqneditor: "/plugins/eqneditor.js",
           },
-          branding: false, 
+          branding: false,
         }}
         onEditorChange={(content) => {
           onChange(content);

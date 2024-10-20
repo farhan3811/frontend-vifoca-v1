@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { format, isValid } from "date-fns";
-import { Card, Select, Option, Typography } from "@material-tailwind/react";
+import {
+  Card,
+  Select,
+  Option,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
 import DefaultPagination from "../Pagination/Pagination";
-import AddModal from "./AddMateri";
-import EditModal from "./EditMateri";
 import DetailModal from "./DetailMateri";
 import DeleteModal from "./DeleteMateri";
 import Breadcumbs from "../Materi/Breadcumbs";
+import { useNavigate, Link } from "react-router-dom";
 
 const MateriList = () => {
   const [materi, setMateri] = useState([]);
@@ -18,9 +23,10 @@ const MateriList = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [pageSize] = useState(5);
   const [selectedMateri, setSelectedMateri] = useState(null);
-  const [openEditModal, setOpenEditModal] = useState(false);
   const [openDetailModal, setOpenDetailModal] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const TABLE_HEAD = [
     "No",
@@ -59,7 +65,9 @@ const MateriList = () => {
       setLoading(false);
     }
   };
-
+  const handleEditClick = (materi) => {
+    navigate(`/materi/edit/${materi.id}`);
+  };
   const handleDeleteClick = (materi) => {
     console.log("Memilih materi untuk dihapus:", materi);
     setSelectedMateri(materi);
@@ -93,17 +101,6 @@ const MateriList = () => {
     return format(date, "dd MMM yyyy");
   };
 
-  const handleEdit = (materi) => {
-    setSelectedMateri(materi);
-    setOpenEditModal(true);
-  };
-
-  const handleCloseEditModal = () => {
-    setOpenEditModal(false);
-    setSelectedMateri(null);
-    getMateri();
-  };
-
   const handleCloseDeleteModal = () => {
     setDeleteModalOpen(false);
     setSelectedMateri(null);
@@ -115,11 +112,6 @@ const MateriList = () => {
     setSelectedMateri(null);
     getMateri();
   };
-
-  const handleAdd = async () => {
-    await getMateri(currentPage);
-  };
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -136,7 +128,7 @@ const MateriList = () => {
           <div className="flex flex-wrap gap-2">
             <div className="w-50">
               <Select
-              className="border-gray-300 rounded"
+                className="border-gray-300 rounded"
                 label="Sort By"
                 value={sortOrder}
                 onChange={(value) => setSortOrder(value)}
@@ -170,7 +162,22 @@ const MateriList = () => {
             </div>
           </div>
           <div className="flex justify-end">
-            <AddModal onAdd={handleAdd} />
+            <Link to="/tambah-materi">
+            <Button className="flex flex-wrap font-tile font-medium text-xs gap-1 normal-case bg-edit rounded">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 17 14"
+                className="h-4 w-4"
+              >
+                <path
+                  d="M11 6.5C11 6.3125 10.8125 6.125 10.625 6.125H7.875V3.375C7.875 3.1875 7.6875 3 7.5 3H6.5C6.28125 3 6.125 3.1875 6.125 3.375V6.125H3.375C3.15625 6.125 3 6.3125 3 6.5V7.5C3 7.71875 3.15625 7.875 3.375 7.875H6.125V10.625C6.125 10.8438 6.28125 11 6.5 11H7.5C7.6875 11 7.875 10.8438 7.875 10.625V7.875H10.625C10.8125 7.875 11 7.71875 11 7.5V6.5ZM14 1.5C14 0.6875 13.3125 0 12.5 0H1.5C0.65625 0 0 0.6875 0 1.5V12.5C0 13.3438 0.65625 14 1.5 14H12.5C13.3125 14 14 13.3438 14 12.5V1.5ZM12.5 12.3125C12.5 12.4375 12.4062 12.5 12.3125 12.5H1.6875C1.5625 12.5 1.5 12.4375 1.5 12.3125V1.6875C1.5 1.59375 1.5625 1.5 1.6875 1.5H12.3125C12.4062 1.5 12.5 1.59375 12.5 1.6875V12.3125Z"
+                  fill="white"
+                />
+              </svg>
+              Tambah Materi
+            </Button>
+            </Link>
           </div>
         </div>
         {loading ? (
@@ -312,7 +319,7 @@ const MateriList = () => {
                     </Typography>
                     <Typography
                       color="blue"
-                      onClick={() => handleEdit(materiItem)}
+                      onClick={() => handleEditClick(materiItem)}
                       tooltip="Edit"
                     >
                       <svg
@@ -340,13 +347,6 @@ const MateriList = () => {
           onPageChange={handlePageChange}
         />
         {selectedMateri && (
-          <EditModal
-            materi={selectedMateri}
-            open={openEditModal}
-            onClose={handleCloseEditModal}
-          />
-        )}
-        {selectedMateri && (
           <DetailModal
             materi={selectedMateri}
             open={openDetailModal}
@@ -358,7 +358,7 @@ const MateriList = () => {
             materi={selectedMateri}
             open={deleteModalOpen}
             onClose={handleCloseDeleteModal}
-            getMateri={getMateri} // Pass fetchData to the modal
+            getMateri={getMateri}
           />
         )}
       </Card>

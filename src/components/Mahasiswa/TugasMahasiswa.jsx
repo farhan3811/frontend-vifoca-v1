@@ -14,7 +14,13 @@ import { Link, useParams } from "react-router-dom";
 const Loading = () => (
   <div className="flex items-center justify-center w-full h-full">
     <div className="flex flex-col items-center">
-      <ThreeDot variant="bounce" color="#10487A" size="large" text="Vifoca" textColor="#NaNNaNNaN" />
+      <ThreeDot
+        variant="bounce"
+        color="#10487A"
+        size="large"
+        text="Vifoca"
+        textColor="#NaNNaNNaN"
+      />
     </div>
   </div>
 );
@@ -26,16 +32,16 @@ export function CardDefault() {
   const [loading, setLoading] = useState(true);
   const { materi_id } = useParams();
   const [materi, setMateri] = useState(null);
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
   useEffect(() => {
     getTugasByMateri();
     getMateri();
   }, []);
 
-  // useEffect tambahan untuk mendapatkan penilaian setelah tugas diambil
   useEffect(() => {
     if (tugas.length > 0) {
-      getPenilaian(); // Panggil fungsi untuk mengambil penilaian
+      getPenilaian();
     }
   }, [tugas]);
 
@@ -64,6 +70,7 @@ export function CardDefault() {
       console.error("Failed to fetch materi details:", error);
     }
   };
+
   const getPenilaian = async () => {
     try {
       const response = await axios.get(`${API_URL}/penilaian`);
@@ -80,7 +87,8 @@ export function CardDefault() {
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   const getYouTubeID = (url) => {
-    const regex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=|.*[?&]vi=)?([^"&?\/\s]{11})/;
+    const regex =
+      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=|.*[?&]vi=)?([^"&?\/\s]{11})/;
     const match = url.match(regex);
     return match ? match[1] : null;
   };
@@ -116,19 +124,54 @@ export function CardDefault() {
   return (
     <div className="container py-16 px-20 bg-ground">
       {materi && (
-        <Card className="w-full flex items-center justify-center py-6 px-6">
+        <Card className="flex justify-center py-6 px-6">
+          <Typography
+            variant="h5"
+            color="blue-gray"
+            className="mb-2 mt-2 font-title text-center"
+          >
+            {materi.name_materi}
+          </Typography>
+          <div className="flex justify-center items-center">
           <img
-            src={materi.img_materi ? `${API_URL}/${materi.img_materi}` : getDefaultAvatar()}
-            className="flex items-center justify-between"
+            src={
+              materi.img_materi
+                ? `${API_URL}/${materi.img_materi}`
+                : getDefaultAvatar()
+            }
+            className="mb-4"
             width={150}
             alt={materi.name_materi || "Materi image"}
           />
-          <Typography variant="h5" color="blue-gray" className="mb-2 mt-2 font-title">
-            {materi.name_materi}
-          </Typography>
-          <Typography className="text-center font-title">
-            {materi.ket_materi}
-          </Typography>
+          </div>
+          <Typography
+            className="text-center font-title"
+            style={{ textAlign: "justify"}}
+            dangerouslySetInnerHTML={{
+              __html: showFullDescription
+                ? materi.ket_materi
+                : materi.ket_materi.length > 800
+                ? `${materi.ket_materi.substring(0, 800)}...`
+                : materi.ket_materi,
+            }}
+          />
+
+          {materi.ket_materi.length > 200 && !showFullDescription && (
+            <button
+              className="text-blue cursor-pointer"
+              onClick={() => setShowFullDescription(true)}
+            >
+              lihat lebih banyak
+            </button>
+          )}
+          {showFullDescription && (
+            <button
+              className="text-blue-600 cursor-pointer mt-2"
+              onClick={() => setShowFullDescription(false)}
+            >
+              lihat lebih sedikit
+            </button>
+          )}
         </Card>
       )}
 
@@ -137,7 +180,11 @@ export function CardDefault() {
           {materi && materi.vid_materi && (
             <Card className="mt-6 h-96">
               <CardBody>
-                <Typography variant="h5" color="blue-gray" className="font-medium font-title">
+                <Typography
+                  variant="h5"
+                  color="blue-gray"
+                  className="font-medium font-title"
+                >
                   Tutorial
                 </Typography>
               </CardBody>
@@ -145,7 +192,9 @@ export function CardDefault() {
                 <iframe
                   width="560"
                   height="280"
-                  src={`https://www.youtube.com/embed/${getYouTubeID(materi.vid_materi)}`}
+                  src={`https://www.youtube.com/embed/${getYouTubeID(
+                    materi.vid_materi
+                  )}`}
                   title="YouTube video player"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -160,7 +209,11 @@ export function CardDefault() {
         <div>
           <Card className="mt-6 h-96 overflow-y-auto">
             <CardBody>
-              <Typography variant="h5" color="blue-gray" className="font-medium font-title">
+              <Typography
+                variant="h5"
+                color="blue-gray"
+                className="font-medium font-title"
+              >
                 Latihan
               </Typography>
             </CardBody>
@@ -188,7 +241,11 @@ export function CardDefault() {
                           </AccordionHeader>
                         </div>
                         <div className="flex justify-end items-center mr-6">
-                          <button className={`btn btn-sm font-title border-none font-medium text-white ${getStatusClass(task.status_level)}`}>
+                          <button
+                            className={`btn btn-sm font-title border-none font-medium text-white ${getStatusClass(
+                              task.status_level
+                            )}`}
+                          >
                             {task.status_level}
                           </button>
                         </div>
@@ -203,18 +260,23 @@ export function CardDefault() {
                       <AccordionBody className="pt-0 text-base font-title">
                         {task.ket_assigment}
                         <div className="flex flex-row justify-end mt-4">
-                          <div className="mr-4 border-2 px-2 py-1 rounded-full text-xs">{task.user?.name}</div>
+                          <div className="mr-4 border-2 px-2 py-1 rounded-full text-xs">
+                            {task.user?.name}
+                          </div>
                           <div className="border-2 px-2 py-1 rounded-full text-xs">
                             <td>
                               {task.deadline
-                                ? new Date(task.deadline).toLocaleString("id-ID", {
-                                    weekday: "long",
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "numeric",
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                  })
+                                ? new Date(task.deadline).toLocaleString(
+                                    "id-ID",
+                                    {
+                                      weekday: "long",
+                                      year: "numeric",
+                                      month: "long",
+                                      day: "numeric",
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                    }
+                                  )
                                 : "N/A"}
                             </td>
                           </div>
