@@ -158,18 +158,18 @@ export function CardDefault() {
 
           {materi.ket_materi.length > 200 && !showFullDescription && (
             <button
-              className="text-blue cursor-pointer"
+              className="text-blue cursor-pointer mt-4"
               onClick={() => setShowFullDescription(true)}
             >
-              lihat lebih banyak
+              Selengkapnya
             </button>
           )}
           {showFullDescription && (
             <button
-              className="text-blue-600 cursor-pointer mt-2"
+              className="text-blue cursor-pointer mt-4 ml-4"
               onClick={() => setShowFullDescription(false)}
             >
-              lihat lebih sedikit
+              Lihat lebih sedikit
             </button>
           )}
         </Card>
