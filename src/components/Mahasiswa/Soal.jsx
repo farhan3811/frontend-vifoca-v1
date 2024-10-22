@@ -142,9 +142,7 @@ function App() {
             </div>
           </div>
           <div>
-            <Typography className="text-white mt-10 mr-4">
-              {task.ket_assigment}
-            </Typography>
+          <Typography className="text-white mt-10 mr-4" dangerouslySetInnerHTML={{ __html: task.ket_assigment }} />
           </div>
         </div>
         <CardBody>

@@ -20,6 +20,7 @@ import ResetPassword from "./components/ResetPassword";
 import EditMateri from "./pages/EditMateri";
 import AddMateri from "./pages/AddMateri";
 import AddLatihan from "./pages/AddLatihan";
+import EditLatihan from "./pages/EditLatihan";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/tambah-materi" element={<AddMateri />} />
           <Route path="/materi/edit/:id" element={<EditMateri />} />
           <Route path="/tambah-latihan" element={<AddLatihan />} />
+          <Route path="/latihan/edit/:id" element={<EditLatihan />} />
 
           {/* Mahasiswa Route */}
           <Route path="/mahasiswa/materi" element={<MateriMahasiswa />} />

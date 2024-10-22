@@ -2,11 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Card, Typography, Select, Option,Button } from "@material-tailwind/react";
 import DefaultPagination from "../Pagination/Pagination";
-import EditModal from "./EditTugas";
 import DetailModal from "./DetailTugas";
 import DeleteModal from "./DeleteTugas";
 import Breadcumbs from "../Tugas/Breadcumbs";
-import {  Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 
 const TABLE_HEAD = [
@@ -31,10 +30,10 @@ const List = () => {
   const [pageSize] = useState(5);
   const [materi, setMateri] = useState([]);
   const [selectedTugas, setSelectedTugas] = useState(null);
-  const [openEditModal, setOpenEditModal] = useState(false);
   const [openDetailModal, setOpenDetailModal] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
+  const navigate = useNavigate();
   const API_URL =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_API_URL_PROD
@@ -79,21 +78,15 @@ const List = () => {
     getMateri();
   }, [getTugas]);
 
-  const handleEdit = (tugas) => {
-    setSelectedTugas(tugas);
-    setOpenEditModal(true);
-  };
   const getDefaultAvatar = () => {
     return "https://via.placeholder.com/150";
-  };
-  const handleCloseEditModal = () => {
-    setOpenEditModal(false);
-    setSelectedTugas(null);
-    getTugas();
   };
   const handleDetail = (tugas) => {
     setSelectedTugas(tugas);
     setOpenDetailModal(true);
+  };
+  const handleEditClick = (tugas) => {
+    navigate(`/latihan/edit/${tugas.id}`);
   };
   const handleCloseDeleteModal = () => {
     setDeleteModalOpen(false);
@@ -336,7 +329,7 @@ const List = () => {
                         </Typography>
                         <Typography
                           color="blue"
-                          onClick={() => handleEdit(item)}
+                          onClick={() => handleEditClick(item)}
                           tooltip="Edit"
                         >
                           <svg
@@ -376,13 +369,6 @@ const List = () => {
             totalPages={totalPages}
             onPageChange={handlePageChange}
           />
-          {selectedTugas && (
-            <EditModal
-              tugas={selectedTugas}
-              open={openEditModal}
-              onClose={handleCloseEditModal}
-            />
-          )}
           {selectedTugas && (
             <DetailModal
               tugas={selectedTugas}
