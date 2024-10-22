@@ -27,9 +27,9 @@ const EditorMahasiswa = ({ initialContent, onChange }) => {
       <td style="width: 20%;border: 1px solid black;">Contoh Soal</td>
       <td style="width: 80%;border: 1px solid black;"></td>
     </tr>
+    <p></p>
   </tbody>
 </table>
-
         `
         }
         init={{

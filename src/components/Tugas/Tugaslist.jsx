@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { Card, Typography, Select, Option } from "@material-tailwind/react";
-import AddTugas from "./AddTugas";
+import { Card, Typography, Select, Option,Button } from "@material-tailwind/react";
 import DefaultPagination from "../Pagination/Pagination";
 import EditModal from "./EditTugas";
 import DetailModal from "./DetailTugas";
 import DeleteModal from "./DeleteTugas";
 import Breadcumbs from "../Tugas/Breadcumbs";
+import {  Link } from "react-router-dom";
+
 
 const TABLE_HEAD = [
   "No",
@@ -23,7 +24,7 @@ const TABLE_HEAD = [
 const List = () => {
   const [tugas, setTugas] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [sortOrder, setSortOrder] = useState("desc");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -34,10 +35,11 @@ const List = () => {
   const [openDetailModal, setOpenDetailModal] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
-  const API_URL = process.env.NODE_ENV === 'production'
-  ? process.env.REACT_APP_API_URL_PROD
-  : process.env.REACT_APP_API_URL_LOCAL;
-  
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_API_URL_PROD
+      : process.env.REACT_APP_API_URL_LOCAL;
+
   const getTugas = useCallback(async () => {
     setLoading(true);
     try {
@@ -101,10 +103,6 @@ const List = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-  
-  const handleAdd = async () => {
-    await getTugas(currentPage);
-  };
   const handleCloseDetailModal = () => {
     setOpenDetailModal(false);
     setSelectedTugas(null);
@@ -124,48 +122,63 @@ const List = () => {
       <div className="container px-20 mt-10">
         <Breadcumbs />
         <Card className="w-full h-full p-6">
-            <div className="grid grid-cols-2 gap-4 my-4">
-              <div className="flex flex-wrap gap-2">
-                <div className="w-50">
-                  <Select
+          <div className="grid grid-cols-2 gap-4 my-4">
+            <div className="flex flex-wrap gap-2">
+              <div className="w-50">
+                <Select
                   className="border-gray-300 rounded"
-                    label="Sort By"
-                    value={sortOrder}
-                    onChange={(e) => setSortOrder(e.target.value)}
-                  >
-                    <Option value="desc">Terbaru</Option>
-                    <Option value="asc">Terlama</Option>
-                  </Select>
-                </div>
-                <div className="w-full md:w-72">
-                <label className="input input-bordered border-gray-300 h-10 flex items-center gap-2 bg-white">
-                <input
-                  type="text"
-                  className="grow bg-white"
-                  placeholder="Cari"
-                  value={search}
-                  onChange={handleSearchChange}
-                />
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="h-4 w-4 opacity-70"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </label>
-                </div>
+                  label="Sort By"
+                  value={sortOrder}
+                  onChange={(e) => setSortOrder(e.target.value)}
+                >
+                  <Option value="desc">Terbaru</Option>
+                  <Option value="asc">Terlama</Option>
+                </Select>
               </div>
-              <div className="flex justify-end">
-                <AddTugas onAdd={handleAdd} />
+              <div className="w-full md:w-72">
+                <label className="input input-bordered border-gray-300 h-10 flex items-center gap-2 bg-white">
+                  <input
+                    type="text"
+                    className="grow bg-white"
+                    placeholder="Cari"
+                    value={search}
+                    onChange={handleSearchChange}
+                  />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    className="h-4 w-4 opacity-70"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </label>
               </div>
             </div>
-            <div className="overflow-x-auto">
+            <div className="flex justify-end">
+            <Link to="/tambah-latihan">
+              <Button className="flex flex-wrap font-title font-medium text-xs gap-1 normal-case bg-edit rounded">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 17 14"
+                  className="h-4 w-4"
+                >
+                  <path
+                    d="M11 6.5C11 6.3125 10.8125 6.125 10.625 6.125H7.875V3.375C7.875 3.1875 7.6875 3 7.5 3H6.5C6.28125 3 6.125 3.1875 6.125 3.375V6.125H3.375C3.15625 6.125 3 6.3125 3 6.5V7.5C3 7.71875 3.15625 7.875 3.375 7.875H6.125V10.625C6.125 10.8438 6.28125 11 6.5 11H7.5C7.6875 11 7.875 10.8438 7.875 10.625V7.875H10.625C10.8125 7.875 11 7.71875 11 7.5V6.5ZM14 1.5C14 0.6875 13.3125 0 12.5 0H1.5C0.65625 0 0 0.6875 0 1.5V12.5C0 13.3438 0.65625 14 1.5 14H12.5C13.3125 14 14 13.3438 14 12.5V1.5ZM12.5 12.3125C12.5 12.4375 12.4062 12.5 12.3125 12.5H1.6875C1.5625 12.5 1.5 12.4375 1.5 12.3125V1.6875C1.5 1.59375 1.5625 1.5 1.6875 1.5H12.3125C12.4062 1.5 12.5 1.59375 12.5 1.6875V12.3125Z"
+                    fill="white"
+                  />
+                </svg>
+                Tambah Latihan
+              </Button>
+              </Link>
+            </div>
+          </div>
+          <div className="overflow-x-auto">
             <table className="w-full min-w-max table-auto text-left">
               <thead>
                 <tr>
@@ -188,8 +201,9 @@ const List = () => {
               <tbody>
                 {tugas.length > 0 ? (
                   tugas.map((item, index) => (
-                    <tr key={item.uuid}
-                    className={index % 2 === 0 ? "bg-odd" : "bg-white"}
+                    <tr
+                      key={item.uuid}
+                      className={index % 2 === 0 ? "bg-odd" : "bg-white"}
                     >
                       <td className="p-4">
                         <Typography
@@ -202,11 +216,11 @@ const List = () => {
                       </td>
                       <td className="p-4">
                         <img
-                      src={
-                        item.foto_tugas
-                          ? `${API_URL}/${item.foto_tugas}`
-                          : getDefaultAvatar()
-                      }
+                          src={
+                            item.foto_tugas
+                              ? `${API_URL}/${item.foto_tugas}`
+                              : getDefaultAvatar()
+                          }
                           className="w-10 h-10 rounded-full"
                           alt="Tugas Icon"
                         />
@@ -255,21 +269,21 @@ const List = () => {
                           color="blue-gray"
                           className="font-normal"
                         >
-                      <td className="p-4">
-                        {item.deadline
-                          ? new Date(item.deadline).toLocaleString(
-                              "id-ID",
-                              {
-                                weekday: "long",
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              }
-                            )
-                          : "N/A"}
-                      </td>
+                          <td className="p-4">
+                            {item.deadline
+                              ? new Date(item.deadline).toLocaleString(
+                                  "id-ID",
+                                  {
+                                    weekday: "long",
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                  }
+                                )
+                              : "N/A"}
+                          </td>
                         </Typography>
                       </td>
                       <td className="p-4">
@@ -356,35 +370,35 @@ const List = () => {
                 )}
               </tbody>
             </table>
-            </div>
-            <DefaultPagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
-            {selectedTugas && (
-              <EditModal
-                tugas={selectedTugas}
-                open={openEditModal}
-                onClose={handleCloseEditModal}
-              />
-            )}
-            {selectedTugas && (
-              <DetailModal
-                tugas={selectedTugas}
-                open={openDetailModal}
-                onClose={handleCloseDetailModal}
-              />
-            )}
-            {selectedTugas && (
-              <DeleteModal
-                tugas={selectedTugas}
-                open={deleteModalOpen}
-                onClose={handleCloseDeleteModal}
-                getTugas={getTugas}
-              />
-            )}
-          </Card>
+          </div>
+          <DefaultPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+          {selectedTugas && (
+            <EditModal
+              tugas={selectedTugas}
+              open={openEditModal}
+              onClose={handleCloseEditModal}
+            />
+          )}
+          {selectedTugas && (
+            <DetailModal
+              tugas={selectedTugas}
+              open={openDetailModal}
+              onClose={handleCloseDetailModal}
+            />
+          )}
+          {selectedTugas && (
+            <DeleteModal
+              tugas={selectedTugas}
+              open={deleteModalOpen}
+              onClose={handleCloseDeleteModal}
+              getTugas={getTugas}
+            />
+          )}
+        </Card>
       </div>
     </div>
   );

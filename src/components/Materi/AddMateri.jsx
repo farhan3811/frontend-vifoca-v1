@@ -7,7 +7,7 @@ import {
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import Editor from "../Editor/EditorMateri";
-import Breadcrumbs from "./BreadcumbsEdit";
+import Breadcrumbs from "./BreadcumbsAdd";
 
 export function Modal1({ onAdd }) { 
   const [open, setOpen] = useState(false);
@@ -114,7 +114,7 @@ export function Modal1({ onAdd }) {
         color="blue-gray"
         className="flex font-title mt-8 font-medium justify-center items-center"
       >
-        Edit Materi
+        Tambah Materi
       </Typography>
       <form className="mt-8 mb-2 w-full px-8" onSubmit={handleSubmit}>
         <div className="mb-1 gap-4">
