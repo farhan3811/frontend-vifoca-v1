@@ -7,7 +7,6 @@ import DeleteModal from "./DeleteTugas";
 import Breadcumbs from "../Tugas/Breadcumbs";
 import { useNavigate, Link } from "react-router-dom";
 
-
 const TABLE_HEAD = [
   "No",
   "Foto Latihan",
@@ -23,8 +22,6 @@ const TABLE_HEAD = [
 const List = () => {
   const [tugas, setTugas] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState("");
-  const [sortOrder, setSortOrder] = useState("desc");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [pageSize] = useState(5);
@@ -32,6 +29,8 @@ const List = () => {
   const [selectedTugas, setSelectedTugas] = useState(null);
   const [openDetailModal, setOpenDetailModal] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [sortOrder, setSortOrder] = useState("desc");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const navigate = useNavigate();
   const API_URL =
@@ -44,9 +43,9 @@ const List = () => {
     try {
       const response = await axios.get(`${API_URL}/tugas`, {
         params: {
-          search,
-          sortOrder,
           page: currentPage,
+          sort: sortOrder,
+          search: searchQuery,
         },
       });
       setTugas(response.data.tugas);
@@ -56,7 +55,7 @@ const List = () => {
     } finally {
       setLoading(false);
     }
-  }, [search, sortOrder, currentPage]);
+  }, [currentPage, sortOrder, searchQuery]);
   const truncateText = (text, limit) => {
     if (text.length > limit) {
       return text.substring(0, limit) + "...";
@@ -105,10 +104,16 @@ const List = () => {
     setSelectedTugas(tugas);
     setDeleteModalOpen(true);
   };
-  const handleSearchChange = (event) => {
-    setSearch(event.target.value);
-  };
   if (loading) return <div>Loading...</div>;
+  const handleSortChange = (value) => {
+    setSortOrder(value);
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+    setCurrentPage(1);
+  };
 
   return (
     <div>
@@ -122,7 +127,7 @@ const List = () => {
                   className="border-gray-300 rounded"
                   label="Sort By"
                   value={sortOrder}
-                  onChange={(e) => setSortOrder(e.target.value)}
+                  onChange={handleSortChange}
                 >
                   <Option value="desc">Terbaru</Option>
                   <Option value="asc">Terlama</Option>
@@ -134,7 +139,7 @@ const List = () => {
                     type="text"
                     className="grow bg-white"
                     placeholder="Cari"
-                    value={search}
+                    value={searchQuery}
                     onChange={handleSearchChange}
                   />
                   <svg

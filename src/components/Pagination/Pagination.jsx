@@ -9,7 +9,32 @@ export function DefaultPagination({ currentPage, totalPages = 0, onPageChange })
     className: currentPage === index ? "bg-blue text-white" : "",
   });
 
-  const pages = totalPages > 0 ? [...Array(totalPages)] : [];
+  const generatePages = () => {
+    const pages = [];
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+      if (currentPage > 3) {
+        pages.push('...');
+      }
+      const startPage = Math.max(2, currentPage - 1);
+      const endPage = Math.min(totalPages - 1, currentPage + 1);
+
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+      }
+      if (currentPage < totalPages - 2) {
+        pages.push('...');
+      }
+      pages.push(totalPages);
+    }
+    return pages;
+  };
+
+  const pages = generatePages();
 
   return (
     <div className="flex items-center gap-4 mt-4 justify-end">
@@ -23,10 +48,16 @@ export function DefaultPagination({ currentPage, totalPages = 0, onPageChange })
       </Button>
 
       <div className="flex items-center gap-2 text-blue font-title normal-case font-medium">
-        {pages.map((_, index) => (
-          <IconButton key={index + 1} {...getItemProps(index + 1)}>
-            {index + 1}
-          </IconButton>
+        {pages.map((page, index) => (
+          <React.Fragment key={index}>
+            {page === '...' ? (
+              <span className="text-gray-500">...</span>
+            ) : (
+              <IconButton key={page} {...getItemProps(page)}>
+                {page}
+              </IconButton>
+            )}
+          </React.Fragment>
         ))}
       </div>
 

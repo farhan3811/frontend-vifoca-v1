@@ -40,7 +40,7 @@ const Userlist = () => {
 
   const getUsers = async (page = 1) => {
     try {
-      const response = await axios.get(`${API_URL}/users`, {
+      const response = await axios.get(`${API_URL}/users?isApproved=true`, {
         params: {
           page,
           search,

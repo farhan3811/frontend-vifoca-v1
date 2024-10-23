@@ -50,7 +50,7 @@ export function Modal1() {
               materi_id: response.data.materi_id || "",
               nama_soal: response.data.nama_soal || "",
               status_level: response.data.status_level || "",
-              foto_tugas: null, // Bisa juga diisi URL file jika sudah ada gambar yang diunggah sebelumnya
+              foto_tugas: null,
               ket_assigment: response.data.ket_assigment || "",
               deadline: new Date(response.data.deadline) || new Date(),
             });

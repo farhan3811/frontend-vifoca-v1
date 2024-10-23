@@ -9,6 +9,7 @@ export function CardDefault({ userId }) {
   const [penilaians, setPenilaians] = useState([]);
   const [materiMap, setMateriMap] = useState({});
   const [totalPages, setTotalPages] = useState(0);
+  const [pageSize] = useState(4);
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const API_URL =
@@ -22,7 +23,6 @@ export function CardDefault({ userId }) {
         const response = await axios.get(`${API_URL}/penilaian`, {
           params: {
             page: currentPage,
-            limit: 4,
             search: searchTerm,
             userId,
           },

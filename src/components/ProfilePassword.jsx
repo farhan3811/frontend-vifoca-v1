@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updatePassword } from '../actions/userActions'; // Ganti dengan aksi Redux Anda
+import { updatePassword } from '../actions/userActions';
 
 const UpdatePassword = () => {
   const dispatch = useDispatch();
